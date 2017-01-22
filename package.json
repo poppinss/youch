@@ -1,0 +1,29 @@
+{
+  "name": "youch",
+  "version": "1.0.0",
+  "description": "HTML Pretty error stack viewer",
+  "main": "index.js",
+  "bin": {
+    "youch": "tasks.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "standard src/Youch"
+  },
+  "author": "amanvirk",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^8.6.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "mustache": "^2.3.0",
+    "stackman": "^1.2.7"
+  }
+}
