@@ -1,0 +1,42 @@
+{
+  "name": "youch",
+  "version": "1.0.2",
+  "description": "HTML Pretty error stack viewer",
+  "main": "index.js",
+  "bin": {
+    "youch": "tasks.js"
+  },
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "lint": "standard src/Youch"
+  },
+  "author": "amanvirk",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^8.6.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "mustache": "^2.3.0",
+    "stackman": "^1.2.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poppinss/youch.git"
+  },
+  "keywords": [
+    "errors",
+    "error-reporting",
+    "whoops"
+  ],
+  "bugs": {
+    "url": "https://github.com/poppinss/youch/issues"
+  },
+  "homepage": "https://github.com/poppinss/youch#readme"
+}
