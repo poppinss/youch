@@ -4,7 +4,7 @@
   "description": "HTML Pretty error stack viewer",
   "main": "index.js",
   "bin": {
-    "youch": "tasks.js"
+    "youch": "src/Youch/index.js"
   },
   "directories": {
     "example": "examples"
