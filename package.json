@@ -1,11 +1,8 @@
 {
   "name": "youch",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "HTML Pretty error stack viewer",
-  "main": "index.js",
-  "bin": {
-    "youch": "src/Youch/index.js"
-  },
+  "main": "src/Youch/index.js",
   "directories": {
     "example": "examples"
   },
@@ -24,7 +21,7 @@
   },
   "dependencies": {
     "mustache": "^2.3.0",
-    "stackman": "^1.2.7"
+    "stack-trace": "0.0.9"
   },
   "repository": {
     "type": "git",

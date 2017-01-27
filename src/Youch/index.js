@@ -11,21 +11,45 @@
 
 const Mustache = require('mustache')
 const path = require('path')
+const stackTrace = require('stack-trace')
 const fs = require('fs')
 const VIEW_PATH = '../resources/error.mustache'
+const startingSlashRegex = new RegExp(`^${path.sep}`)
 
 const viewTemplate = fs.readFileSync(path.join(__dirname, VIEW_PATH), 'utf-8')
 
 class Youch {
   constructor (error, request) {
-    const options = {
-      context: 5
-    }
-
+    this.codeContext = 5
     this._filterHeaders = ['cookie', 'connection']
-    this.stackman = require('stackman')(options)
     this.error = error
     this.request = request
+  }
+
+  /**
+   * Returns the source code for a given file. It unable to
+   * read file it resolves the promise with a null.
+   *
+   * @param  {Object} frame
+   * @return {Promise}
+   */
+  _getFrameSource (frame) {
+    return new Promise((resolve, reject) => {
+      fs.readFile(frame.getFileName(), 'utf-8', (error, contents) => {
+        if (error) {
+          resolve(null)
+        }
+
+        const lines = contents.split(/\r?\n/)
+        const lineNumber = frame.getLineNumber()
+
+        resolve({
+          pre: lines.slice(Math.max(0, lineNumber - (this.codeContext + 1)), lineNumber - 1),
+          line: lines[lineNumber - 1],
+          post: lines.slice(lineNumber, lineNumber + this.codeContext)
+        })
+      })
+    })
   }
 
   /**
@@ -35,10 +59,17 @@ class Youch {
    * @return {Object}
    */
   _parseError () {
-    return new Promise((resolve) => {
-      this.stackman(this.error, (stack) => {
-        resolve(stack)
-      })
+    return new Promise((resolve, reject) => {
+      const stack = stackTrace.parse(this.error)
+      Promise.all(stack.map((frame) => {
+        if (this._isNode(frame)) {
+          return Promise.resolve(frame)
+        }
+        return this._getFrameSource(frame).then((context) => {
+          frame.context = context
+          return frame
+        })
+      })).then(resolve).catch(reject)
     })
   }
 
@@ -77,7 +108,7 @@ class Youch {
       classes.push('active')
     }
 
-    if (!frame.isApp()) {
+    if (!this._isApp(frame)) {
       classes.push('native-frame')
     }
 
@@ -104,13 +135,45 @@ class Youch {
    * @return {Object}
    */
   _serializeFrame (frame) {
+    const relativeFileName = frame.getFileName().indexOf(process.cwd()) > -1 ?
+      frame.getFileName().replace(process.cwd(), '').replace(startingSlashRegex, '') :
+      frame.getFileName()
+
     return {
-      file: frame.getRelativeFileName(),
-      method: frame.getFunctionNameSanitized(),
+      file: relativeFileName,
+      method: frame.getFunctionName(),
       line: frame.getLineNumber(),
       column: frame.getColumnNumber(),
       context: this._getContext(frame)
     }
+  }
+
+  /**
+   * Returns whether frame belongs to nodejs
+   * or not.
+   *
+   * @return {Boolean} [description]
+   */
+  _isNode (frame) {
+    if (frame.isNative()) {
+      return true
+    }
+
+    const filename = frame.getFileName() || ''
+    return !path.isAbsolute(filename) && filename[0] !== '.'
+  }
+
+  /**
+   * Returns whether code belongs to the app
+   * or not.
+   *
+   * @return {Boolean} [description]
+   */
+  _isApp (frame) {
+    if (this._isNode(frame)) {
+      return false
+    }
+    return !~(frame.getFileName() || '').indexOf('node_modules' + path.sep)
   }
 
   /**
@@ -129,7 +192,7 @@ class Youch {
       message: this.error.message,
       name: this.error.name,
       status: this.error.status,
-      frames: stack.frames.map(callback)
+      frames: stack instanceof Array === true ? stack.filter((frame) => frame.getFileName()).map(callback) : []
     }
   }
 
