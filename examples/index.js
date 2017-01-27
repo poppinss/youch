@@ -17,7 +17,6 @@ function foo () {
 }
 
 http.createServer((req, res) => {
-
   let youch = null
   try {
     foo ()

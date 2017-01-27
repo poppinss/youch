@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "mustache": "^2.3.0",
-    "stackman": "^1.2.7"
+    "stack-trace": "0.0.9"
   },
   "repository": {
     "type": "git",
