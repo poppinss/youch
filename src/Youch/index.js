@@ -129,7 +129,7 @@ class Youch {
       message: this.error.message,
       name: this.error.name,
       status: this.error.status,
-      frames: stack.frames instanceof Array === true ? stack.frames.map(callback) : []
+      frames: stack.frames instanceof Array === true ? stack.frames.map(callback).filter((frame) => frame.file) : []
     }
   }
 
