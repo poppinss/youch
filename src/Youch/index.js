@@ -14,7 +14,7 @@ const path = require('path')
 const stackTrace = require('stack-trace')
 const fs = require('fs')
 const VIEW_PATH = '../resources/error.mustache'
-const startingSlashRegex = new RegExp(`^${path.sep}`)
+const startingSlashRegex = /\\|\//
 
 const viewTemplate = fs.readFileSync(path.join(__dirname, VIEW_PATH), 'utf-8')
 
