@@ -2,22 +2,21 @@
 
 const http = require('http')
 const supertest = require('supertest')
-const test = require('japa')
 const Youch = require('../src/Youch')
+const assert = require('chai').assert
 
 const DEFAULT_PORT=8000
 
-test.group('Youch', () => {
+describe('Youch', () => {
 
-  test('initiate a new instance by passing error object', (assert) => {
+  it('initiate a new instance by passing error object', () => {
     const error = new Error('foo')
     const youch = new Youch(error, {})
     assert.equal(youch.error.message, 'foo')
     assert.deepEqual(youch.request, {})
   })
 
-  test('parse the error into frames', (assert, done) => {
-    assert.plan(2)
+  it('parse the error into frames', (done) => {
     const error = new Error('foo')
     const youch = new Youch(error, {})
     youch
@@ -29,7 +28,7 @@ test.group('Youch', () => {
       }).catch(done)
   })
 
-  test('parse stack frame context to tokens', (assert, done) => {
+  it('parse stack frame context to tokens', (done) => {
     const error = new Error('this is bar')
     const youch  = new Youch(error, {})
 
@@ -43,7 +42,7 @@ test.group('Youch', () => {
       .catch(done)
   })
 
-  test('return active class when index is 0', (assert) => {
+  it('return active class when index is 0', () => {
     const error = new Error('this is bar')
     const youch  = new Youch(error, {})
     const frame = {
@@ -55,7 +54,7 @@ test.group('Youch', () => {
     assert.equal(classes, 'active')
   })
 
-  test('return native frame class when frame is native', (assert) => {
+  it('return native frame class when frame is native', () => {
     const error = new Error('this is bar')
     const youch  = new Youch(error, {})
     const frame = {
@@ -67,7 +66,7 @@ test.group('Youch', () => {
     assert.equal(classes, 'active native-frame')
   })
 
-  test('return native frame class when frame is from node_modules', (assert) => {
+  it('return native frame class when frame is from node_modules', () => {
     const error = new Error('this is bar')
     const youch  = new Youch(error, {})
     const frame = {
@@ -79,7 +78,7 @@ test.group('Youch', () => {
     assert.equal(classes, 'active native-frame')
   })
 
-  test('serialize http request', (assert, done) => {
+  it('serialize http request', (done) => {
     const server = http.createServer((req, res) => {
       const youch = new Youch({}, req)
       res.writeHead(200, {'content-type': 'application/json'})
@@ -102,7 +101,7 @@ test.group('Youch', () => {
     })
   })
 
-  test('serialize http request and return cookies from it', (assert, done) => {
+  it('serialize http request and return cookies from it', (done) => {
     const server = http.createServer((req, res) => {
       const youch = new Youch({}, req)
       res.writeHead(200, {'content-type': 'application/json'})

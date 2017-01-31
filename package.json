@@ -7,13 +7,14 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "npm run lint && node test/youch.spec.js",
+    "test": "npm run lint && _mocha test/*.spec.js",
     "lint": "standard src/Youch"
   },
   "author": "amanvirk",
   "license": "MIT",
   "devDependencies": {
-    "japa": "^1.0.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
     "standard": "^8.6.0",
     "supertest": "^3.0.0"
   },
