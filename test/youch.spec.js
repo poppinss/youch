@@ -71,7 +71,7 @@ describe('Youch', () => {
     const youch  = new Youch(error, {})
     const frame = {
       isNative: () => false,
-      getFileName: () => './node_modules/hello.js'
+      getFileName: () => process.platform === 'win32' ? '.\\node_modules\\hello.js' : './node_modules/hello.js'
     }
 
     const classes = youch._getDisplayClasses(frame, 0)
