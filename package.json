@@ -7,12 +7,15 @@
     "example": "examples"
   },
   "scripts": {
+    "test": "npm run lint && node test/youch.spec.js",
     "lint": "standard src/Youch"
   },
   "author": "amanvirk",
   "license": "MIT",
   "devDependencies": {
-    "standard": "^8.6.0"
+    "japa": "^1.0.0",
+    "standard": "^8.6.0",
+    "supertest": "^3.0.0"
   },
   "config": {
     "commitizen": {
@@ -20,6 +23,7 @@
     }
   },
   "dependencies": {
+    "cookie": "^0.3.1",
     "mustache": "^2.3.0",
     "stack-trace": "0.0.9"
   },

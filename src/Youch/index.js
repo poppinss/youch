@@ -13,6 +13,7 @@ const Mustache = require('mustache')
 const path = require('path')
 const stackTrace = require('stack-trace')
 const fs = require('fs')
+const cookie = require('cookie')
 const VIEW_PATH = '../resources/error.mustache'
 const startingSlashRegex = /\\|\//
 
@@ -204,7 +205,6 @@ class Youch {
    */
   _serializeRequest () {
     const headers = []
-    const headerCookies = (this.request.headers.cookie || '').split(/;\s/)
 
     Object.keys(this.request.headers).forEach((key) => {
       if (this._filterHeaders.indexOf(key) > -1) {
@@ -216,9 +216,9 @@ class Youch {
       })
     })
 
-    const cookies = Object.keys(headerCookies).map((cookie) => {
-      const [key, value] = headerCookies[cookie].split(/=(.*)/)
-      return {key, value}
+    const parsedCookies = cookie.parse(this.request.headers.cookie || '')
+    const cookies = Object.keys(parsedCookies).map((key) => {
+      return {key, value: parsedCookies[key]}
     })
 
     return {
