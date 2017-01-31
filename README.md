@@ -15,6 +15,15 @@
 
 <br />
 
+[![NPM Version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Downloads Stats][npm-downloads]][npm-url]
+[![Appveyor][appveyor-image]][appveyor-url]
+
+[![Gitter Channel][gitter-image]][gitter-url]
+[![Trello][trello-image]][trello-url]
+[![Patreon][patreon-image]][patreon-url]
+
 Youch is inspired by [Whoops](https://filp.github.io/whoops) but with a modern design. Reading stack trace of the console slows you down from active development. Instead **Youch** print those errors in structured HTML to the browser.
 
 ## Features
@@ -58,3 +67,25 @@ Checkout [CHANGELOG.md](CHANGELOG.md) file for release history.
 ## Meta
 Checkout [LICENSE.txt](LICENSE.txt) for license information
 Harminder Virk (Aman) - [https://github.com/thetutlage](https://github.com/thetutlage)
+
+
+[appveyor-image]: https://ci.appveyor.com/api/projects/status/github/poppinss/youch?branch=master&svg=true&passingText=Passing%20On%20Windows
+[appveyor-url]: https://ci.appveyor.com/project/thetutlage/youch
+
+[npm-image]: https://img.shields.io/npm/v/youch.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/youch
+
+[travis-image]: https://img.shields.io/travis/poppinss/youch/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/poppinss/youch
+
+[gitter-url]: https://gitter.im/adonisjs/adonis-framework
+[gitter-image]: https://img.shields.io/badge/gitter-join%20us-1DCE73.svg?style=flat-square
+
+[trello-url]: https://trello.com/b/yzpqCgdl/adonis-for-humans
+[trello-image]: https://img.shields.io/badge/trello-roadmap-89609E.svg?style=flat-square
+
+[patreon-url]: https://www.patreon.com/adonisframework
+[patreon-image]: https://img.shields.io/badge/patreon-support%20AdonisJs-brightgreen.svg?style=flat-square
+
+[npm-downloads]: https://img.shields.io/npm/dm/youch.svg?style=flat-square
+
