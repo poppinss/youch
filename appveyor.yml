@@ -1,0 +1,24 @@
+environment:
+  matrix:
+  - nodejs_version: 'Stable'
+  - nodejs_version: '6'
+  - nodejs_version: '5'
+  - nodejs_version: '4'
+
+init:
+  git config --global core.autocrlf true
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install
+
+test_script:
+  - node --version
+  - npm --version
+  - npm run test
+
+build: off
+clone_depth: 1
+
+matrix:
+  fast_finish: true
