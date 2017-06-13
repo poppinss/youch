@@ -1,22 +1,20 @@
 'use strict'
 
+const test = require('japa')
 const http = require('http')
 const supertest = require('supertest')
 const Youch = require('../src/Youch')
-const assert = require('chai').assert
+const DEFAULT_PORT = 8000
 
-const DEFAULT_PORT=8000
-
-describe('Youch', () => {
-
-  it('initiate a new instance by passing error object', () => {
+test.group('Youch', () => {
+  test('initiate a new instance by passing error object', (assert) => {
     const error = new Error('foo')
     const youch = new Youch(error, {})
     assert.equal(youch.error.message, 'foo')
     assert.deepEqual(youch.request, {})
   })
 
-  it('parse the error into frames', (done) => {
+  test('parse the error into frames', (assert, done) => {
     const error = new Error('foo')
     const youch = new Youch(error, {})
     youch
@@ -28,9 +26,9 @@ describe('Youch', () => {
       }).catch(done)
   })
 
-  it('parse stack frame context to tokens', (done) => {
+  test('parse stack frame context to tokens', (assert, done) => {
     const error = new Error('this is bar')
-    const youch  = new Youch(error, {})
+    const youch = new Youch(error, {})
 
     youch
       ._parseError()
@@ -42,9 +40,9 @@ describe('Youch', () => {
       .catch(done)
   })
 
-  it('return active class when index is 0', () => {
+  test('return active class when index is 0', (assert) => {
     const error = new Error('this is bar')
-    const youch  = new Youch(error, {})
+    const youch = new Youch(error, {})
     const frame = {
       isNative: () => false,
       getFileName: () => './hello.js'
@@ -54,9 +52,9 @@ describe('Youch', () => {
     assert.equal(classes, 'active')
   })
 
-  it('return native frame class when frame is native', () => {
+  test('return native frame class when frame is native', (assert) => {
     const error = new Error('this is bar')
-    const youch  = new Youch(error, {})
+    const youch = new Youch(error, {})
     const frame = {
       isNative: () => true,
       getFileName: () => './hello.js'
@@ -66,9 +64,9 @@ describe('Youch', () => {
     assert.equal(classes, 'active native-frame')
   })
 
-  it('return native frame class when frame is from node_modules', () => {
+  test('return native frame class when frame is from node_modules', (assert) => {
     const error = new Error('this is bar')
-    const youch  = new Youch(error, {})
+    const youch = new Youch(error, {})
     const frame = {
       isNative: () => false,
       getFileName: () => process.platform === 'win32' ? '.\\node_modules\\hello.js' : './node_modules/hello.js'
@@ -78,7 +76,7 @@ describe('Youch', () => {
     assert.equal(classes, 'active native-frame')
   })
 
-  it('serialize http request', (done) => {
+  test('serialize http request', (assert, done) => {
     const server = http.createServer((req, res) => {
       const youch = new Youch({}, req)
       res.writeHead(200, {'content-type': 'application/json'})
@@ -101,7 +99,7 @@ describe('Youch', () => {
     })
   })
 
-  it('serialize http request and return cookies from it', (done) => {
+  test('serialize http request and return cookies from it', (assert, done) => {
     const server = http.createServer((req, res) => {
       const youch = new Youch({}, req)
       res.writeHead(200, {'content-type': 'application/json'})

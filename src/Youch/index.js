@@ -136,9 +136,9 @@ class Youch {
    * @return {Object}
    */
   _serializeFrame (frame) {
-    const relativeFileName = frame.getFileName().indexOf(process.cwd()) > -1 ?
-      frame.getFileName().replace(process.cwd(), '').replace(startingSlashRegex, '') :
-      frame.getFileName()
+    const relativeFileName = frame.getFileName().indexOf(process.cwd()) > -1
+      ? frame.getFileName().replace(process.cwd(), '').replace(startingSlashRegex, '')
+      : frame.getFileName()
 
     return {
       file: relativeFileName,

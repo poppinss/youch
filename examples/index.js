@@ -19,7 +19,7 @@ function foo () {
 http.createServer((req, res) => {
   let youch = null
   try {
-    foo ()
+    foo()
   } catch (e) {
     youch = new Youch(e, req)
   }
