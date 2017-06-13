@@ -7,7 +7,8 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "npm run lint && _mocha test/*.spec.js",
+    "test": "japa",
+    "test:win": "node ./node_modules/japa-cli/index.js",
     "lint": "standard"
   },
   "author": "amanvirk",
