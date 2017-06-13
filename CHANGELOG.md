@@ -1,3 +1,13 @@
+<a name="2.0.5"></a>
+## [2.0.5](https://github.com/poppinss/youch/compare/v2.0.4...v2.0.5) (2017-06-13)
+
+
+### Bug Fixes
+
+* **template:** improve css for smaller screens ([b07c77d](https://github.com/poppinss/youch/commit/b07c77d))
+
+
+
 <a name="2.0.4"></a>
 ## [2.0.4](https://github.com/poppinss/youch/compare/v2.0.3...v2.0.4) (2017-01-31)
 
