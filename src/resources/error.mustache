@@ -429,7 +429,6 @@
 
     .error-stack {
       background: #edecea;
-      height: 650px;
       padding: 100px 80px;
       box-sizing: border-box;
     }
@@ -456,6 +455,7 @@
     .error-message {
       font-weight: 300;
       font-size: 40px;
+      line-height: 48px;
     }
 
     .error-title {
@@ -608,6 +608,20 @@
 
     .is-hidden {
       display: none;
+    }
+
+    @media only screen and (max-width: 970px) {
+      .error-frames {
+        flex-direction: column-reverse;
+      }
+
+      .frame-preview {
+        width: 100%;
+      }
+
+      .frame-stack {
+        width: 100%;
+      }
     }
 </style>
 </head>
