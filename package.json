@@ -13,6 +13,7 @@
   "author": "amanvirk",
   "license": "MIT",
   "devDependencies": {
+    "cz-conventional-changelog": "^2.0.0",
     "japa": "^1.0.3",
     "japa-cli": "^1.0.1",
     "standard": "^10.0.2",
