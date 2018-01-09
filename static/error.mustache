@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> </title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600" rel="stylesheet">
+
+  <style type="text/css">
+    [[__css__]]
+  </style>
+
+</head>
+<body>
+  <section class="error-page">
+    <section class="error-stack">
+      <h3 class="error-status">{{ status }}</h3>
+
+      <div class="error-title">
+        <h4 class="error-name"> {{ name }} </h4>
+        <h2 class="error-message"> {{ message }} </h2>
+      </div>
+
+      <div class="error-frames">
+        {{!-- Filled using frontend code, based upon the active frame --}}
+        <div class="frame-preview is-hidden">
+          <div id="frame-file"></div>
+          <div id="frame-code"><pre class="line-numbers"><code class="language-js" id="code-drop"></code></pre></div>
+          <div id="frame-method"></div>
+        </div>
+
+        <div class="frame-stack">
+          <div class="frames-filter-selector">
+            <input type="checkbox" class="magic-checkbox" name="frames-filter" id="frames-filter">
+            <label for="frames-filter">Show all frames</label>
+          </div>
+
+          <div class="frames-list">
+            {{#frames}}
+              {{ index }}
+              <div class="frame-row {{ classes }}">
+                <div class="frame-row-filepath">
+                  {{ file }}:{{ line }}:{{ column }}
+                </div>
+                <div class="frame-row-code">
+                  {{ method }}
+                </div>
+                <div class="frame-context"
+                  data-start="{{context.start}}"
+                  data-line="{{line}}"
+                  data-file="{{file}}"
+                  data-method="{{method}}"
+                  data-line-column="{{ line }}:{{ column }}"
+                  >{{ context.pre }}
+{{ context.line }}
+{{ context.post }}
+                </div>
+              </div>
+            {{/frames}}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="request-details">
+      <h2 class="request-title"> Request Details </h2>
+
+      <table>
+        <tr>
+          <td class="title"> URI </td>
+          <td> {{ request.url }} </td>
+        </tr>
+
+        <tr>
+          <td class="title"> Request Method </td>
+          <td> {{ request.method }} </td>
+        </tr>
+
+        <tr>
+          <td class="title"> HTTP Version </td>
+          <td> {{ request.httpVersion }} </td>
+        </tr>
+
+        <tr>
+          <td class="title"> Connection </td>
+          <td> {{ request.connection }} </td>
+        </tr>
+      </table>
+
+      <h2 class="request-title"> Headers </h2>
+
+      <table>
+        {{#request.headers}}
+          <tr>
+            <td class="title"> {{ key }} </td>
+            <td> {{ value }} </td>
+          </tr>
+        {{/request.headers}}
+      </table>
+
+      <h2 class="request-title"> Cookies </h2>
+      <table>
+        {{#request.cookies}}
+          <tr>
+            <td class="title"> {{ key }} </td>
+            <td> {{ value }} </td>
+          </tr>
+        {{/request.cookies}}
+      </table>
+    </section>
+  </section>
+  <script type="text/javascript">
+    [[__js__]]
+  </script>
+</body>
+</html>

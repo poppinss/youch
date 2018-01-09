@@ -2,23 +2,28 @@
   "name": "youch",
   "version": "2.0.5",
   "description": "HTML Pretty error stack viewer",
-  "main": "src/Youch/index.js",
+  "main": "src/Youch.js",
+  "files": ["src"],
   "directories": {
     "example": "examples"
   },
   "scripts": {
-    "test": "japa",
-    "test:win": "node ./node_modules/japa-cli/index.js",
+    "prepublish": "npm run build",
+    "build": "node bin/compile.js",
+    "test": "npm run build && japa",
+    "test:win": "npm run build && node ./node_modules/japa-cli/index.js",
     "lint": "standard"
   },
   "author": "amanvirk",
   "license": "MIT",
   "devDependencies": {
-    "cz-conventional-changelog": "^2.0.0",
-    "japa": "^1.0.3",
+    "concat": "^1.0.3",
+    "cz-conventional-changelog": "^2.1.0",
+    "japa": "^1.0.6",
     "japa-cli": "^1.0.1",
-    "standard": "^10.0.2",
-    "supertest": "^3.0.0"
+    "standard": "^10.0.3",
+    "supertest": "^3.0.0",
+    "uglify-js": "^3.3.5"
   },
   "config": {
     "commitizen": {
