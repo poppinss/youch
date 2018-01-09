@@ -8,7 +8,7 @@
     "example": "examples"
   },
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "build": "node bin/compile.js",
     "test": "npm run build && japa",
     "test:win": "npm run build && node ./node_modules/japa-cli/index.js",
