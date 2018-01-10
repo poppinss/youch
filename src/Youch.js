@@ -109,7 +109,7 @@ class Youch {
       classes.push('active')
     }
 
-    if (!this._isApp(frame)) {
+    if (!frame.isApp) {
       classes.push('native-frame')
     }
 
@@ -142,10 +142,14 @@ class Youch {
 
     return {
       file: relativeFileName,
+      filePath: frame.getFileName(),
       method: frame.getFunctionName(),
       line: frame.getLineNumber(),
       column: frame.getColumnNumber(),
-      context: this._getContext(frame)
+      context: this._getContext(frame),
+      isModule: this._isNodeModule(frame),
+      isNative: this._isNode(frame),
+      isApp: this._isApp(frame)
     }
   }
 
@@ -171,10 +175,23 @@ class Youch {
    * @return {Boolean} [description]
    */
   _isApp (frame) {
-    if (this._isNode(frame)) {
-      return false
-    }
-    return !~(frame.getFileName() || '').indexOf('node_modules' + path.sep)
+    return !this._isNode(frame) && !this._isNodeModule(frame)
+  }
+
+  /**
+   * Returns whether frame belongs to a node_module or
+   * not
+   *
+   * @method _isNodeModule
+   *
+   * @param  {Object}      frame
+   *
+   * @return {Boolean}
+   *
+   * @private
+   */
+  _isNodeModule (frame) {
+    return (frame.getFileName() || '').indexOf('node_modules' + path.sep) > -1
   }
 
   /**
@@ -263,7 +280,7 @@ class Youch {
       .then((stack) => {
         const data = this._serializeData(stack, (frame, index) => {
           const serializedFrame = this._serializeFrame(frame)
-          serializedFrame.classes = this._getDisplayClasses(frame, index)
+          serializedFrame.classes = this._getDisplayClasses(serializedFrame, index)
           return serializedFrame
         })
 
