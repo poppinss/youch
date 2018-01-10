@@ -1,3 +1,13 @@
+<a name="2.0.7"></a>
+## [2.0.7](https://github.com/poppinss/youch/compare/v2.0.6...v2.0.7) (2018-01-10)
+
+
+### Features
+
+* **frame:** attach isModule and isNative props to frame ([46e8bbe](https://github.com/poppinss/youch/commit/46e8bbe))
+
+
+
 <a name="2.0.6"></a>
 ## [2.0.6](https://github.com/poppinss/youch/compare/v2.0.5...v2.0.6) (2018-01-09)
 

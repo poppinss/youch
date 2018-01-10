@@ -44,7 +44,7 @@ test.group('Youch', () => {
     const error = new Error('this is bar')
     const youch = new Youch(error, {})
     const frame = {
-      isNative: () => false,
+      isApp: true,
       getFileName: () => './hello.js'
     }
 
@@ -56,7 +56,7 @@ test.group('Youch', () => {
     const error = new Error('this is bar')
     const youch = new Youch(error, {})
     const frame = {
-      isNative: () => true,
+      isApp: false,
       getFileName: () => './hello.js'
     }
 
@@ -64,16 +64,13 @@ test.group('Youch', () => {
     assert.equal(classes, 'active native-frame')
   })
 
-  test('return native frame class when frame is from node_modules', (assert) => {
+  test('find if frame is a node_module or not', (assert) => {
     const error = new Error('this is bar')
     const youch = new Youch(error, {})
     const frame = {
-      isNative: () => false,
       getFileName: () => process.platform === 'win32' ? '.\\node_modules\\hello.js' : './node_modules/hello.js'
     }
-
-    const classes = youch._getDisplayClasses(frame, 0)
-    assert.equal(classes, 'active native-frame')
+    assert.isTrue(youch._isNodeModule(frame))
   })
 
   test('serialize http request', (assert, done) => {
