@@ -42,7 +42,7 @@ body {
 .error-name {
   color: #db5461;
   font-size: 18px;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: Menlo, SFMono-Regular, Monaco, "Fira Code", "Fira Mono", Consolas, "Liberation Mono", "Courier New", monospace;
   font-weight: 600;
   margin-bottom: 15px;
 }
