@@ -67,7 +67,7 @@ http.createServer(function (req, res) {
 Checkout [CHANGELOG.md](CHANGELOG.md) file for release history.
 
 ## Meta
-Checkout [LICENSE.txt](LICENSE.txt) for license information
+Checkout [LICENSE.md](LICENSE.md) for license information
 Harminder Virk (Aman) - [https://github.com/thetutlage](https://github.com/thetutlage)
 
 
@@ -90,4 +90,3 @@ Harminder Virk (Aman) - [https://github.com/thetutlage](https://github.com/thetu
 [patreon-image]: https://img.shields.io/badge/patreon-support%20AdonisJs-brightgreen.svg?style=flat-square
 
 [npm-downloads]: https://img.shields.io/npm/dm/youch.svg?style=flat-square
-
