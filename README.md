@@ -31,6 +31,8 @@ Youch is inspired by [Whoops](https://filp.github.io/whoops) but with a modern d
 2. JSON reporter, if request accepts a json instead of text/html.
 3. Sorted frames of error stack.
 
+> Checkout [youch terminal](https://github.com/poppinss/youch-terminal) to beautify errors on terminal.
+
 ## Installation
 ```bash
 npm i --save youch
