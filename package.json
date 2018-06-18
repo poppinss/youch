@@ -1,9 +1,11 @@
 {
   "name": "youch",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "HTML Pretty error stack viewer",
   "main": "src/Youch.js",
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "directories": {
     "example": "examples"
   },
@@ -21,9 +23,9 @@
     "cz-conventional-changelog": "^2.1.0",
     "japa": "^1.0.6",
     "japa-cli": "^1.0.1",
-    "standard": "^10.0.3",
-    "supertest": "^3.0.0",
-    "uglify-js": "^3.3.5"
+    "standard": "^11.0.1",
+    "supertest": "^3.1.0",
+    "uglify-js": "^3.4.0"
   },
   "config": {
     "commitizen": {

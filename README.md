@@ -31,6 +31,8 @@ Youch is inspired by [Whoops](https://filp.github.io/whoops) but with a modern d
 2. JSON reporter, if request accepts a json instead of text/html.
 3. Sorted frames of error stack.
 
+> Checkout [youch terminal](https://github.com/poppinss/youch-terminal) to beautify errors on terminal.
+
 ## Installation
 ```bash
 npm i --save youch
@@ -65,7 +67,7 @@ http.createServer(function (req, res) {
 Checkout [CHANGELOG.md](CHANGELOG.md) file for release history.
 
 ## Meta
-Checkout [LICENSE.txt](LICENSE.txt) for license information
+Checkout [LICENSE.md](LICENSE.md) for license information
 Harminder Virk (Aman) - [https://github.com/thetutlage](https://github.com/thetutlage)
 
 
@@ -88,4 +90,3 @@ Harminder Virk (Aman) - [https://github.com/thetutlage](https://github.com/thetu
 [patreon-image]: https://img.shields.io/badge/patreon-support%20AdonisJs-brightgreen.svg?style=flat-square
 
 [npm-downloads]: https://img.shields.io/npm/dm/youch.svg?style=flat-square
-
