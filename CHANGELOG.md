@@ -1,3 +1,8 @@
+<a name="2.0.8"></a>
+## [2.0.8](https://github.com/poppinss/youch/compare/v2.0.7...v2.0.8) (2018-06-18)
+
+
+
 <a name="2.0.7"></a>
 ## [2.0.7](https://github.com/poppinss/youch/compare/v2.0.6...v2.0.7) (2018-01-10)
 
