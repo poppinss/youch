@@ -60,6 +60,26 @@ test.group('Youch', () => {
       .catch(done)
   })
 
+  test('parse common Webpack scenario', (assert, done) => {
+    const error = new Error('this is bar')
+    error.stack = error.stack.replace(__dirname, __dirname + 'dist/webpack:/')
+    const youch = new Youch(error, {})
+
+    youch
+      ._parseError()
+      .then((stack) => {
+        const frame = stack.find(f => f.fileName &&   f.fileName.includes('dist/webpack:'))
+        return youch._getFrameSource(frame)
+      })
+      .then((source) => {
+        assert.isObject(source);
+        assert.isString(source.line);
+        assert.isAbove(source.line.length, 10)
+        done()
+      })
+      .catch(done)
+  })
+
   test('return active class when index is 0', (assert) => {
     const error = new Error('this is bar')
     const youch = new Youch(error, {})
