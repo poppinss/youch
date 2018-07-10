@@ -39,6 +39,7 @@ class Youch {
       fs.readFile(frame.getFileName(), 'utf-8', (error, contents) => {
         if (error) {
           resolve(null)
+          return
         }
 
         const lines = contents.split(/\r?\n/)
