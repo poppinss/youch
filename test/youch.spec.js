@@ -40,6 +40,46 @@ test.group('Youch', () => {
       .catch(done)
   })
 
+  // Source map package, webpack bundling, dynamic loading,
+  // there are many reasons why the filepath in the stack does not exist.
+  test('does not error on non-existing files', (assert, done) => {
+    const error = new Error('this is bar')
+    error.stack = error.stack.replace(__dirname, 'invalid-path')
+    const youch = new Youch(error, {})
+
+    youch
+      ._parseError()
+      .then((stack) => {
+        const frame = stack.find(f => f.fileName.includes('invalid-path'))
+        return youch._getFrameSource(frame)
+      })
+      .then((source) => {
+        assert.deepEqual(source, null)
+        done()
+      })
+      .catch(done)
+  })
+
+  test('parse common Webpack scenario', (assert, done) => {
+    const error = new Error('this is bar')
+    error.stack = error.stack.replace(__dirname, __dirname + 'dist/webpack:/')
+    const youch = new Youch(error, {})
+
+    youch
+      ._parseError()
+      .then((stack) => {
+        const frame = stack.find(f => f.fileName &&   f.fileName.includes('dist/webpack:'))
+        return youch._getFrameSource(frame)
+      })
+      .then((source) => {
+        assert.isObject(source);
+        assert.isString(source.line);
+        assert.isAbove(source.line.length, 10)
+        done()
+      })
+      .catch(done)
+  })
+
   test('return active class when index is 0', (assert) => {
     const error = new Error('this is bar')
     const youch = new Youch(error, {})

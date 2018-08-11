@@ -1,6 +1,6 @@
 {
   "name": "youch",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "HTML Pretty error stack viewer",
   "main": "src/Youch.js",
   "files": [
@@ -25,7 +25,7 @@
     "japa-cli": "^1.0.1",
     "standard": "^11.0.1",
     "supertest": "^3.1.0",
-    "uglify-js": "^3.4.0"
+    "uglify-js": "^3.4.7"
   },
   "config": {
     "commitizen": {
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "cookie": "^0.3.1",
-    "mustache": "^2.3.0",
+    "mustache": "^2.3.1",
     "stack-trace": "0.0.10"
   },
   "repository": {
