@@ -1,3 +1,19 @@
+<a name="2.0.9"></a>
+## [2.0.9](https://github.com/poppinss/youch/compare/v2.0.8...v2.0.9) (2018-08-11)
+
+
+### Bug Fixes
+
+* **docs:** remove outdated link from Contributing ([#7](https://github.com/poppinss/youch/issues/7)) ([4edf88c](https://github.com/poppinss/youch/commit/4edf88c))
+* **frame:** do not crash when filepath does not exist ([#6](https://github.com/poppinss/youch/issues/6)) ([dac572d](https://github.com/poppinss/youch/commit/dac572d))
+
+
+### Features
+
+* **frame:** handle common Webpack setup ([#8](https://github.com/poppinss/youch/issues/8)) ([896474c](https://github.com/poppinss/youch/commit/896474c))
+
+
+
 <a name="2.0.8"></a>
 ## [2.0.8](https://github.com/poppinss/youch/compare/v2.0.7...v2.0.8) (2018-06-18)
 
