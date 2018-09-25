@@ -128,7 +128,7 @@ class Youch {
    *
    * @return {String}
    */
-  _complieView (view, data) {
+  _compileView (view, data) {
     return Mustache.render(view, data)
   }
 
@@ -290,7 +290,7 @@ class Youch {
 
         const request = this._serializeRequest()
         data.request = request
-        resolve(this._complieView(viewTemplate, data))
+        resolve(this._compileView(viewTemplate, data))
       })
       .catch(reject)
     })
