@@ -290,6 +290,7 @@ class Youch {
 
         const request = this._serializeRequest()
         data.request = request
+        data.searchTerm = encodeURIComponent(data.message)
         resolve(this._compileView(viewTemplate, data))
       })
       .catch(reject)
