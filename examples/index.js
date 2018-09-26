@@ -25,6 +25,9 @@ http.createServer((req, res) => {
   }
 
   youch
+  .addLink((error) => {
+    return `<a href="https://github.com/poppinss/youch/search?q=${error.message}"> Search Youch on GitHub </a>`
+  })
   .toHTML()
   .then((response) => {
     res.writeHead(200, {'content-type': 'text/html'})
