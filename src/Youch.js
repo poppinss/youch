@@ -25,6 +25,7 @@ class Youch {
     this._filterHeaders = ['cookie', 'connection']
     this.error = error
     this.request = request
+    this.links = []
   }
 
   /**
@@ -253,6 +254,24 @@ class Youch {
   }
 
   /**
+   * Stores the link `callback` which
+   * will be processed when rendering
+   * the HTML view.
+   *
+   * @param {Function} callback
+   *
+   * @returns {Object}
+   */
+  addLink(callback) {
+    if (typeof callback === 'function') {
+      this.links.push(callback)
+      return this
+    }
+
+    throw new Error('Pass a callback function to "addLink"')
+  }
+
+  /**
    * Returns error stack as JSON.
    *
    * @return {Promise}
@@ -290,7 +309,8 @@ class Youch {
 
         const request = this._serializeRequest()
         data.request = request
-        resolve(this._compileView(viewTemplate, data))
+        data.links = this.links.map(renderLink => renderLink(data))
+        return resolve(this._compileView(viewTemplate, data))
       })
       .catch(reject)
     })
