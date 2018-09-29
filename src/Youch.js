@@ -25,6 +25,7 @@ class Youch {
     this._filterHeaders = ['cookie', 'connection']
     this.error = error
     this.request = request
+    this.links = []
   }
 
   /**
@@ -35,9 +36,8 @@ class Youch {
    * @return {Promise}
    */
   _getFrameSource (frame) {
-    const path = frame.getFileName()
-      // Handle the common setup of Webpack
-      .replace(/dist\/webpack:\//g, "")
+    const path = frame.getFileName().replace(/dist\/webpack:\//g, '')
+
     return new Promise((resolve, reject) => {
       fs.readFile(path, 'utf-8', (error, contents) => {
         if (error) {
@@ -239,7 +239,7 @@ class Youch {
 
     const parsedCookies = cookie.parse(this.request.headers.cookie || '')
     const cookies = Object.keys(parsedCookies).map((key) => {
-      return {key, value: parsedCookies[key]}
+      return { key, value: parsedCookies[key] }
     })
 
     return {
@@ -253,6 +253,24 @@ class Youch {
   }
 
   /**
+   * Stores the link `callback` which
+   * will be processed when rendering
+   * the HTML view.
+   *
+   * @param {Function} callback
+   *
+   * @returns {Object}
+   */
+  addLink (callback) {
+    if (typeof callback === 'function') {
+      this.links.push(callback)
+      return this
+    }
+
+    throw new Error('Pass a callback function to "addLink"')
+  }
+
+  /**
    * Returns error stack as JSON.
    *
    * @return {Promise}
@@ -260,13 +278,13 @@ class Youch {
   toJSON () {
     return new Promise((resolve, reject) => {
       this
-      ._parseError()
-      .then((stack) => {
-        resolve({
-          error: this._serializeData(stack)
+        ._parseError()
+        .then((stack) => {
+          resolve({
+            error: this._serializeData(stack)
+          })
         })
-      })
-      .catch(reject)
+        .catch(reject)
     })
   }
 
@@ -280,19 +298,23 @@ class Youch {
   toHTML () {
     return new Promise((resolve, reject) => {
       this
-      ._parseError()
-      .then((stack) => {
-        const data = this._serializeData(stack, (frame, index) => {
-          const serializedFrame = this._serializeFrame(frame)
-          serializedFrame.classes = this._getDisplayClasses(serializedFrame, index)
-          return serializedFrame
-        })
+        ._parseError()
+        .then((stack) => {
+          const data = this._serializeData(stack, (frame, index) => {
+            const serializedFrame = this._serializeFrame(frame)
+            serializedFrame.classes = this._getDisplayClasses(serializedFrame, index)
+            return serializedFrame
+          })
 
-        const request = this._serializeRequest()
-        data.request = request
-        resolve(this._compileView(viewTemplate, data))
-      })
-      .catch(reject)
+          const request = this._serializeRequest()
+
+          data.request = request
+          data.links = this.links.map(renderLink => renderLink(data))
+          data.loadFA = !!data.links.find((link) => link.includes('fa-'))
+
+          return resolve(this._compileView(viewTemplate, data))
+        })
+        .catch(reject)
     })
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "youch",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "HTML Pretty error stack viewer",
   "main": "src/Youch.js",
   "files": [
@@ -10,10 +10,10 @@
     "example": "examples"
   },
   "scripts": {
+    "pretest": "npm run lint",
     "prepublishOnly": "npm run build",
     "build": "node bin/compile.js",
-    "test": "npm run build && japa",
-    "test:win": "npm run build && node ./node_modules/japa-cli/index.js",
+    "test": "npm run build && node test/youch.spec.js",
     "lint": "standard"
   },
   "author": "amanvirk",
@@ -21,11 +21,10 @@
   "devDependencies": {
     "concat": "^1.0.3",
     "cz-conventional-changelog": "^2.1.0",
-    "japa": "^1.0.6",
-    "japa-cli": "^1.0.1",
-    "standard": "^11.0.1",
-    "supertest": "^3.1.0",
-    "uglify-js": "^3.4.7"
+    "japa": "^2.0.3",
+    "standard": "^12.0.1",
+    "supertest": "^3.3.0",
+    "uglify-js": "^3.4.9"
   },
   "config": {
     "commitizen": {
@@ -34,7 +33,7 @@
   },
   "dependencies": {
     "cookie": "^0.3.1",
-    "mustache": "^2.3.1",
+    "mustache": "^3.0.0",
     "stack-trace": "0.0.10"
   },
   "repository": {
@@ -48,6 +47,9 @@
   ],
   "bugs": {
     "url": "https://github.com/poppinss/youch/issues"
+  },
+  "standard": {
+    "ignore": ["static"]
   },
   "homepage": "https://github.com/poppinss/youch#readme"
 }

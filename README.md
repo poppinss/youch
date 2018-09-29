@@ -63,6 +63,33 @@ http.createServer(function (req, res) {
 }).listen(8000)
 ```
 
+## Adding helpful links
+Everytime an error occurs, we can help users we letting search for the error on Google, over even on the Github repo of our project. 
+
+Youch let you define clickable links to redirect the user to a website with the error message.
+
+```js
+youch
+.addLink(({ message }) => {
+  const url = `https://stackoverflow.com/search?q=${encodeURIComponent(`[adonis.js] ${message}`)}`
+  return `<a href="${url}" target="_blank" title="Search on stackoverflow">Search stackoverflow</a>`
+})
+.toHTML()
+``` 
+
+Also you can make use of [Font awesome brands icons](https://fontawesome.com/icons?d=gallery&s=brands&m=free) to display icons. 
+
+**If you will use fontawesome icons, then Youch will automatically load the CSS files from the font awesome CDN for you.**
+
+```js
+youch
+.addLink(({ message }) => {
+  const url = `https://stackoverflow.com/search?q=${encodeURIComponent(`[adonis.js] ${message}`)}`
+  return `<a href="${url}" target="_blank" title="Search on stackoverflow"><i class="fab fa-stack-overflow"></i></a>`
+})
+.toHTML()
+```
+
 ## Release History
 Checkout [CHANGELOG.md](CHANGELOG.md) file for release history.
 

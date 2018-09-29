@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title> </title>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600" rel="stylesheet">
+  {{#loadFA}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/brands.css" integrity="sha384-rf1bqOAj3+pw6NqYrtaE1/4Se2NBwkIfeYbsFdtiR6TQz0acWiwJbv1IM/Nt/ite" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
+  {{/loadFA}}
 
   <style type="text/css">
     /* http://prismjs.com/download.html?themes=prism&languages=markup+css+clike+javascript&plugins=line-highlight+line-numbers+toolbar+show-language */
@@ -413,6 +417,13 @@ body {
   color: #444;
 }
 
+.fab {
+  font-family: "Font Awesome 5 Brands";
+  -webkit-font-smoothing: antialiased;
+  color: #afafaf;
+  font-size: 24px;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -458,8 +469,16 @@ body {
 
 .error-title {
   border-bottom: 1px solid #d0cfcf;
-  padding-bottom: 40px;
+  padding-bottom: 15px;
   margin-bottom: 20px;
+}
+
+.error-links {
+  margin-top: 20px;
+}
+
+.error-links a {
+  margin-right: 8px;
 }
 
 .error-frames {
@@ -633,6 +652,11 @@ code[class*="language-"], pre[class*="language-"] {
       <div class="error-title">
         <h4 class="error-name"> {{ name }} </h4>
         <h2 class="error-message"> {{ message }} </h2>
+        <p class="error-links">
+          {{#links}}
+            {{{ . }}}
+          {{/links}}
+        </p>
       </div>
 
       <div class="error-frames">

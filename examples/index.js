@@ -25,16 +25,21 @@ http.createServer((req, res) => {
   }
 
   youch
-  .toHTML()
-  .then((response) => {
-    res.writeHead(200, {'content-type': 'text/html'})
-    res.write(response)
-    res.end()
-  }).catch((error) => {
-    res.writeHead(500)
-    res.write(error.message)
-    res.end()
-  })
+    .addLink(({ message }) => {
+      const url = `https://stackoverflow.com/search?q=${encodeURIComponent(`[adonis.js] ${message}`)}`
+      return `<a href="${url}" target="_blank" title="Search on stackoverflow"><i class="fab fa-stack-overflow"></i>
+      </a>`
+    })
+    .toHTML()
+    .then((response) => {
+      res.writeHead(200, { 'content-type': 'text/html' })
+      res.write(response)
+      res.end()
+    }).catch((error) => {
+      res.writeHead(500)
+      res.write(error.message)
+      res.end()
+    })
 }).listen(8000, () => {
   console.log('listening to port 8000')
 })

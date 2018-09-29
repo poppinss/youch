@@ -2,6 +2,7 @@
 
 const test = require('japa')
 const http = require('http')
+const path = require('path')
 const supertest = require('supertest')
 const Youch = require('../src/Youch')
 const DEFAULT_PORT = 8000
@@ -62,18 +63,18 @@ test.group('Youch', () => {
 
   test('parse common Webpack scenario', (assert, done) => {
     const error = new Error('this is bar')
-    error.stack = error.stack.replace(__dirname, __dirname + 'dist/webpack:/')
+    error.stack = error.stack.replace(__dirname, path.join(__dirname, 'dist/webpack:/'))
     const youch = new Youch(error, {})
 
     youch
       ._parseError()
       .then((stack) => {
-        const frame = stack.find(f => f.fileName &&   f.fileName.includes('dist/webpack:'))
+        const frame = stack.find(f => f.fileName && f.fileName.includes('dist/webpack:'))
         return youch._getFrameSource(frame)
       })
       .then((source) => {
-        assert.isObject(source);
-        assert.isString(source.line);
+        assert.isObject(source)
+        assert.isString(source.line)
         assert.isAbove(source.line.length, 10)
         done()
       })
@@ -116,7 +117,7 @@ test.group('Youch', () => {
   test('serialize http request', (assert, done) => {
     const server = http.createServer((req, res) => {
       const youch = new Youch({}, req)
-      res.writeHead(200, {'content-type': 'application/json'})
+      res.writeHead(200, { 'content-type': 'application/json' })
       res.write(JSON.stringify(youch._serializeRequest()))
       res.end()
     }).listen(DEFAULT_PORT)
@@ -139,7 +140,7 @@ test.group('Youch', () => {
   test('serialize http request and return cookies from it', (assert, done) => {
     const server = http.createServer((req, res) => {
       const youch = new Youch({}, req)
-      res.writeHead(200, {'content-type': 'application/json'})
+      res.writeHead(200, { 'content-type': 'application/json' })
       res.write(JSON.stringify(youch._serializeRequest()))
       res.end()
     }).listen(DEFAULT_PORT)
@@ -151,7 +152,7 @@ test.group('Youch', () => {
       }
 
       assert.isArray(response.body.cookies)
-      assert.deepEqual(response.body.cookies, [{key: 'name', value: 'virk'}, {key: 'Path', value: '/'}])
+      assert.deepEqual(response.body.cookies, [{ key: 'name', value: 'virk' }, { key: 'Path', value: '/' }])
       assert.equal(response.body.url, '/')
       assert.isArray(response.body.headers)
       done()

@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title> </title>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600" rel="stylesheet">
+  {{#loadFA}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/brands.css" integrity="sha384-rf1bqOAj3+pw6NqYrtaE1/4Se2NBwkIfeYbsFdtiR6TQz0acWiwJbv1IM/Nt/ite" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
+  {{/loadFA}}
 
   <style type="text/css">
     [[__css__]]
@@ -18,6 +22,11 @@
       <div class="error-title">
         <h4 class="error-name"> {{ name }} </h4>
         <h2 class="error-message"> {{ message }} </h2>
+        <p class="error-links">
+          {{#links}}
+            {{{ . }}}
+          {{/links}}
+        </p>
       </div>
 
       <div class="error-frames">
