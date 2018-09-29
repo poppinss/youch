@@ -25,6 +25,11 @@ http.createServer((req, res) => {
   }
 
   youch
+    .addLink(({ message }) => {
+      const url = `https://stackoverflow.com/search?q=${encodeURIComponent(`[adonis.js] ${message}`)}`
+      return `<a href="${url}" target="_blank" title="Search on stackoverflow"><i class="fab fa-stack-overflow"></i>
+      </a>`
+    })
     .toHTML()
     .then((response) => {
       res.writeHead(200, { 'content-type': 'text/html' })

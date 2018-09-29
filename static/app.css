@@ -10,6 +10,13 @@ body {
   color: #444;
 }
 
+.fab {
+  font-family: "Font Awesome 5 Brands";
+  -webkit-font-smoothing: antialiased;
+  color: #afafaf;
+  font-size: 24px;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -55,8 +62,16 @@ body {
 
 .error-title {
   border-bottom: 1px solid #d0cfcf;
-  padding-bottom: 40px;
+  padding-bottom: 15px;
   margin-bottom: 20px;
+}
+
+.error-links {
+  margin-top: 20px;
+}
+
+.error-links a {
+  margin-right: 8px;
 }
 
 .error-frames {

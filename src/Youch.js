@@ -36,9 +36,8 @@ class Youch {
    * @return {Promise}
    */
   _getFrameSource (frame) {
-    const path = frame.getFileName()
-      // Handle the common setup of Webpack
-      .replace(/dist\/webpack:\//g, '')
+    const path = frame.getFileName().replace(/dist\/webpack:\//g, '')
+
     return new Promise((resolve, reject) => {
       fs.readFile(path, 'utf-8', (error, contents) => {
         if (error) {
@@ -308,8 +307,11 @@ class Youch {
           })
 
           const request = this._serializeRequest()
+
           data.request = request
           data.links = this.links.map(renderLink => renderLink(data))
+          data.loadFA = !!data.links.find((link) => link.includes('fa-'))
+
           return resolve(this._compileView(viewTemplate, data))
         })
         .catch(reject)
