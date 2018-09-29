@@ -1,3 +1,13 @@
+<a name="2.0.10"></a>
+## [2.0.10](https://github.com/poppinss/youch/compare/v2.0.9...v2.0.10) (2018-09-29)
+
+
+### Features
+
+* **links:** add support for font awesome icons and lazy load css files ([1bd258a](https://github.com/poppinss/youch/commit/1bd258a))
+
+
+
 <a name="2.0.9"></a>
 ## [2.0.9](https://github.com/poppinss/youch/compare/v2.0.8...v2.0.9) (2018-08-11)
 
