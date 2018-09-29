@@ -418,11 +418,6 @@ body {
   margin: 0;
 }
 
-a, a:visited, a:active {
-  color: #07a;
-  text-decoration: none;
-}
-
 .error-page {
   display: flex;
   flex-direction: column;
@@ -459,21 +454,12 @@ a, a:visited, a:active {
   font-weight: 300;
   font-size: 40px;
   line-height: 48px;
-  padding-bottom: 10px;
 }
 
 .error-title {
   border-bottom: 1px solid #d0cfcf;
-  padding-bottom: 30px;
+  padding-bottom: 40px;
   margin-bottom: 20px;
-}
-
-.error-links {
-  margin-top: 20px;
-}
-
-.error-links a {
-  margin-right: 8px;
 }
 
 .error-frames {
@@ -647,11 +633,6 @@ code[class*="language-"], pre[class*="language-"] {
       <div class="error-title">
         <h4 class="error-name"> {{ name }} </h4>
         <h2 class="error-message"> {{ message }} </h2>
-        <p class="error-links">
-          {{#links}}
-            {{{ . }}}
-          {{/links}}
-        </p>
       </div>
 
       <div class="error-frames">

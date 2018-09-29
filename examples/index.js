@@ -25,19 +25,16 @@ http.createServer((req, res) => {
   }
 
   youch
-  .addLink((error) => {
-    return `<a href="https://github.com/poppinss/youch/search?q=${error.message}"> Search Youch on GitHub </a>`
-  })
-  .toHTML()
-  .then((response) => {
-    res.writeHead(200, {'content-type': 'text/html'})
-    res.write(response)
-    res.end()
-  }).catch((error) => {
-    res.writeHead(500)
-    res.write(error.message)
-    res.end()
-  })
+    .toHTML()
+    .then((response) => {
+      res.writeHead(200, { 'content-type': 'text/html' })
+      res.write(response)
+      res.end()
+    }).catch((error) => {
+      res.writeHead(500)
+      res.write(error.message)
+      res.end()
+    })
 }).listen(8000, () => {
   console.log('listening to port 8000')
 })

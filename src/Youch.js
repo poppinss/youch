@@ -38,7 +38,7 @@ class Youch {
   _getFrameSource (frame) {
     const path = frame.getFileName()
       // Handle the common setup of Webpack
-      .replace(/dist\/webpack:\//g, "")
+      .replace(/dist\/webpack:\//g, '')
     return new Promise((resolve, reject) => {
       fs.readFile(path, 'utf-8', (error, contents) => {
         if (error) {
@@ -240,7 +240,7 @@ class Youch {
 
     const parsedCookies = cookie.parse(this.request.headers.cookie || '')
     const cookies = Object.keys(parsedCookies).map((key) => {
-      return {key, value: parsedCookies[key]}
+      return { key, value: parsedCookies[key] }
     })
 
     return {
@@ -262,7 +262,7 @@ class Youch {
    *
    * @returns {Object}
    */
-  addLink(callback) {
+  addLink (callback) {
     if (typeof callback === 'function') {
       this.links.push(callback)
       return this
@@ -279,13 +279,13 @@ class Youch {
   toJSON () {
     return new Promise((resolve, reject) => {
       this
-      ._parseError()
-      .then((stack) => {
-        resolve({
-          error: this._serializeData(stack)
+        ._parseError()
+        .then((stack) => {
+          resolve({
+            error: this._serializeData(stack)
+          })
         })
-      })
-      .catch(reject)
+        .catch(reject)
     })
   }
 
@@ -299,20 +299,20 @@ class Youch {
   toHTML () {
     return new Promise((resolve, reject) => {
       this
-      ._parseError()
-      .then((stack) => {
-        const data = this._serializeData(stack, (frame, index) => {
-          const serializedFrame = this._serializeFrame(frame)
-          serializedFrame.classes = this._getDisplayClasses(serializedFrame, index)
-          return serializedFrame
-        })
+        ._parseError()
+        .then((stack) => {
+          const data = this._serializeData(stack, (frame, index) => {
+            const serializedFrame = this._serializeFrame(frame)
+            serializedFrame.classes = this._getDisplayClasses(serializedFrame, index)
+            return serializedFrame
+          })
 
-        const request = this._serializeRequest()
-        data.request = request
-        data.links = this.links.map(renderLink => renderLink(data))
-        return resolve(this._compileView(viewTemplate, data))
-      })
-      .catch(reject)
+          const request = this._serializeRequest()
+          data.request = request
+          data.links = this.links.map(renderLink => renderLink(data))
+          return resolve(this._compileView(viewTemplate, data))
+        })
+        .catch(reject)
     })
   }
 }
