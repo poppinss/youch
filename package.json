@@ -32,7 +32,7 @@
     }
   },
   "dependencies": {
-    "cookie": "^0.3.1",
+    "cookie": "^0.4.0",
     "mustache": "^3.0.0",
     "stack-trace": "0.0.10"
   },
