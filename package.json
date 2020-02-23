@@ -49,7 +49,9 @@
     "url": "https://github.com/poppinss/youch/issues"
   },
   "standard": {
-    "ignore": ["static"]
+    "ignore": [
+      "static"
+    ]
   },
   "homepage": "https://github.com/poppinss/youch#readme"
 }
