@@ -1,4 +1,8 @@
 <a name="2.0.10"></a>
+## [2.0.10](https://github.com/poppinss/youch/compare/v2.0.10...v2.1.0) (2020-10-01)
+
+
+<a name="2.0.10"></a>
 ## [2.0.10](https://github.com/poppinss/youch/compare/v2.0.9...v2.0.10) (2018-09-29)
 
 
