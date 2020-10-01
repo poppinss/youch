@@ -63,12 +63,15 @@ test.group('Youch', () => {
 
   test('parse common Webpack scenario', (assert, done) => {
     const error = new Error('this is bar')
+    console.log(error.stack)
+    console.log(__dirname)
     error.stack = error.stack.replace(__dirname, path.join(__dirname, 'dist/webpack:/'))
     const youch = new Youch(error, {})
 
     youch
       ._parseError()
       .then((stack) => {
+        console.log(stack)
         const frame = stack.find(f => f.fileName && f.fileName.includes('dist/webpack:'))
         return youch._getFrameSource(frame)
       })
