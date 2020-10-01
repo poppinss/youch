@@ -20,11 +20,11 @@
   "license": "MIT",
   "devDependencies": {
     "concat": "^1.0.3",
-    "cz-conventional-changelog": "^3.0.1",
-    "japa": "^2.0.3",
-    "standard": "^13.1.0",
-    "supertest": "^4.0.2",
-    "uglify-js": "^3.4.9"
+    "cz-conventional-changelog": "^3.3.0",
+    "japa": "^3.1.1",
+    "standard": "^14.3.4",
+    "supertest": "^5.0.0",
+    "uglify-js": "^3.11.0"
   },
   "config": {
     "commitizen": {
@@ -32,8 +32,8 @@
     }
   },
   "dependencies": {
-    "cookie": "^0.4.0",
-    "mustache": "^3.0.0",
+    "cookie": "^0.4.1",
+    "mustache": "^4.0.1",
     "stack-trace": "0.0.10"
   },
   "repository": {
