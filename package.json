@@ -4,8 +4,10 @@
   "description": "HTML Pretty error stack viewer",
   "main": "src/Youch.js",
   "files": [
-    "src"
+    "src",
+    "index.d.ts"
   ],
+  "types": "./index.d.ts",
   "directories": {
     "example": "examples"
   },
