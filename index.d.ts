@@ -1,4 +1,6 @@
 declare module "youch" {
+  import { StackFrame } from "stack-trace";
+
   class Youch<Error, Request> {
     constructor(error: Error, request: Request);
 
@@ -12,7 +14,14 @@ declare module "youch" {
     /**
      * Returns error stack as JSON.
      */
-    toJSON(): Promise<Object>;
+    toJSON(): Promise<{
+      error: {
+        message: string;
+        name: string;
+        status: number;
+        frames: StackFrame[];
+      };
+    }>;
 
     /**
      * Returns HTML representation of the error stack

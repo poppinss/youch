@@ -7,13 +7,13 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
-*/
+ */
 
-const Mustache = require('mustache')
-const path = require('path')
-const stackTrace = require('stack-trace')
 const fs = require('fs')
+const path = require('path')
 const cookie = require('cookie')
+const Mustache = require('mustache')
+const stackTrace = require('stack-trace')
 const VIEW_PATH = './error.compiled.mustache'
 const startingSlashRegex = /\\|\//
 
@@ -36,7 +36,8 @@ class Youch {
    * @return {Promise}
    */
   _getFrameSource (frame) {
-    const path = frame.getFileName()
+    const path = frame
+      .getFileName()
       .replace(/dist\/webpack:\//g, '') // unix
       .replace(/dist\\webpack:\\/g, '') // windows
 
@@ -51,7 +52,10 @@ class Youch {
         const lineNumber = frame.getLineNumber()
 
         resolve({
-          pre: lines.slice(Math.max(0, lineNumber - (this.codeContext + 1)), lineNumber - 1),
+          pre: lines.slice(
+            Math.max(0, lineNumber - (this.codeContext + 1)),
+            lineNumber - 1
+          ),
           line: lines[lineNumber - 1],
           post: lines.slice(lineNumber, lineNumber + this.codeContext)
         })
@@ -68,15 +72,19 @@ class Youch {
   _parseError () {
     return new Promise((resolve, reject) => {
       const stack = stackTrace.parse(this.error)
-      Promise.all(stack.map((frame) => {
-        if (this._isNode(frame)) {
-          return Promise.resolve(frame)
-        }
-        return this._getFrameSource(frame).then((context) => {
-          frame.context = context
-          return frame
+      Promise.all(
+        stack.map(async (frame) => {
+          if (this._isNode(frame)) {
+            return Promise.resolve(frame)
+          }
+          return this._getFrameSource(frame).then((context) => {
+            frame.context = context
+            return frame
+          })
         })
-      })).then(resolve).catch(reject)
+      )
+        .then(resolve)
+        .catch(reject)
     })
   }
 
@@ -142,9 +150,13 @@ class Youch {
    * @return {Object}
    */
   _serializeFrame (frame) {
-    const relativeFileName = frame.getFileName().indexOf(process.cwd()) > -1
-      ? frame.getFileName().replace(process.cwd(), '').replace(startingSlashRegex, '')
-      : frame.getFileName()
+    const relativeFileName =
+      frame.getFileName().indexOf(process.cwd()) > -1
+        ? frame
+          .getFileName()
+          .replace(process.cwd(), '')
+          .replace(startingSlashRegex, '')
+        : frame.getFileName()
 
     return {
       file: relativeFileName,
@@ -216,7 +228,10 @@ class Youch {
       message: this.error.message,
       name: this.error.name,
       status: this.error.status,
-      frames: stack instanceof Array === true ? stack.filter((frame) => frame.getFileName()).map(callback) : []
+      frames:
+        stack instanceof Array === true
+          ? stack.filter((frame) => frame.getFileName()).map(callback)
+          : []
     }
   }
 
@@ -279,8 +294,7 @@ class Youch {
    */
   toJSON () {
     return new Promise((resolve, reject) => {
-      this
-        ._parseError()
+      this._parseError()
         .then((stack) => {
           resolve({
             error: this._serializeData(stack)
@@ -299,19 +313,21 @@ class Youch {
    */
   toHTML () {
     return new Promise((resolve, reject) => {
-      this
-        ._parseError()
+      this._parseError()
         .then((stack) => {
           const data = this._serializeData(stack, (frame, index) => {
             const serializedFrame = this._serializeFrame(frame)
-            serializedFrame.classes = this._getDisplayClasses(serializedFrame, index)
+            serializedFrame.classes = this._getDisplayClasses(
+              serializedFrame,
+              index
+            )
             return serializedFrame
           })
 
           const request = this._serializeRequest()
 
           data.request = request
-          data.links = this.links.map(renderLink => renderLink(data))
+          data.links = this.links.map((renderLink) => renderLink(data))
           data.loadFA = !!data.links.find((link) => link.includes('fa-'))
 
           return resolve(this._compileView(viewTemplate, data))
