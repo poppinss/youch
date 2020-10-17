@@ -36,7 +36,8 @@
   "dependencies": {
     "cookie": "^0.4.1",
     "mustache": "^4.0.1",
-    "stack-trace": "0.0.10"
+    "stack-trace": "0.0.10",
+    "@types/stack-trace": "^0.0.29"
   },
   "repository": {
     "type": "git",
