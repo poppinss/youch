@@ -4,23 +4,57 @@
  * youch
  *
  * (c) Harminder Virk <virk@adonisjs.com>
+ * Ported to Typescript by AvidCoder123 <github: AvidCoder123>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-const fs = require('fs')
-const path = require('path')
-const cookie = require('cookie')
-const Mustache = require('mustache')
-const stackTrace = require('stack-trace')
+import fs from 'fs'
+import path from 'path'
+import cookie from 'cookie'
+import Mustache from 'mustache'
+import stackTrace, { StackFrame } from 'stack-trace'
 const VIEW_PATH = './error.compiled.mustache'
 const startingSlashRegex = /\\|\//
+
+interface youchStackFrame extends stackTrace.StackFrame {
+  context?: frameContext
+}
+interface frameContext {
+  start?: number
+  pre?: Array<string>| string;
+  line?: string;
+  post?: Array<string> | string;
+  getLineNumber?: () => number
+}
+interface serializedFrame {
+    file: string,
+    filePath: string,
+    method: string,
+    line: number,
+    column: number,
+    context: frameContext,
+    isModule: boolean,
+    isNative: boolean,
+    isApp: boolean
+}
+interface serializedData {
+  message: string;
+  name: string;
+  status: any;
+  frames: string;
+}
 
 const viewTemplate = fs.readFileSync(path.join(__dirname, VIEW_PATH), 'utf-8')
 
 class Youch {
-  constructor (error, request) {
+  codeContext: number
+  _filterHeaders: string[]
+  error: Error
+  request: Request
+  links: Function[]
+  constructor (error: Error, request: Request) {
     this.codeContext = 5
     this._filterHeaders = ['cookie', 'connection']
     this.error = error
@@ -35,7 +69,7 @@ class Youch {
    * @param  {Object} frame
    * @return {Promise}
    */
-  _getFrameSource (frame) {
+  _getFrameSource (frame: youchStackFrame): Promise<object> {
     const path = frame
       .getFileName()
       .replace(/dist\/webpack:\//g, '') // unix
@@ -69,15 +103,16 @@ class Youch {
    *
    * @return {Object}
    */
-  _parseError () {
+  _parseError (): Promise<youchStackFrame[]>|youchStackFrame {
     return new Promise((resolve, reject) => {
-      const stack = stackTrace.parse(this.error)
+      const stack: youchStackFrame[] = stackTrace.parse(this.error)
       Promise.all(
         stack.map(async (frame) => {
           if (this._isNode(frame)) {
             return Promise.resolve(frame)
           }
           return this._getFrameSource(frame).then((context) => {
+
             frame.context = context
             return frame
           })
@@ -95,16 +130,15 @@ class Youch {
    * @param  {Object}
    * @return {Object}
    */
-  _getContext (frame) {
+  _getContext (frame: youchStackFrame): frameContext {
     if (!frame.context) {
       return {}
     }
-
     return {
       start: frame.getLineNumber() - (frame.context.pre || []).length,
-      pre: frame.context.pre.join('\n'),
+      pre: (<string[]>frame.context.pre).join('\n'),
       line: frame.context.line,
-      post: frame.context.post.join('\n')
+      post: (<string[]>frame.context.post).join('\n')
     }
   }
 
@@ -117,7 +151,7 @@ class Youch {
    *
    * @return {String}
    */
-  _getDisplayClasses (frame, index) {
+  _getDisplayClasses (frame: serializedFrame, index: number) {
     const classes = []
     if (index === 0) {
       classes.push('active')
@@ -138,7 +172,7 @@ class Youch {
    *
    * @return {String}
    */
-  _compileView (view, data) {
+  _compileView (view: string, data: any) {
     return Mustache.render(view, data)
   }
 
@@ -149,7 +183,7 @@ class Youch {
    *
    * @return {Object}
    */
-  _serializeFrame (frame) {
+  _serializeFrame (frame: youchStackFrame): serializedFrame {
     const relativeFileName =
       frame.getFileName().indexOf(process.cwd()) > -1
         ? frame
@@ -222,7 +256,7 @@ class Youch {
    *
    * @return {Object}
    */
-  _serializeData (stack, callback) {
+  _serializeData (stack, callback?): serializedData {
     callback = callback || this._serializeFrame.bind(this)
     return {
       message: this.error.message,
@@ -278,7 +312,7 @@ class Youch {
    *
    * @returns {Object}
    */
-  addLink (callback) {
+  addLink (callback: Function): object {
     if (typeof callback === 'function') {
       this.links.push(callback)
       return this
@@ -292,9 +326,9 @@ class Youch {
    *
    * @return {Promise}
    */
-  toJSON () {
+  toJSON (): Promise<{error: serializedData}> {
     return new Promise((resolve, reject) => {
-      this._parseError()
+      (<Promise<youchStackFrame[]>>this._parseError())
         .then((stack) => {
           resolve({
             error: this._serializeData(stack)
@@ -313,7 +347,7 @@ class Youch {
    */
   toHTML () {
     return new Promise((resolve, reject) => {
-      this._parseError()
+      (<Promise<youchStackFrame[]>>this._parseError())
         .then((stack) => {
           const data = this._serializeData(stack, (frame, index) => {
             const serializedFrame = this._serializeFrame(frame)
