@@ -1,7 +1,7 @@
 'use strict'
 
 const http = require('http')
-const Youch = require('../src/Youch')
+const { Youch } = require('../src/Youch')
 
 class HttpException extends Error {
   constructor (...args) {

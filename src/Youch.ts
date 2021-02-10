@@ -56,7 +56,7 @@ interface youchError extends Error {
 
 const viewTemplate = fs.readFileSync(path.join(__dirname, VIEW_PATH), 'utf-8')
 
-export default class Youch {
+export class Youch {
   public codeContext: number
   public _filterHeaders: string[]
   public error: youchError
@@ -67,6 +67,7 @@ export default class Youch {
     this._filterHeaders = ['cookie', 'connection']
     this.error = error
     this.request = request
+    this.links = []
   }
 
   /**

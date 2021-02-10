@@ -4,7 +4,7 @@ const test = require('japa')
 const http = require('http')
 const path = require('path')
 const supertest = require('supertest')
-const Youch = require('../src/Youch').default
+const { Youch } = require('../src/Youch')
 const DEFAULT_PORT = 8000
 
 test.group('Youch', () => {

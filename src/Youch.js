@@ -58,6 +58,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
+exports.Youch = void 0;
 /*
  * youch
  *
@@ -81,6 +82,7 @@ var Youch = /** @class */ (function () {
         this._filterHeaders = ['cookie', 'connection'];
         this.error = error;
         this.request = request;
+        this.links = [];
     }
     /**
      * Returns the source code for a given file. It unable to
@@ -357,4 +359,4 @@ var Youch = /** @class */ (function () {
     };
     return Youch;
 }());
-exports["default"] = Youch;
+exports.Youch = Youch;
