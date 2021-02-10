@@ -10,11 +10,12 @@
  * file that was distributed with this source code.
  */
 
-import fs from 'fs'
-import path from 'path'
-import cookie from 'cookie'
+import * as fs from 'fs'
+import * as path from 'path'
+import * as cookie from 'cookie'
 import Mustache from 'mustache'
-import stackTrace, { StackFrame } from 'stack-trace'
+import * as stackTrace from 'stack-trace'
+import { IncomingMessage } from 'http'
 const VIEW_PATH = './error.compiled.mustache'
 const startingSlashRegex = /\\|\//
 
@@ -29,6 +30,7 @@ interface frameContext {
   getLineNumber?: () => number
 }
 interface serializedFrame {
+    classes?: string
     file: string,
     filePath: string,
     method: string,
@@ -40,26 +42,31 @@ interface serializedFrame {
     isApp: boolean
 }
 interface serializedData {
+  request?: object
+  links?: string[]
+  loadFA?: boolean
   message: string;
   name: string;
   status: any;
-  frames: string;
+  frames: serializedFrame[];
+}
+interface youchError extends Error {
+  status?: number;
 }
 
 const viewTemplate = fs.readFileSync(path.join(__dirname, VIEW_PATH), 'utf-8')
 
-class Youch {
-  codeContext: number
-  _filterHeaders: string[]
-  error: Error
-  request: Request
-  links: Function[]
-  constructor (error: Error, request: Request) {
+export default class Youch {
+  public codeContext: number
+  public _filterHeaders: string[]
+  public error: youchError
+  public request: IncomingMessage
+  public links: ((data: serializedData)=>string)[]
+  constructor (error: youchError, request: IncomingMessage) {
     this.codeContext = 5
     this._filterHeaders = ['cookie', 'connection']
     this.error = error
     this.request = request
-    this.links = []
   }
 
   /**
@@ -103,7 +110,7 @@ class Youch {
    *
    * @return {Object}
    */
-  _parseError (): Promise<youchStackFrame[]>|youchStackFrame {
+   _parseError (): Promise<youchStackFrame[]>|youchStackFrame {
     return new Promise((resolve, reject) => {
       const stack: youchStackFrame[] = stackTrace.parse(this.error)
       Promise.all(
@@ -130,7 +137,7 @@ class Youch {
    * @param  {Object}
    * @return {Object}
    */
-  _getContext (frame: youchStackFrame): frameContext {
+   _getContext (frame: youchStackFrame): frameContext {
     if (!frame.context) {
       return {}
     }
@@ -151,7 +158,7 @@ class Youch {
    *
    * @return {String}
    */
-  _getDisplayClasses (frame: serializedFrame, index: number) {
+   _getDisplayClasses (frame: serializedFrame, index: number): string {
     const classes = []
     if (index === 0) {
       classes.push('active')
@@ -172,7 +179,7 @@ class Youch {
    *
    * @return {String}
    */
-  _compileView (view: string, data: any) {
+   _compileView (view: string, data: any): string {
     return Mustache.render(view, data)
   }
 
@@ -183,7 +190,7 @@ class Youch {
    *
    * @return {Object}
    */
-  _serializeFrame (frame: youchStackFrame): serializedFrame {
+   _serializeFrame (frame: youchStackFrame): serializedFrame {
     const relativeFileName =
       frame.getFileName().indexOf(process.cwd()) > -1
         ? frame
@@ -211,7 +218,7 @@ class Youch {
    *
    * @return {Boolean} [description]
    */
-  _isNode (frame) {
+   _isNode (frame: youchStackFrame): boolean {
     if (frame.isNative()) {
       return true
     }
@@ -226,7 +233,7 @@ class Youch {
    *
    * @return {Boolean} [description]
    */
-  _isApp (frame) {
+   _isApp (frame: youchStackFrame):boolean {
     return !this._isNode(frame) && !this._isNodeModule(frame)
   }
 
@@ -242,7 +249,7 @@ class Youch {
    *
    * @private
    */
-  _isNodeModule (frame) {
+  private _isNodeModule (frame: youchStackFrame): boolean {
     return (frame.getFileName() || '').indexOf('node_modules' + path.sep) > -1
   }
 
@@ -256,7 +263,7 @@ class Youch {
    *
    * @return {Object}
    */
-  _serializeData (stack, callback?): serializedData {
+   _serializeData (stack: youchStackFrame[], callback?: (frame: youchStackFrame, index: number) => serializedFrame): serializedData {
     callback = callback || this._serializeFrame.bind(this)
     return {
       message: this.error.message,
@@ -275,7 +282,7 @@ class Youch {
    *
    * @return {Object}
    */
-  _serializeRequest () {
+   _serializeRequest (): object {
     const headers = []
 
     Object.keys(this.request.headers).forEach((key) => {
@@ -312,9 +319,9 @@ class Youch {
    *
    * @returns {Object}
    */
-  addLink (callback: Function): object {
+  public addLink (callback: Function): object {
     if (typeof callback === 'function') {
-      this.links.push(callback)
+      this.links.push(<((data:serializedData)=>string)> callback)
       return this
     }
 
@@ -326,7 +333,7 @@ class Youch {
    *
    * @return {Promise}
    */
-  toJSON (): Promise<{error: serializedData}> {
+  public toJSON (): Promise<{error: serializedData}> {
     return new Promise((resolve, reject) => {
       (<Promise<youchStackFrame[]>>this._parseError())
         .then((stack) => {
@@ -345,7 +352,7 @@ class Youch {
    *
    * @return {Promise}
    */
-  toHTML () {
+  public toHTML (): Promise<string> {
     return new Promise((resolve, reject) => {
       (<Promise<youchStackFrame[]>>this._parseError())
         .then((stack) => {
@@ -361,7 +368,7 @@ class Youch {
           const request = this._serializeRequest()
 
           data.request = request
-          data.links = this.links.map((renderLink) => renderLink(data))
+          data.links = (<((data:serializedData)=>string)[]>this.links).map((renderLink) => renderLink(data))
           data.loadFA = !!data.links.find((link) => link.includes('fa-'))
 
           return resolve(this._compileView(viewTemplate, data))
@@ -370,5 +377,3 @@ class Youch {
     })
   }
 }
-
-module.exports = Youch

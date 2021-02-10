@@ -21,6 +21,7 @@
   "author": "amanvirk",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^14.14.25",
     "concat": "^1.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "japa": "^3.1.1",
