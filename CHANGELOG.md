@@ -1,6 +1,10 @@
+<a name="2.2.0"></a>
+
+## [2.2.0](https://github.com/poppinss/youch/compare/v2.1.1...v2.2.0) (2021-03-21)
+
 <a name="2.1.1"></a>
 
-## [2.0.10](https://github.com/poppinss/youch/compare/v2.1.0...v2.1.1) (2020-10-04)
+## [2.1.1](https://github.com/poppinss/youch/compare/v2.1.0...v2.1.1) (2020-10-04)
 
 <a name="2.1.0"></a>
 
