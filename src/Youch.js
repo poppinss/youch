@@ -153,9 +153,9 @@ class Youch {
     const relativeFileName =
       frame.getFileName().indexOf(process.cwd()) > -1
         ? frame
-          .getFileName()
-          .replace(process.cwd(), '')
-          .replace(startingSlashRegex, '')
+            .getFileName()
+            .replace(process.cwd(), '')
+            .replace(startingSlashRegex, '')
         : frame.getFileName()
 
     return {
