@@ -19,7 +19,22 @@ declare module "youch" {
         message: string;
         name: string;
         status: number;
-        frames: StackFrame[];
+        frames: {
+          file: string,
+          filePath: string,
+          method: string,
+          line: number,
+          column: number,
+          context: {
+            start: number,
+            pre: string,
+            line: string,
+            post: string,
+          },
+          isModule: boolean,
+          isNative: boolean,
+          isApp: boolean
+        }[];
       };
     }>;
 

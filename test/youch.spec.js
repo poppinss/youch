@@ -27,6 +27,18 @@ test.group('Youch', () => {
       }).catch(done)
   })
 
+  test('convert error to JSON', (assert, done) => {
+    const error = new Error('foo')
+    const youch = new Youch(error, {})
+    youch
+      .toJSON()
+      .then(({ error }) => {
+        assert.equal(error.frames[0].filePath, __filename)
+        assert.equal(error.frames[0].isNative, false)
+        done()
+      }).catch(done)
+  })
+
   test('parse stack frame context to tokens', (assert, done) => {
     const error = new Error('this is bar')
     const youch = new Youch(error, {})
