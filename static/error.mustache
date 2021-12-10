@@ -69,53 +69,54 @@
         </div>
       </div>
     </section>
+    {{#request}}
+      <section class="request-details">
+        <h2 class="request-title"> Request Details </h2>
 
-    <section class="request-details">
-      <h2 class="request-title"> Request Details </h2>
-
-      <table>
-        <tr>
-          <td class="title"> URI </td>
-          <td> {{ request.url }} </td>
-        </tr>
-
-        <tr>
-          <td class="title"> Request Method </td>
-          <td> {{ request.method }} </td>
-        </tr>
-
-        <tr>
-          <td class="title"> HTTP Version </td>
-          <td> {{ request.httpVersion }} </td>
-        </tr>
-
-        <tr>
-          <td class="title"> Connection </td>
-          <td> {{ request.connection }} </td>
-        </tr>
-      </table>
-
-      <h2 class="request-title"> Headers </h2>
-
-      <table>
-        {{#request.headers}}
+        <table>
           <tr>
-            <td class="title"> {{ key }} </td>
-            <td> {{ value }} </td>
+            <td class="title"> URI</td>
+            <td> {{ request.url }} </td>
           </tr>
-        {{/request.headers}}
-      </table>
 
-      <h2 class="request-title"> Cookies </h2>
-      <table>
-        {{#request.cookies}}
           <tr>
-            <td class="title"> {{ key }} </td>
-            <td> {{ value }} </td>
+            <td class="title"> Request Method</td>
+            <td> {{ request.method }} </td>
           </tr>
-        {{/request.cookies}}
-      </table>
-    </section>
+
+          <tr>
+            <td class="title"> HTTP Version</td>
+            <td> {{ request.httpVersion }} </td>
+          </tr>
+
+          <tr>
+            <td class="title"> Connection</td>
+            <td> {{ request.connection }} </td>
+          </tr>
+        </table>
+
+        <h2 class="request-title"> Headers </h2>
+
+        <table>
+          {{#request.headers}}
+            <tr>
+              <td class="title"> {{ key }} </td>
+              <td> {{ value }} </td>
+            </tr>
+          {{/request.headers}}
+        </table>
+
+        <h2 class="request-title"> Cookies </h2>
+        <table>
+          {{#request.cookies}}
+            <tr>
+              <td class="title"> {{ key }} </td>
+              <td> {{ value }} </td>
+            </tr>
+          {{/request.cookies}}
+        </table>
+      </section>
+    {{/request}}
   </section>
   <script type="text/javascript">
     [[__js__]]

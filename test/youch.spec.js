@@ -5,7 +5,7 @@ const http = require('http')
 const path = require('path')
 const supertest = require('supertest')
 const Youch = require('../src/Youch')
-const DEFAULT_PORT = 8000
+const DEFAULT_PORT = 8092
 
 test.group('Youch', () => {
   test('initiate a new instance by passing error object', (assert) => {
@@ -37,6 +37,40 @@ test.group('Youch', () => {
         assert.equal(error.frames[0].isNative, false)
         done()
       }).catch(done)
+  })
+
+  test('convert error to HTML without request', (assert, done) => {
+    const error = new Error('foo')
+    const youch = new Youch(error)
+    youch
+      .toHTML()
+      .then((html) => {
+        assert.isNotEmpty(html)
+        done()
+      }).catch(done)
+  })
+
+  test('convert error to HTML with request', (assert, done) => {
+    const server = http.createServer((req, res) => {
+      const youch = new Youch({}, req)
+      youch
+        .toHTML()
+        .then((html) => {
+          assert.isNotEmpty(html)
+          done()
+        }).catch(done)
+      res.end()
+    }).listen(DEFAULT_PORT)
+
+    supertest(server).get('/').end((error) => {
+      if (error) {
+        done(error)
+        return
+      }
+
+      server.close()
+      done()
+    })
   })
 
   test('parse stack frame context to tokens', (assert, done) => {

@@ -242,9 +242,13 @@ class Youch {
    * @return {Object}
    */
   _serializeRequest () {
+    if (this.isEmpty(this.request)) {
+      return undefined
+    }
+
     const headers = []
 
-    Object.keys(this.request.headers).forEach((key) => {
+    Object.keys(this.request.headers || []).forEach((key) => {
       if (this._filterHeaders.indexOf(key) > -1) {
         return
       }
@@ -334,6 +338,20 @@ class Youch {
         })
         .catch(reject)
     })
+  }
+
+  isEmpty (obj) {
+    if (!obj) {
+      return true
+    }
+
+    for (const prop in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+        return false
+      }
+    }
+
+    return JSON.stringify(obj) === JSON.stringify({})
   }
 }
 
