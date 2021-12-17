@@ -83,7 +83,6 @@ test.group('Youch', () => {
     youch
       ._parseError()
       .then((stack) => {
-        console.log(stack)
         const frame = stack.find(file => {
           return file.file && file.file.includes(['dist', 'webpack:'].join('/'))
         })
