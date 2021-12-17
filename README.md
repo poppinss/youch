@@ -4,8 +4,8 @@
 <br />
 
 <p>
-  <a href="http://res.cloudinary.com/adonisjs/image/upload/v1485520687/Screen_Shot_2017-01-27_at_6.07.28_PM_blcaau.png">
-    <img src="http://res.cloudinary.com/adonisjs/image/upload/v1485520687/Screen_Shot_2017-01-27_at_6.07.28_PM_blcaau.png" style="width: 600px;" />
+  <a href="youch.jpeg">
+    <img src="youch.jpeg" />
   </a>
 </p>
 
