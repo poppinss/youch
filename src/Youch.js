@@ -316,9 +316,10 @@ class Youch {
             return serializedFrame
           })
 
-          const request = this._serializeRequest()
+          if (this.request) {
+            data.request = this._serializeRequest()
+          }
 
-          data.request = request
           data.links = this.links.map((renderLink) => renderLink(data))
           data.loadFA = !!data.links.find((link) => link.includes('fa-'))
 
