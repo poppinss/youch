@@ -1,6 +1,4 @@
 declare module "youch" {
-  import { StackFrame } from "stack-trace";
-
   class Youch<Error, Request> {
     constructor(error: Error, request: Request);
 
@@ -22,9 +20,10 @@ declare module "youch" {
         frames: {
           file: string,
           filePath: string,
-          method: string,
           line: number,
           column: number,
+          callee: string,
+          calleeShort: string,
           context: {
             start: number,
             pre: string,

@@ -13,9 +13,8 @@ const fs = require('fs')
 const path = require('path')
 const cookie = require('cookie')
 const Mustache = require('mustache')
-const stackTrace = require('stack-trace')
+const StackTracey = require('stacktracey')
 const VIEW_PATH = './error.compiled.mustache'
-const startingSlashRegex = /\\|\//
 
 const viewTemplate = fs.readFileSync(path.join(__dirname, VIEW_PATH), 'utf-8')
 
@@ -37,7 +36,7 @@ class Youch {
    */
   _getFrameSource (frame) {
     const path = frame
-      .getFileName()
+      .file
       .replace(/dist\/webpack:\//g, '') // unix
       .replace(/dist\\webpack:\\/g, '') // windows
 
@@ -49,7 +48,7 @@ class Youch {
         }
 
         const lines = contents.split(/\r?\n/)
-        const lineNumber = frame.getLineNumber()
+        const lineNumber = frame.line
 
         resolve({
           pre: lines.slice(
@@ -71,9 +70,9 @@ class Youch {
    */
   _parseError () {
     return new Promise((resolve, reject) => {
-      const stack = stackTrace.parse(this.error)
+      const stack = new StackTracey(this.error)
       Promise.all(
-        stack.map(async (frame) => {
+        stack.items.map(async (frame) => {
           if (this._isNode(frame)) {
             return Promise.resolve(frame)
           }
@@ -101,7 +100,7 @@ class Youch {
     }
 
     return {
-      start: frame.getLineNumber() - (frame.context.pre || []).length,
+      start: frame.line - (frame.context.pre || []).length,
       pre: frame.context.pre.join('\n'),
       line: frame.context.line,
       post: frame.context.post.join('\n')
@@ -150,23 +149,16 @@ class Youch {
    * @return {Object}
    */
   _serializeFrame (frame) {
-    const relativeFileName =
-      frame.getFileName().indexOf(process.cwd()) > -1
-        ? frame
-            .getFileName()
-            .replace(process.cwd(), '')
-            .replace(startingSlashRegex, '')
-        : frame.getFileName()
-
     return {
-      file: relativeFileName,
-      filePath: frame.getFileName(),
-      method: frame.getFunctionName(),
-      line: frame.getLineNumber(),
-      column: frame.getColumnNumber(),
+      file: frame.fileRelative,
+      filePath: frame.file,
+      line: frame.line,
+      callee: frame.callee,
+      calleeShort: frame.calleeShort,
+      column: frame.column,
       context: this._getContext(frame),
-      isModule: this._isNodeModule(frame),
-      isNative: this._isNode(frame),
+      isModule: frame.thirdParty,
+      isNative: frame.native,
       isApp: this._isApp(frame)
     }
   }
@@ -178,11 +170,11 @@ class Youch {
    * @return {Boolean} [description]
    */
   _isNode (frame) {
-    if (frame.isNative()) {
+    if (frame.native) {
       return true
     }
 
-    const filename = frame.getFileName() || ''
+    const filename = frame.file || ''
     return !path.isAbsolute(filename) && filename[0] !== '.'
   }
 
@@ -209,7 +201,7 @@ class Youch {
    * @private
    */
   _isNodeModule (frame) {
-    return (frame.getFileName() || '').indexOf('node_modules' + path.sep) > -1
+    return (frame.file || '').indexOf('node_modules' + path.sep) > -1
   }
 
   /**
@@ -230,7 +222,7 @@ class Youch {
       status: this.error.status,
       frames:
         stack instanceof Array === true
-          ? stack.filter((frame) => frame.getFileName()).map(callback)
+          ? stack.filter((frame) => frame.file).map(callback)
           : []
     }
   }

@@ -34,10 +34,9 @@
     }
   },
   "dependencies": {
-    "@types/stack-trace": "0.0.29",
     "cookie": "^0.4.1",
     "mustache": "^4.2.0",
-    "stack-trace": "0.0.10"
+    "stacktracey": "^2.1.7"
   },
   "repository": {
     "type": "git",

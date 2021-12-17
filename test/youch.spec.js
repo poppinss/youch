@@ -21,7 +21,7 @@ test.group('Youch', () => {
     youch
       ._parseError()
       .then((stack) => {
-        assert.equal(stack[0].fileName, __filename)
+        assert.equal(stack[0].file, __filename)
         assert.equal(stack[0].native, false)
         done()
       }).catch(done)
@@ -63,7 +63,7 @@ test.group('Youch', () => {
     youch
       ._parseError()
       .then((stack) => {
-        const frame = stack.find(f => f.fileName.includes('invalid-path'))
+        const frame = stack.find(f => f.file.includes('invalid-path'))
         return youch._getFrameSource(frame)
       })
       .then((source) => {
@@ -83,7 +83,7 @@ test.group('Youch', () => {
     youch
       ._parseError()
       .then((stack) => {
-        const frame = stack.find(f => f.fileName && f.fileName.includes(['dist', 'webpack:'].join(path.sep)))
+        const frame = stack.find(f => f.file && f.file.includes(['dist', 'webpack:'].join(path.sep)))
         return youch._getFrameSource(frame)
       })
       .then((source) => {
@@ -123,7 +123,7 @@ test.group('Youch', () => {
     const error = new Error('this is bar')
     const youch = new Youch(error, {})
     const frame = {
-      getFileName: () => process.platform === 'win32' ? '.\\node_modules\\hello.js' : './node_modules/hello.js'
+      file: process.platform === 'win32' ? '.\\node_modules\\hello.js' : './node_modules/hello.js'
     }
     assert.isTrue(youch._isNodeModule(frame))
   })
