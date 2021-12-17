@@ -78,12 +78,15 @@ test.group('Youch', () => {
     error.stack = error.stack
       .replace(__dirname, path.join(__dirname, ['dist', 'webpack:'].join(path.sep)))
 
+    console.log(error.stack)
     const youch = new Youch(error, {})
 
     youch
       ._parseError()
       .then((stack) => {
-        const frame = stack.find(f => f.file && f.file.includes(['dist', 'webpack:'].join(path.sep)))
+        const frame = stack.find(file => {
+          return file.file && file.file.includes(['dist', 'webpack:'].join(path.sep))
+        })
         return youch._getFrameSource(frame)
       })
       .then((source) => {
