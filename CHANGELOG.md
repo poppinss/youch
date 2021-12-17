@@ -1,3 +1,19 @@
+<a name="3.0.0"></a>
+
+## [3.0.0](https://github.com/poppinss/youch/compare/v2.2.1...v3.0.0) (2021-12-17)
+
+### Breaking change
+
+- `toJSON` method now returns an array of frames with two addtional properties `callee` and `calleeShort` in place of `method`.
+
+### Features
+
+- Make `request` optional for both HTML and JSON output
+
+### Bug fixe
+
+- Syntax errors are now properly reported.
+
 <a name="2.2.1"></a>
 
 ## [2.2.1](https://github.com/poppinss/youch/compare/v2.2.0...v2.2.1) (2021-03-23)
