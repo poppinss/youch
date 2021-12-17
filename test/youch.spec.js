@@ -21,7 +21,7 @@ test.group('Youch', () => {
     youch
       ._parseError()
       .then((stack) => {
-        assert.equal(stack[0].file, __filename)
+        assert.equal(stack[0].file, __filename.replace(/\\/, '/'))
         assert.equal(stack[0].native, false)
         done()
       }).catch(done)
@@ -33,7 +33,7 @@ test.group('Youch', () => {
     youch
       .toJSON()
       .then(({ error }) => {
-        assert.equal(error.frames[0].filePath, __filename)
+        assert.equal(error.frames[0].filePath, __filename.replace(/\\/, '/'))
         assert.equal(error.frames[0].isNative, false)
         done()
       }).catch(done)
