@@ -51,4 +51,5 @@ window.Zepto(function ($) {
 
   displayFirstView()
   showFrameContext($('.frame-row.active')[0])
+  filterFrames()
 })
