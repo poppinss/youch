@@ -25,6 +25,7 @@ Youch is inspired by [Whoops](https://filp.github.io/whoops) but with a modern d
 1. HTML reporter
 2. JSON reporter, if request accepts a json instead of text/html.
 3. Sorted frames of error stack.
+4. Support for ESM.
 
 > Checkout [youch terminal](https://github.com/poppinss/youch-terminal) to beautify errors on terminal.
 
@@ -40,19 +41,16 @@ Youch is used by [AdonisJs](http://adonisjs.com), but it can be used by express 
 const Youch = require('youch')
 const http = require('http')
 
-http.createServer(function (req, res) {
+http.createServer(async function (req, res) {
 
   // PERFORM SOME ACTION
   if (error) {
     const youch = new Youch(error, req)
+    const html = await youch.toHTML()
 
-    youch
-    .toHTML()
-    .then((html) => {
-      res.writeHead(200, {'content-type': 'text/html'})
-      res.write(html)
-      res.end()
-    })
+    res.writeHead(200, {'content-type': 'text/html'})
+    res.write(html)
+    res.end()
   }
 
 }).listen(8000)
@@ -64,12 +62,15 @@ Everytime an error occurs, we can help users we letting search for the error on 
 Youch let you define clickable links to redirect the user to a website with the error message.
 
 ```js
-youch
-.addLink(({ message }) => {
-  const url = `https://stackoverflow.com/search?q=${encodeURIComponent(`[adonis.js] ${message}`)}`
-  return `<a href="${url}" target="_blank" title="Search on stackoverflow">Search stackoverflow</a>`
-})
-.toHTML()
+const youch = new Youch(error)
+
+await youch
+  .addLink(({ message }) => {
+    const url = `https://stackoverflow.com/search?q=${encodeURIComponent(`[adonis.js] ${message}`)}`
+    
+    return `<a href="${url}" target="_blank" title="Search on stackoverflow">Search stackoverflow</a>`
+  })
+  .toHTML()
 ``` 
 
 Also you can make use of [Font awesome brands icons](https://fontawesome.com/icons?d=gallery&s=brands&m=free) to display icons. 
@@ -77,12 +78,14 @@ Also you can make use of [Font awesome brands icons](https://fontawesome.com/ico
 **If you will use fontawesome icons, then Youch will automatically load the CSS files from the font awesome CDN for you.**
 
 ```js
-youch
-.addLink(({ message }) => {
-  const url = `https://stackoverflow.com/search?q=${encodeURIComponent(`[adonis.js] ${message}`)}`
-  return `<a href="${url}" target="_blank" title="Search on stackoverflow"><i class="fab fa-stack-overflow"></i></a>`
-})
-.toHTML()
+const youch = new Youch(error)
+
+await youch
+  .addLink(({ message }) => {
+    const url = `https://stackoverflow.com/search?q=${encodeURIComponent(`[adonis.js] ${message}`)}`
+    return `<a href="${url}" target="_blank" title="Search on stackoverflow"><i class="fab fa-stack-overflow"></i></a>`
+  })
+  .toHTML()
 ```
 
 ## Toggle show all frames checkbox
@@ -91,9 +94,48 @@ When rendering HTML you can call the `toggleShowAllFrames` method to check/unche
 By default, the checkbox is not checked and calling this method once will toggle the state.
 
 ```js
-youch
+const youch = new Youch(error)
+
+await youch
   .toggleShowAllFrames()
   .toHTML()
+```
+
+## Get stack as JSON
+You can also the error stack frames as JSON by calling the `.toJSON` method.
+
+```js
+const youch = new Youch(error, {})
+const jsonResponse = await youch.toJSON()
+```
+
+Following is the shape of the `toJSON` return data type.
+
+```ts
+type JsonResponse = {
+  error: {
+    message: string;
+    name: string;
+    status: number;
+    frames: {
+      file: string,
+      filePath: string,
+      line: number,
+      column: number,
+      callee: string,
+      calleeShort: string,
+      context: {
+        start: number,
+        pre: string,
+        line: string,
+        post: string,
+      },
+      isModule: boolean,
+      isNative: boolean,
+      isApp: boolean
+    }[];
+  };
+}
 ```
 
 ## Release History
