@@ -85,6 +85,17 @@ youch
 .toHTML()
 ```
 
+## Toggle show all frames checkbox
+When rendering HTML you can call the `toggleShowAllFrames` method to check/uncheck the show all frames checkbox.
+
+By default, the checkbox is not checked and calling this method once will toggle the state.
+
+```js
+youch
+  .toggleShowAllFrames()
+  .toHTML()
+```
+
 ## Release History
 Checkout [CHANGELOG.md](CHANGELOG.md) file for release history.
 

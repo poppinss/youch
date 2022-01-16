@@ -26,6 +26,7 @@ class Youch {
     this.error = error
     this.request = request
     this.links = []
+    this.showAllFrames = false
   }
 
   /**
@@ -296,6 +297,14 @@ class Youch {
   }
 
   /**
+   * Toggle the state of showing all frames by default
+   */
+  toggleShowAllFrames() {
+    this.showAllFrames = !this.showAllFrames
+    return this
+  }
+
+  /**
    * Returns error stack as JSON.
    *
    * @return {Promise}
@@ -338,6 +347,7 @@ class Youch {
 
           data.links = this.links.map((renderLink) => renderLink(data))
           data.loadFA = !!data.links.find((link) => link.includes('fa-'))
+          data.showAllFrames = this.showAllFrames
 
           return resolve(this._compileView(viewTemplate, data))
         })

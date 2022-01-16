@@ -30,6 +30,7 @@ http.createServer((req, res) => {
       return `<a href="${url}" target="_blank" title="Search on stackoverflow"><i class="fab fa-stack-overflow"></i>
       </a>`
     })
+    .toggleShowAllFrames()
     .toHTML()
     .then((response) => {
       res.writeHead(200, { 'content-type': 'text/html' })
