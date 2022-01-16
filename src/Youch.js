@@ -13,6 +13,7 @@ const fs = require('fs')
 const path = require('path')
 const cookie = require('cookie')
 const Mustache = require('mustache')
+const { fileURLToPath } = require('url')
 const StackTracey = require('stacktracey')
 const VIEW_PATH = './error.compiled.mustache'
 
@@ -35,12 +36,22 @@ class Youch {
    * @return {Promise}
    */
   _getFrameSource (frame) {
-    const path = frame
+    let path = frame
       .file
       .replace(/dist\/webpack:\//g, '') // unix
       .replace(/dist\\webpack:\\/g, '') // windows
 
-    return new Promise((resolve, reject) => {
+      /**
+       * We ignore the error when "fileURLToPath" is unable to parse
+       * the path, since returning the frame source is an optional
+       * thing
+       */
+      try {
+        path = path.startsWith('file:') ? fileURLToPath(path) : path
+      } catch {
+      }
+
+    return new Promise((resolve) => {
       fs.readFile(path, 'utf-8', (error, contents) => {
         if (error) {
           resolve(null)
@@ -151,7 +162,7 @@ class Youch {
   _serializeFrame (frame) {
     return {
       file: frame.fileRelative,
-      filePath: frame.file,
+      filePath: frame.file.startsWith('file:') ? fileURLToPath(frame.file) : frame.file,
       line: frame.line,
       callee: frame.callee,
       calleeShort: frame.calleeShort,
@@ -175,7 +186,12 @@ class Youch {
     }
 
     const filename = frame.file || ''
-    return !path.isAbsolute(filename) && filename[0] !== '.'
+    if (filename.startsWith('node:')) {
+      return true
+    }
+    return false
+
+    // return !path.isAbsolute(filename) && filename[0] !== '.'
   }
 
   /**
