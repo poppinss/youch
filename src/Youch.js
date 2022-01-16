@@ -42,15 +42,15 @@ class Youch {
       .replace(/dist\/webpack:\//g, '') // unix
       .replace(/dist\\webpack:\\/g, '') // windows
 
-      /**
+    /**
        * We ignore the error when "fileURLToPath" is unable to parse
        * the path, since returning the frame source is an optional
        * thing
        */
-      try {
-        path = path.startsWith('file:') ? fileURLToPath(path) : path
-      } catch {
-      }
+    try {
+      path = path.startsWith('file:') ? fileURLToPath(path) : path
+    } catch {
+    }
 
     return new Promise((resolve) => {
       fs.readFile(path, 'utf-8', (error, contents) => {
@@ -299,7 +299,7 @@ class Youch {
   /**
    * Toggle the state of showing all frames by default
    */
-  toggleShowAllFrames() {
+  toggleShowAllFrames () {
     this.showAllFrames = !this.showAllFrames
     return this
   }
