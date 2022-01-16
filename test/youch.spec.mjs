@@ -38,7 +38,7 @@ test.group('Youch', () => {
     youch
       .toJSON()
       .then(({ error }) => {
-        assert.equal(error.frames[0].filePath, __filename.replace(/\\/g, '/'))
+        assert.equal(error.frames[0].filePath, __filename)
         assert.equal(error.frames[0].isNative, false)
         done()
       }).catch(done)
@@ -62,6 +62,8 @@ test.group('Youch', () => {
   // there are many reasons why the filepath in the stack does not exist.
   test('does not error on non-existing files', (assert, done) => {
     const error = new Error('this is bar')
+    console.log(error.stack)
+    console.log(__dirname)
     error.stack = error.stack.replace(__dirname, 'invalid-path')
     const youch = new Youch(error, {})
 
