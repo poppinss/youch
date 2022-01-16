@@ -25,7 +25,7 @@
     "cz-conventional-changelog": "^3.3.0",
     "japa": "^4.0.0",
     "standard": "^16.0.4",
-    "supertest": "^6.1.6",
+    "supertest": "^6.2.1",
     "uglify-js": "^3.14.5"
   },
   "config": {
@@ -36,7 +36,7 @@
   "dependencies": {
     "cookie": "^0.4.1",
     "mustache": "^4.2.0",
-    "stacktracey": "^2.1.7"
+    "stacktracey": "^2.1.8"
   },
   "repository": {
     "type": "git",
