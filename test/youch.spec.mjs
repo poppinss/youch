@@ -12,7 +12,7 @@ const DEFAULT_PORT = 8000
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-test.group('Youch', () => {
+test.group('Youch | ESM', () => {
   test('initiate a new instance by passing error object', (assert) => {
     const error = new Error('foo')
     const youch = new Youch(error, {})
@@ -62,9 +62,7 @@ test.group('Youch', () => {
   // there are many reasons why the filepath in the stack does not exist.
   test('does not error on non-existing files', (assert, done) => {
     const error = new Error('this is bar')
-    console.log(error.stack)
-    console.log(__dirname)
-    error.stack = error.stack.replace(__dirname, 'invalid-path')
+    error.stack = error.stack.replace(__dirname.replace(/\\/g, '/'), 'invalid-path')
     const youch = new Youch(error, {})
 
     youch
@@ -83,7 +81,7 @@ test.group('Youch', () => {
   test('parse common Webpack scenario', (assert, done) => {
     const error = new Error('this is bar')
     error.stack = error.stack
-      .replace(__dirname, path.join(__dirname, ['dist', 'webpack:'].join(path.sep)))
+      .replace(__dirname.replace(/\\/g, '/'), path.join(__dirname.replace(/\\/g, '/'), ['dist', 'webpack:'].join(path.sep)))
 
     const youch = new Youch(error, {})
 
