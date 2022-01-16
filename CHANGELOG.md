@@ -1,3 +1,12 @@
+<a name="3.1.0"></a>
+
+## [3.1.0](https://github.com/poppinss/youch/compare/v3.0.0...v3.1.0) (2022-01-16)
+
+### Features
+
+- Add support for ESM stack traces. For ESM the file paths are URLs prefixed with the `file:///`.
+- Add support for toggling the "show all frames" checkbox.
+
 <a name="3.0.0"></a>
 
 ## [3.0.0](https://github.com/poppinss/youch/compare/v2.2.1...v3.0.0) (2021-12-17)
@@ -10,7 +19,7 @@
 
 - Make `request` optional for both HTML and JSON output
 
-### Bug fixe
+### Bug fixes
 
 - Syntax errors are now properly reported.
 
