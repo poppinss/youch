@@ -26,7 +26,7 @@
     "japa": "^4.0.0",
     "standard": "^16.0.4",
     "supertest": "^6.2.2",
-    "uglify-js": "^3.15.1"
+    "uglify-js": "^3.15.3"
   },
   "config": {
     "commitizen": {
