@@ -3,6 +3,12 @@ declare module "youch" {
     constructor(error: Error, request: Request);
 
     /**
+     * How many lines should be displayed around the
+     * error line of the stack trace.
+     */
+    codeContext: number;
+
+    /**
      * Stores the link `callback` which
      * will be processed when rendering
      * the HTML view.
@@ -18,21 +24,21 @@ declare module "youch" {
         name: string;
         status: number;
         frames: {
-          file: string,
-          filePath: string,
-          line: number,
-          column: number,
-          callee: string,
-          calleeShort: string,
+          file: string;
+          filePath: string;
+          line: number;
+          column: number;
+          callee: string;
+          calleeShort: string;
           context: {
-            start: number,
-            pre: string,
-            line: string,
-            post: string,
-          },
-          isModule: boolean,
-          isNative: boolean,
-          isApp: boolean
+            start: number;
+            pre: string;
+            line: string;
+            post: string;
+          };
+          isModule: boolean;
+          isNative: boolean;
+          isApp: boolean;
         }[];
       };
     }>;
