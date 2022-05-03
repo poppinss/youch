@@ -1,3 +1,7 @@
+<a name="3.2.0"></a>
+
+## [3.1.2](https://github.com/poppinss/youch/compare/v3.1.1...v3.2.0) (2022-05-03)
+
 <a name="3.1.1"></a>
 
 ## [3.1.1](https://github.com/poppinss/youch/compare/v3.1.0...v3.1.1) (2022-02-22)
