@@ -20,8 +20,11 @@ const VIEW_PATH = './error.compiled.mustache'
 const viewTemplate = fs.readFileSync(path.join(__dirname, VIEW_PATH), 'utf-8')
 
 class Youch {
-  constructor (error, request) {
-    this.codeContext = 5
+  constructor (error, request, options = {}) {
+    this.options = options
+    this.options.postLines = options.postLines || 5
+    this.options.preLines = options.preLines || 5
+
     this._filterHeaders = ['cookie', 'connection']
     this.error = error
     this.request = request
@@ -64,11 +67,11 @@ class Youch {
 
         resolve({
           pre: lines.slice(
-            Math.max(0, lineNumber - (this.codeContext + 1)),
+            Math.max(0, lineNumber - (this.options.preLines + 1)),
             lineNumber - 1
           ),
           line: lines[lineNumber - 1],
-          post: lines.slice(lineNumber, lineNumber + this.codeContext)
+          post: lines.slice(lineNumber, lineNumber + this.options.postLines)
         })
       })
     })

@@ -179,4 +179,43 @@ test.group('Youch | ESM', () => {
       done()
     })
   })
+
+  test('preLines/postLines should be affect number of frame context lines', (assert, done) => {
+    const error = new Error('this is bar')
+
+    const youch = new Youch(error, {}, {
+      preLines: 2,
+      postLines: 4
+    })
+
+    youch
+      ._parseError()
+      .then((stack) => {
+        const frame = stack[0]
+        const context = youch._getContext(frame)
+
+        assert.equal(context.pre.split('\n').length, 2)
+        assert.equal(context.post.split('\n').length, 4)
+        done()
+      })
+      .catch(done)
+  })
+
+  test('default preLines/postLines should be 5', (assert, done) => {
+    const error = new Error('this is bar')
+
+    const youch = new Youch(error, {})
+
+    youch
+      ._parseError()
+      .then((stack) => {
+        const frame = stack[0]
+        const context = youch._getContext(frame)
+
+        assert.equal(context.pre.split('\n').length, 5)
+        assert.equal(context.post.split('\n').length, 5)
+        done()
+      })
+      .catch(done)
+  })
 })
