@@ -24,9 +24,9 @@
     "concat": "^1.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "japa": "^4.0.0",
-    "standard": "^16.0.4",
-    "supertest": "^6.2.2",
-    "uglify-js": "^3.15.3"
+    "standard": "^17.0.0",
+    "supertest": "^6.2.3",
+    "uglify-js": "^3.15.4"
   },
   "config": {
     "commitizen": {
@@ -34,7 +34,7 @@
     }
   },
   "dependencies": {
-    "cookie": "^0.4.2",
+    "cookie": "^0.5.0",
     "mustache": "^4.2.0",
     "stacktracey": "^2.1.8"
   },
