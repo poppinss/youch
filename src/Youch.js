@@ -276,8 +276,8 @@ class Youch {
       httpVersion: this.request.httpVersion,
       method: this.request.method,
       connection: this.request.headers.connection,
-      headers: headers,
-      cookies: cookies
+      headers,
+      cookies
     }
   }
 
