@@ -1,12 +1,21 @@
 declare module "youch" {
-  class Youch<Error, Request> {
-    constructor(error: Error, request: Request);
+
+  interface YouchOptionsContract {
+    /**
+     * Number of lines to be displayed above the error
+     * in the stack trace.
+     */
+    preLines?: number;
 
     /**
-     * How many lines should be displayed around the
-     * error line of the stack trace.
+     * Number of lines to be displayed below the error
+     * in the stack trace.
      */
-    codeContext: number;
+    postLines?: number;
+  }
+
+  class Youch<Error, Request> {
+    constructor(error: Error, request: Request, options?: YouchOptionsContract);
 
     /**
      * Stores the link `callback` which
