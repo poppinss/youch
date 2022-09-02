@@ -166,7 +166,9 @@ class Youch {
   _serializeFrame (frame) {
     return {
       file: frame.fileRelative,
-      filePath: frame.file.startsWith('file:') ? fileURLToPath(frame.file) : frame.file,
+      filePath: frame.file.startsWith('file:') ? 
+        fileURLToPath(frame.file).replaceAll('\\', '/') : 
+        frame.file,
       line: frame.line,
       callee: frame.callee,
       calleeShort: frame.calleeShort,
