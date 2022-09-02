@@ -25,8 +25,8 @@
     "cz-conventional-changelog": "^3.3.0",
     "japa": "^4.0.0",
     "standard": "^17.0.0",
-    "supertest": "^6.2.3",
-    "uglify-js": "^3.15.4"
+    "supertest": "^6.2.4",
+    "uglify-js": "^3.17.0"
   },
   "config": {
     "commitizen": {
