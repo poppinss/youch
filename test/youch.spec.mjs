@@ -38,7 +38,7 @@ test.group('Youch | ESM', () => {
     youch
       .toJSON()
       .then(({ error }) => {
-        assert.equal(error.frames[0].filePath, __filename)
+        assert.equal(error.frames[0].filePath, __filename.replaceAll('\\', '/'))
         assert.equal(error.frames[0].isNative, false)
         done()
       }).catch(done)
