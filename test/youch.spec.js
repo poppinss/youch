@@ -125,7 +125,7 @@ test.group('Youch', () => {
     const error = new Error('this is bar')
     const youch = new Youch(error, {})
     const frame = {
-      file: process.platform === 'win32' ? '.\\node_modules\\hello.js' : './node_modules/hello.js'
+      file: './node_modules/hello.js'
     }
     assert.isTrue(youch._isNodeModule(frame))
   })
