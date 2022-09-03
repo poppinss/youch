@@ -223,7 +223,7 @@ class Youch {
    * @private
    */
   _isNodeModule (frame) {
-    return (frame.file || '').indexOf('node_modules' + path.sep) > -1
+    return (frame.file || '').indexOf('node_modules/') > -1
   }
 
   /**
