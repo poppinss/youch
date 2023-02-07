@@ -31,6 +31,8 @@ declare module "youch" {
       error: {
         message: string;
         name: string;
+        cause?: any;
+        help?: any;
         status: number;
         frames: {
           file: string;

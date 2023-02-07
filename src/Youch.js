@@ -240,6 +240,8 @@ class Youch {
     callback = callback || this._serializeFrame.bind(this)
     return {
       message: this.error.message,
+      help: this.error.help,
+      cause: this.error.cause,
       name: this.error.name,
       status: this.error.status,
       frames:

@@ -213,4 +213,32 @@ test.group('Youch', () => {
       })
       .catch(done)
   })
+
+  test('serialize error cause', (assert, done) => {
+    const cause = new Error('The main error')
+    const error = new Error('foo', { cause })
+    const youch = new Youch(error, {})
+    youch
+      .toJSON()
+      .then(({ error }) => {
+        assert.equal(error.frames[0].filePath, __filename.replace(/\\/g, '/'))
+        assert.equal(error.frames[0].isNative, false)
+        assert.strictEqual(error.cause, cause)
+        done()
+      }).catch(done)
+  })
+
+  test('serialize error help', (assert, done) => {
+    const error = new Error('foo')
+    error.help = ['This is the error help text']
+    const youch = new Youch(error, {})
+    youch
+      .toJSON()
+      .then(({ error }) => {
+        assert.equal(error.frames[0].filePath, __filename.replace(/\\/g, '/'))
+        assert.equal(error.frames[0].isNative, false)
+        assert.deepEqual(error.help, ['This is the error help text'])
+        done()
+      }).catch(done)
+  })
 })
