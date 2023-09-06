@@ -157,7 +157,7 @@ Checkout [CHANGELOG.md](CHANGELOG.md) file for release history.
 Checkout [LICENSE.md](LICENSE.md) for license information
 Harminder Virk (Aman) - [https://github.com/thetutlage](https://github.com/thetutlage)
 
-[gh-workflow-image]: https://img.shields.io/github/workflow/status/poppinss/youch/test?style=for-the-badge
+[gh-workflow-image]: https://img.shields.io/github/actions/workflow/status/poppinss/youch/test.yml?style=for-the-badge
 [gh-workflow-url]: https://github.com/poppinss/youch/actions/workflows/test.yml "Github action"
 
 [npm-image]: https://img.shields.io/npm/v/youch.svg?style=for-the-badge&logo=npm
