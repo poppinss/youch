@@ -259,27 +259,32 @@ class Youch {
    */
   _serializeRequest () {
     const headers = []
+    const cookies = []
 
-    Object.keys(this.request.headers).forEach((key) => {
-      if (this._filterHeaders.indexOf(key) > -1) {
-        return
-      }
-      headers.push({
-        key: key.toUpperCase(),
-        value: this.request.headers[key]
+    if (this.request.headers) {
+      Object.keys(this.request.headers).forEach((key) => {
+        if (this._filterHeaders.indexOf(key) > -1) {
+          return
+        }
+        headers.push({
+          key: key.toUpperCase(),
+          value: this.request.headers[key]
+        })
       })
-    })
 
-    const parsedCookies = cookie.parse(this.request.headers.cookie || '')
-    const cookies = Object.keys(parsedCookies).map((key) => {
-      return { key, value: parsedCookies[key] }
-    })
+      if (this.request.headers.cookie) {
+        const parsedCookies = cookie.parse(this.request.headers.cookie || '')
+        Object.keys(parsedCookies).forEach((key) => {
+          cookies.push({ key, value: parsedCookies[key] })
+        })
+      }
+    }
 
     return {
       url: this.request.url,
       httpVersion: this.request.httpVersion,
       method: this.request.method,
-      connection: this.request.headers.connection,
+      connection: this.request.headers ? this.request.headers.connection : null,
       headers,
       cookies
     }
@@ -335,7 +340,7 @@ class Youch {
    *
    * @return {Promise}
    */
-  toHTML () {
+  toHTML (templateState) {
     return new Promise((resolve, reject) => {
       this._parseError()
         .then((stack) => {
@@ -347,6 +352,10 @@ class Youch {
             )
             return serializedFrame
           })
+
+          if (templateState) {
+            Object.assign(data, templateState)
+          }
 
           if (this.request) {
             data.request = this._serializeRequest()

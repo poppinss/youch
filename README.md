@@ -101,6 +101,18 @@ await youch
   .toHTML()
 ```
 
+## Adding CSP nonce
+Youch HTML output outputs inline `style` and `script` tags and therefore you will have add `nonce` attribute to them when you have enabled CSP on your website.
+
+You can pass the `cspNonce` property to the `toHTML` method at the time of rendering the error to an HTML output.
+
+```js
+const youch = new Youch(error, req)
+const html = await youch.toHTML({
+  cspNonce: 'nonce-value'
+})
+```
+
 ## Get stack as JSON
 You can also the error stack frames as JSON by calling the `.toJSON` method.
 

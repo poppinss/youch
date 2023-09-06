@@ -241,4 +241,29 @@ test.group('Youch', () => {
         done()
       }).catch(done)
   })
+
+  test('convert error to HTML', (assert, done) => {
+    const error = new Error('foo')
+    const youch = new Youch(error, {})
+    youch
+      .toHTML()
+      .then((html) => {
+        assert.isTrue(html.startsWith('<!DOCTYPE html>'))
+        assert.isFalse(html.includes('<script type="text/javascript" nonce="foo">'))
+        assert.isFalse(html.includes('<style type="text/css" nonce="foo">'))
+        done()
+      }).catch(done)
+  })
+
+  test('pass csp nonce to script and style tags', (assert, done) => {
+    const error = new Error('foo')
+    const youch = new Youch(error, {})
+    youch
+      .toHTML({ cspNonce: 'foo' })
+      .then((html) => {
+        assert.isTrue(html.includes('<script type="text/javascript" nonce="foo">'))
+        assert.isTrue(html.includes('<style type="text/css" nonce="foo">'))
+        done()
+      }).catch(done)
+  })
 })

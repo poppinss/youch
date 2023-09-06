@@ -9,7 +9,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/fontawesome.css" integrity="sha384-1rquJLNOM3ijoueaaeS5m+McXPJCGdr5HcA03/VHXxcp2kX2sUrQDmFc3jR5i/C7" crossorigin="anonymous">
   {{/loadFA}}
 
+  {{#cspNonce}}
+  <style type="text/css" nonce="{{ cspNonce }}">
+  {{/cspNonce}}
+  {{^cspNonce}}
   <style type="text/css">
+  {{/cspNonce}}
     [[__css__]]
   </style>
 
@@ -119,7 +124,12 @@
       </section>
     {{/request}}
   </section>
+  {{#cspNonce}}
+  <script type="text/javascript" nonce="{{ cspNonce }}">
+  {{/cspNonce}}
+  {{^cspNonce}}
   <script type="text/javascript">
+  {{/cspNonce}}
     [[__js__]]
   </script>
 </body>
