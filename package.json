@@ -1,6 +1,6 @@
 {
   "name": "youch",
-  "version": "3.2.3",
+  "version": "3.3.0",
   "description": "HTML Pretty error stack viewer",
   "main": "src/Youch.js",
   "files": [
