@@ -59,7 +59,7 @@ declare module "youch" {
      * by parsing the stack into frames and getting
      * important info out of it.
      */
-    toHTML(): Promise<string>;
+    toHTML(data: Record<string, any>): Promise<string>;
   }
 
   export default Youch;
