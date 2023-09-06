@@ -15,6 +15,7 @@ const cookie = require('cookie')
 const Mustache = require('mustache')
 const { fileURLToPath } = require('url')
 const StackTracey = require('stacktracey')
+const { serialize } = require('v8')
 const VIEW_PATH = './error.compiled.mustache'
 
 const viewTemplate = fs.readFileSync(path.join(__dirname, VIEW_PATH), 'utf-8')
@@ -131,17 +132,13 @@ class Youch {
    *
    * @return {String}
    */
-  _getDisplayClasses (frame, index) {
+  _getDisplayClasses (frame) {
     const classes = []
-    if (index === 0) {
-      classes.push('active')
-    }
-
     if (!frame.isApp) {
       classes.push('native-frame')
     }
 
-    return classes.join(' ')
+    return classes
   }
 
   /**
@@ -344,12 +341,22 @@ class Youch {
     return new Promise((resolve, reject) => {
       this._parseError()
         .then((stack) => {
+          let foundActiveFrame = false
+
           const data = this._serializeData(stack, (frame, index) => {
             const serializedFrame = this._serializeFrame(frame)
-            serializedFrame.classes = this._getDisplayClasses(
-              serializedFrame,
-              index
-            )
+            const classes = this._getDisplayClasses(serializedFrame)
+
+            /**
+             * Adding active class to first app framework
+             */
+            if (!foundActiveFrame && (serializedFrame.isApp || index + 1 === stack.length)) {
+              classes.push('active')
+              foundActiveFrame = true
+            }
+
+            serializedFrame.classes = classes.join(' ')
+
             return serializedFrame
           })
 
