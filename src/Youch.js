@@ -56,6 +56,10 @@ class Youch {
     } catch {
     }
 
+    if (!path) {
+      return Promise.resolve(null)
+    }
+
     return new Promise((resolve) => {
       fs.readFile(path, 'utf-8', (error, contents) => {
         if (error) {
