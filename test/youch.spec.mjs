@@ -102,18 +102,6 @@ test.group('Youch | ESM', () => {
       .catch(done)
   })
 
-  test('return active class when index is 0', (assert) => {
-    const error = new Error('this is bar')
-    const youch = new Youch(error, {})
-    const frame = {
-      isApp: true,
-      getFileName: () => './hello.js'
-    }
-
-    const classes = youch._getDisplayClasses(frame, 0)
-    assert.equal(classes, 'active')
-  })
-
   test('return native frame class when frame is native', (assert) => {
     const error = new Error('this is bar')
     const youch = new Youch(error, {})
@@ -123,7 +111,7 @@ test.group('Youch | ESM', () => {
     }
 
     const classes = youch._getDisplayClasses(frame, 0)
-    assert.equal(classes, 'active native-frame')
+    assert.deepEqual(classes, ['native-frame'])
   })
 
   test('find if frame is a node_module or not', (assert) => {
