@@ -15,9 +15,8 @@ const cookie = require('cookie')
 const Mustache = require('mustache')
 const { fileURLToPath } = require('url')
 const StackTracey = require('stacktracey')
-const { serialize } = require('v8')
-const VIEW_PATH = './error.compiled.mustache'
 
+const VIEW_PATH = './error.compiled.mustache'
 const viewTemplate = fs.readFileSync(path.join(__dirname, VIEW_PATH), 'utf-8')
 
 class Youch {
