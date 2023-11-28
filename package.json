@@ -34,7 +34,7 @@
     }
   },
   "dependencies": {
-    "cookie": "^0.5.0",
+    "cookie": "^0.6.0",
     "mustache": "^4.2.0",
     "stacktracey": "^2.1.8"
   },
