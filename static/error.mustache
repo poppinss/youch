@@ -35,12 +35,6 @@
       </div>
 
       <div class="error-frames">
-        {{!-- Filled using frontend code, based upon the active frame --}}
-        <div class="frame-preview is-hidden">
-          <div id="frame-file"></div>
-          <div id="frame-code"><pre class="line-numbers"><code class="language-js" id="code-drop"></code></pre></div>
-          <div id="frame-method"></div>
-        </div>
 
         <div class="frame-stack">
           <div class="frames-filter-selector">
@@ -71,6 +65,13 @@
               </div>
             {{/frames}}
           </div>
+        </div>
+
+        {{!-- Filled using frontend code, based upon the active frame --}}
+        <div class="frame-preview is-hidden">
+          <div id="frame-file"></div>
+          <div id="frame-code"><pre class="line-numbers"><code class="language-js" id="code-drop"></code></pre></div>
+          <div id="frame-method"></div>
         </div>
       </div>
     </section>

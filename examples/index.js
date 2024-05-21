@@ -10,7 +10,7 @@ class HttpException extends Error {
   }
 }
 
-function foo () {
+function foofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoo () {
   const error = new HttpException('Some weird error')
   error.status = 503
   throw error
@@ -19,7 +19,7 @@ function foo () {
 http.createServer((req, res) => {
   let youch = null
   try {
-    foo()
+    foofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoofoo()
   } catch (e) {
     youch = new Youch(e, req)
   }

@@ -488,12 +488,13 @@ body {
 
 .error-frames {
   display: flex;
-  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  gap: 40px;
 }
 
 .frame-preview {
   background: #fff;
-  width: 50%;
+  flex: 1 1 400px;
   box-shadow: 0px 0px 9px #d3d3d3;
   height: 100%;
   box-sizing: border-box;
@@ -501,8 +502,7 @@ body {
 }
 
 .frame-stack {
-  margin-right: 40px;
-  flex: 1;
+  flex: 1 1 300px;
   padding: 10px 0;
   box-sizing: border-box;
 }
@@ -632,19 +632,7 @@ code[class*="language-"], pre[class*="language-"] {
   display: none;
 }
 
-@media only screen and (max-width: 970px) {
-  .error-frames {
-    flex-direction: column-reverse;
-  }
 
-  .frame-preview {
-    width: 100%;
-  }
-
-  .frame-stack {
-    width: 100%;
-  }
-}
 
   </style>
 
@@ -665,12 +653,6 @@ code[class*="language-"], pre[class*="language-"] {
       </div>
 
       <div class="error-frames">
-        {{!-- Filled using frontend code, based upon the active frame --}}
-        <div class="frame-preview is-hidden">
-          <div id="frame-file"></div>
-          <div id="frame-code"><pre class="line-numbers"><code class="language-js" id="code-drop"></code></pre></div>
-          <div id="frame-method"></div>
-        </div>
 
         <div class="frame-stack">
           <div class="frames-filter-selector">
@@ -701,6 +683,13 @@ code[class*="language-"], pre[class*="language-"] {
               </div>
             {{/frames}}
           </div>
+        </div>
+
+        {{!-- Filled using frontend code, based upon the active frame --}}
+        <div class="frame-preview is-hidden">
+          <div id="frame-file"></div>
+          <div id="frame-code"><pre class="line-numbers"><code class="language-js" id="code-drop"></code></pre></div>
+          <div id="frame-method"></div>
         </div>
       </div>
     </section>
