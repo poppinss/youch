@@ -87,12 +87,14 @@ body {
   height: 100%;
   box-sizing: border-box;
   overflow: auto;
+  width: 100%;
 }
 
 .frame-stack {
   flex: 1 1 300px;
   padding: 10px 0;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .frames-list {
