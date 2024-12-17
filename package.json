@@ -16,7 +16,7 @@
   "exports": {
     ".": "./build/index.js",
     "./types": "./build/src/types.js",
-    "./templates/*": "./build/templates/*/main.js"
+    "./templates/*": "./build/src/templates/*/main.js"
   },
   "scripts": {
     "pretest": "npm run lint",
