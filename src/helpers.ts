@@ -72,7 +72,7 @@ export function stripAnsi(value: string) {
 }
 
 /**
- * Return line to add event handler of an element as a listener
+ * Returns line to add event handler of an element as a listener
  */
 export function getAddEventListenerLine({
   id,
