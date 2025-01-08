@@ -32,7 +32,7 @@ test.group('Templates', () => {
       'Something went wrong'
     )
     expect(window.document.querySelector('#event-handlers-script')?.textContent?.trim()).toEqual(
-      'document.getElementById("toggle-theme-checkbox").addEventListener("change",function(){toggleTheme(this)});document.getElementById("formatted-frames").addEventListener("click",function(){showFormattedFrames(this)});document.getElementById("raw-frames").addEventListener("click",function(){showRawFrames(this)});document.getElementById("stack-frame-toggle-indicator-0").addEventListener("click",function(event){toggleFrameSource(event,\'frame-1\')});document.getElementById("stack-frame-location-1").addEventListener("click",function(event){toggleFrameSource(event,\'frame-1\')});'
+      'document.getElementById("toggle-theme-checkbox").addEventListener("change",function(){toggleTheme(this)});document.getElementById("formatted-frames").addEventListener("click",function(){showFormattedFrames(this)});document.getElementById("raw-frames").addEventListener("click",function(){showRawFrames(this)});document.getElementById("stack-frame-toggle-indicator-1").addEventListener("click",function(event){toggleFrameSource(event,\'frame-1\')});document.getElementById("stack-frame-location-1").addEventListener("click",function(event){toggleFrameSource(event,\'frame-1\')});'
     )
     expect(window.document.querySelector('#error-hint')).toEqual(null)
   })
