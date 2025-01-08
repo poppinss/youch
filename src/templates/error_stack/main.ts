@@ -151,7 +151,7 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
     let toggleButton = ''
 
     if (frame.type !== 'native' && frame.source) {
-      const toggleButtonId = `stack-frame-toggle-indicator-${index}`
+      const toggleButtonId = `stack-frame-toggle-indicator-${frameIndex}`
 
       this.eventHandlers.push(
         getAddEventListenerLine({
