@@ -15,6 +15,7 @@ import { readFile } from 'node:fs/promises'
  */
 export abstract class BaseComponent<Props = undefined> {
   declare $props: Props
+  eventHandlers?: string[]
   #cachedStyles?: string
   #cachedScript?: string
 

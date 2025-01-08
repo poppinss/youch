@@ -13,7 +13,7 @@ import { dump as dumpCli } from '@poppinss/dumper/console'
 
 import { publicDirURL } from '../../public_dir.js'
 import { BaseComponent } from '../../component.js'
-import { htmlEscape, colors } from '../../helpers.js'
+import { htmlEscape, colors, getAddEventListenerLine } from '../../helpers.js'
 import type { ErrorStackProps } from '../../types.js'
 
 const CHEVIRON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
@@ -41,7 +41,16 @@ const EDITORS: Record<string, string> = {
 export class ErrorStack extends BaseComponent<ErrorStackProps> {
   cssFile = new URL('./error_stack/style.css', publicDirURL)
   scriptFile = new URL('./error_stack/script.js', publicDirURL)
-
+  eventHandlers = [
+    getAddEventListenerLine({
+      id: 'formatted-frames',
+      handler: `function(){showFormattedFrames(this)}`,
+    }),
+    getAddEventListenerLine({
+      id: 'raw-frames',
+      handler: `function(){showRawFrames(this)}`,
+    }),
+  ]
   /**
    * Returns the file's relative name from the CWD
    */
@@ -91,7 +100,7 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
   /**
    * Returns the HTML fragment for the frame location
    */
-  #renderFrameLocation(frame: StackFrame, id: string, ide: string) {
+  #renderFrameLocation(frame: StackFrame, id: string, ide: string, index: number) {
     const { text, href } = this.#getEditorLink(ide, frame)
 
     const fileName = `<a ${href ? `href="${href}"` : ''} class="stack-frame-filepath" title="${text}">
@@ -107,7 +116,16 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
     const loc = `<span>at line <code>${frame.lineNumber}:${frame.columnNumber}</code></span>`
 
     if (frame.type !== 'native' && frame.source) {
-      return `<button class="stack-frame-location" onclick="toggleFrameSource(event, '${id}')">
+      const locationId = `stack-frame-location-${index}`
+
+      this.eventHandlers.push(
+        getAddEventListenerLine({
+          id: locationId,
+          handler: `function(event){toggleFrameSource(event,'${id}')}`,
+        })
+      )
+
+      return `<button class="stack-frame-location" id="${locationId}">
         ${fileName} ${functionName} ${loc}
       </button>`
     }
@@ -126,19 +144,30 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
     expandAtIndex: number,
     props: ErrorStackProps
   ) {
-    const id = `frame-${index + 1}`
+    const frameIndex = index + 1
+    const id = `frame-${frameIndex}`
     const label = frame.type === 'app' ? '<span class="frame-label">In App</span>' : ''
     const expandedClass = expandAtIndex === index ? 'expanded' : ''
-    const toggleButton =
-      frame.type !== 'native' && frame.source
-        ? `<button class="stack-frame-toggle-indicator" onclick="toggleFrameSource(event, '${id}')">
+    let toggleButton = ''
+
+    if (frame.type !== 'native' && frame.source) {
+      const toggleButtonId = `stack-frame-toggle-indicator-${index}`
+
+      this.eventHandlers.push(
+        getAddEventListenerLine({
+          id: toggleButtonId,
+          handler: `function(event){toggleFrameSource(event,'${id}')}`,
+        })
+      )
+
+      toggleButton = `<button class="stack-frame-toggle-indicator" id="${toggleButtonId}">
           ${CHEVIRON}
         </button>`
-        : ''
+    }
 
     return `<li class="stack-frame ${expandedClass} stack-frame-${frame.type}" id="${id}">
       <div class="stack-frame-contents">
-        ${this.#renderFrameLocation(frame, id, props.ide)}
+        ${this.#renderFrameLocation(frame, id, props.ide, frameIndex)}
         <div class="stack-frame-extras">
           ${label}
           ${toggleButton}
@@ -204,8 +233,8 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
           </div>
           <div>
             <div class="toggle-switch">
-              <button onclick="showFormattedFrames(this)" class="active"> Pretty </button>
-              <button onclick="showRawFrames(this)"> Raw </button>
+              <button id="formatted-frames" class="active"> Pretty </button>
+              <button id="raw-frames"> Raw </button>
             </div>
           </div>
         </div>

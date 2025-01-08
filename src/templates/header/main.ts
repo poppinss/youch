@@ -8,6 +8,7 @@
  */
 
 import { BaseComponent } from '../../component.js'
+import { getAddEventListenerLine } from '../../helpers.js'
 import { publicDirURL } from '../../public_dir.js'
 import type { ComponentSharedProps } from '../../types.js'
 
@@ -24,6 +25,18 @@ export class Header extends BaseComponent<ComponentSharedProps> {
   scriptFile = new URL('./header/script.js', publicDirURL)
 
   /**
+   * List of header event handlers to add in the generated HTML
+   * and respond to user actions
+   */
+  eventHandlers = [
+    getAddEventListenerLine({
+      id: 'toggle-theme-checkbox',
+      handler: 'function(){toggleTheme(this)}',
+      event: 'change',
+    }),
+  ]
+
+  /**
    * The toHTML method is used to output the HTML for the
    * web view
    */
@@ -31,7 +44,7 @@ export class Header extends BaseComponent<ComponentSharedProps> {
     return `<header id="header">
       <div id="header-actions">
         <div id="toggle-theme-container">
-          <input type="checkbox" id="toggle-theme-checkbox" onchange="toggleTheme(this)" />
+          <input type="checkbox" id="toggle-theme-checkbox" />
           <label id="toggle-theme-label" for="toggle-theme-checkbox">
             <span id="light-theme-indicator" title="Light mode">${LIGHT_MODE_SVG}</span>
             <span id="dark-theme-indicator" title="Dark mode">${DARK_MODE_SVG}</span>

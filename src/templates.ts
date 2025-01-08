@@ -87,6 +87,10 @@ export class Templates {
       scripts.push(`<script id="${name}-script"${cspNonceAttr}>${bucket}</script>`)
     })
 
+    scripts.push(
+      `<script id="event-handlers-script"${cspNonceAttr}>${this.#knownTemplates.header.eventHandlers?.join('') || ''}${this.#knownTemplates.errorStack.eventHandlers?.join('') || ''}</script>`
+    )
+
     return { styles: `${styles.join('\n')}\n${injectedStyles}`, scripts: scripts.join('\n') }
   }
 
@@ -199,6 +203,7 @@ export class Templates {
         })
         const cause = await this.#tmplToHTML('errorCause', props)
         const metadata = await this.#tmplToHTML('errorMetadata', props)
+
         return `${header}${info}${stackTrace}${cause}${metadata}`
       },
     })
