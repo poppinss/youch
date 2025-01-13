@@ -80,7 +80,7 @@ test.group('Templates', () => {
           "        toggleFrameSource(e, this.id.replace('stack-frame-toggle-indicator-', 'frame-'))\n" +
           '      }\n' +
           '    )\n' +
-          '  });'
+          '  })'
       )
     )
     expect(window.document.querySelector('#error-hint')).toEqual(null)
