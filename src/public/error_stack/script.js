@@ -76,4 +76,4 @@ document
         toggleFrameSource(e, this.id.replace('stack-frame-toggle-indicator-', 'frame-'))
       }
     )
-  });
+  })
