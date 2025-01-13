@@ -72,21 +72,6 @@ export function stripAnsi(value: string) {
 }
 
 /**
- * Returns line to add event handler of an element as a listener
- */
-export function getAddEventListenerLine({
-  id,
-  handler,
-  event = 'click',
-}: {
-  id: string
-  handler: string
-  event?: string
-}) {
-  return `document.getElementById("${id}").addEventListener("${event}",${handler});`
-}
-
-/**
  * ANSI coloring library
  */
 export const colors: Colors = useColors.ansi()

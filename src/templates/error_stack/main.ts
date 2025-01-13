@@ -13,7 +13,7 @@ import { dump as dumpCli } from '@poppinss/dumper/console'
 
 import { publicDirURL } from '../../public_dir.js'
 import { BaseComponent } from '../../component.js'
-import { htmlEscape, colors, getAddEventListenerLine } from '../../helpers.js'
+import { htmlEscape, colors } from '../../helpers.js'
 import type { ErrorStackProps } from '../../types.js'
 
 const CHEVIRON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
@@ -41,16 +41,7 @@ const EDITORS: Record<string, string> = {
 export class ErrorStack extends BaseComponent<ErrorStackProps> {
   cssFile = new URL('./error_stack/style.css', publicDirURL)
   scriptFile = new URL('./error_stack/script.js', publicDirURL)
-  eventHandlers = [
-    getAddEventListenerLine({
-      id: 'formatted-frames',
-      handler: `function(){showFormattedFrames(this)}`,
-    }),
-    getAddEventListenerLine({
-      id: 'raw-frames',
-      handler: `function(){showRawFrames(this)}`,
-    }),
-  ]
+
   /**
    * Returns the file's relative name from the CWD
    */
@@ -100,7 +91,7 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
   /**
    * Returns the HTML fragment for the frame location
    */
-  #renderFrameLocation(frame: StackFrame, id: string, ide: string, index: number) {
+  #renderFrameLocation(frame: StackFrame, ide: string, index: number) {
     const { text, href } = this.#getEditorLink(ide, frame)
 
     const fileName = `<a ${href ? `href="${href}"` : ''} class="stack-frame-filepath" title="${text}">
@@ -116,16 +107,7 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
     const loc = `<span>at line <code>${frame.lineNumber}:${frame.columnNumber}</code></span>`
 
     if (frame.type !== 'native' && frame.source) {
-      const locationId = `stack-frame-location-${index}`
-
-      this.eventHandlers.push(
-        getAddEventListenerLine({
-          id: locationId,
-          handler: `function(event){toggleFrameSource(event,'${id}')}`,
-        })
-      )
-
-      return `<button class="stack-frame-location" id="${locationId}">
+      return `<button class="stack-frame-location" id="stack-frame-location-${index}">
         ${fileName} ${functionName} ${loc}
       </button>`
     }
@@ -151,23 +133,14 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
     let toggleButton = ''
 
     if (frame.type !== 'native' && frame.source) {
-      const toggleButtonId = `stack-frame-toggle-indicator-${frameIndex}`
-
-      this.eventHandlers.push(
-        getAddEventListenerLine({
-          id: toggleButtonId,
-          handler: `function(event){toggleFrameSource(event,'${id}')}`,
-        })
-      )
-
-      toggleButton = `<button class="stack-frame-toggle-indicator" id="${toggleButtonId}">
+      toggleButton = `<button class="stack-frame-toggle-indicator" id="stack-frame-toggle-indicator-${frameIndex}">
           ${CHEVIRON}
         </button>`
     }
 
     return `<li class="stack-frame ${expandedClass} stack-frame-${frame.type}" id="${id}">
       <div class="stack-frame-contents">
-        ${this.#renderFrameLocation(frame, id, props.ide, frameIndex)}
+        ${this.#renderFrameLocation(frame, props.ide, frameIndex)}
         <div class="stack-frame-extras">
           ${label}
           ${toggleButton}

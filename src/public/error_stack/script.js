@@ -40,3 +40,40 @@ function toggleFrameSource(event, parentId) {
     frame.classList.add('expanded')
   }
 }
+
+document
+  .getElementById('formatted-frames')
+  ?.addEventListener(
+    'click',
+    function(){
+      showFormattedFrames(this)
+    }
+  )
+document
+  .getElementById('raw-frames')
+  ?.addEventListener(
+    'click',
+    function(){
+      showRawFrames(this)
+    }
+  )
+document
+  .querySelectorAll("[id^='stack-frame-location-']")
+  .forEach((sfl) => {
+    sfl.addEventListener(
+      'click',
+      function(e){
+        toggleFrameSource(e, this.id.replace('stack-frame-location-', 'frame-'))
+      }
+    )
+  })
+document
+  .querySelectorAll("[id^='stack-frame-toggle-indicator-']")
+  .forEach((sfti) => {
+    sfti.addEventListener(
+      'click',
+      function(e){
+        toggleFrameSource(e, this.id.replace('stack-frame-toggle-indicator-', 'frame-'))
+      }
+    )
+  });

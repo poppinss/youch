@@ -87,10 +87,6 @@ export class Templates {
       scripts.push(`<script id="${name}-script"${cspNonceAttr}>${bucket}</script>`)
     })
 
-    scripts.push(
-      `<script id="event-handlers-script"${cspNonceAttr}>${this.#knownTemplates.header.eventHandlers?.join('') || ''}${this.#knownTemplates.errorStack.eventHandlers?.join('') || ''}</script>`
-    )
-
     return { styles: `${styles.join('\n')}\n${injectedStyles}`, scripts: scripts.join('\n') }
   }
 

@@ -8,7 +8,6 @@
  */
 
 import { BaseComponent } from '../../component.js'
-import { getAddEventListenerLine } from '../../helpers.js'
 import { publicDirURL } from '../../public_dir.js'
 import type { ComponentSharedProps } from '../../types.js'
 
@@ -23,18 +22,6 @@ const LIGHT_MODE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="tru
 export class Header extends BaseComponent<ComponentSharedProps> {
   cssFile = new URL('./header/style.css', publicDirURL)
   scriptFile = new URL('./header/script.js', publicDirURL)
-
-  /**
-   * List of header event handlers to add in the generated HTML
-   * and respond to user actions
-   */
-  eventHandlers = [
-    getAddEventListenerLine({
-      id: 'toggle-theme-checkbox',
-      handler: 'function(){toggleTheme(this)}',
-      event: 'change',
-    }),
-  ]
 
   /**
    * The toHTML method is used to output the HTML for the
