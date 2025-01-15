@@ -7,3 +7,12 @@ function toggleTheme(input) {
     localStorage.setItem('youch-theme', 'light')
   }
 }
+
+document
+  .getElementById("toggle-theme-checkbox")
+  ?.addEventListener(
+    'change',
+    function() {
+      toggleTheme(this)
+    }
+)

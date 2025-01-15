@@ -199,6 +199,7 @@ export class Templates {
         })
         const cause = await this.#tmplToHTML('errorCause', props)
         const metadata = await this.#tmplToHTML('errorMetadata', props)
+
         return `${header}${info}${stackTrace}${cause}${metadata}`
       },
     })

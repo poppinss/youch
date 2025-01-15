@@ -31,7 +31,7 @@ export class Header extends BaseComponent<ComponentSharedProps> {
     return `<header id="header">
       <div id="header-actions">
         <div id="toggle-theme-container">
-          <input type="checkbox" id="toggle-theme-checkbox" onchange="toggleTheme(this)" />
+          <input type="checkbox" id="toggle-theme-checkbox" />
           <label id="toggle-theme-label" for="toggle-theme-checkbox">
             <span id="light-theme-indicator" title="Light mode">${LIGHT_MODE_SVG}</span>
             <span id="dark-theme-indicator" title="Dark mode">${DARK_MODE_SVG}</span>

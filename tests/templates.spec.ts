@@ -31,6 +31,58 @@ test.group('Templates', () => {
     expect(window.document.querySelector('#error-message')?.textContent?.trim()).toEqual(
       'Something went wrong'
     )
+    expect(window.document.querySelector('#header-script')?.textContent?.trim()).toEqual(
+      expect.stringContaining(
+        'document\n' +
+          '  .getElementById("toggle-theme-checkbox")\n' +
+          '  ?.addEventListener(\n' +
+          "    \'change\',\n" +
+          '    function() {\n' +
+          '      toggleTheme(this)\n' +
+          '    }\n' +
+          ')'
+      )
+    )
+    expect(window.document.querySelector('#errorStack-script')?.textContent?.trim()).toEqual(
+      expect.stringContaining(
+        'document\n' +
+          "  .getElementById('formatted-frames')\n" +
+          '  ?.addEventListener(\n' +
+          "    'click',\n" +
+          '    function(){\n' +
+          '      showFormattedFrames(this)\n' +
+          '    }\n' +
+          '  )\n' +
+          'document\n' +
+          "  .getElementById('raw-frames')\n" +
+          '  ?.addEventListener(\n' +
+          "    'click',\n" +
+          '    function(){\n' +
+          '      showRawFrames(this)\n' +
+          '    }\n' +
+          '  )\n' +
+          'document\n' +
+          `  .querySelectorAll("[id^='stack-frame-location-']")\n` +
+          '  .forEach((sfl) => {\n' +
+          '    sfl.addEventListener(\n' +
+          "      'click',\n" +
+          '      function(e){\n' +
+          "        toggleFrameSource(e, this.id.replace('stack-frame-location-', 'frame-'))\n" +
+          '      }\n' +
+          '    )\n' +
+          '  })\n' +
+          'document\n' +
+          `  .querySelectorAll("[id^='stack-frame-toggle-indicator-']")\n` +
+          '  .forEach((sfti) => {\n' +
+          '    sfti.addEventListener(\n' +
+          "      'click',\n" +
+          '      function(e){\n' +
+          "        toggleFrameSource(e, this.id.replace('stack-frame-toggle-indicator-', 'frame-'))\n" +
+          '      }\n' +
+          '    )\n' +
+          '  })'
+      )
+    )
     expect(window.document.querySelector('#error-hint')).toEqual(null)
   })
 
