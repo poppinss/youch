@@ -32,6 +32,16 @@ function toggleFrameSource(parent) {
   }
 }
 
+function toggleAllFrames() {
+  const wrapper = document.querySelector('#stack-frames-wrapper')
+  const indicator = document.querySelector('#all-frames-toggle input[type="checkbox"]')
+  if (indicator.checked) {
+    wrapper.classList.add('display-all')
+  } else {
+    wrapper.classList.remove('display-all')
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#formatted-frames-toggle').addEventListener('click', function () {
     showFormattedFrames(this)
@@ -39,6 +49,11 @@ window.addEventListener('DOMContentLoaded', () => {
   document.querySelector('#raw-frames-toggle').addEventListener('click', function () {
     showRawFrames(this)
   })
+  document
+    .querySelector('#all-frames-toggle input[type="checkbox"]')
+    .addEventListener('change', function () {
+      toggleAllFrames()
+    })
 
   document.querySelectorAll('button[class="stack-frame-location"]').forEach((sfl) => {
     sfl.addEventListener('click', function (e) {

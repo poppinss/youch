@@ -199,29 +199,43 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
               Stack Trace
             </h3>
           </div>
-          <div>
-            <div class="toggle-switch">
-              <button id="formatted-frames-toggle" class="active"> Pretty </button>
-              <button id="raw-frames-toggle"> Raw </button>
-            </div>
-          </div>
         </div>
         <div class="card-body">
-          <div id="stack-frames-formatted" class="visible">
-            <ul id="stack-frames">
-              ${frames.join('\n')}
-            </ul>
-          </div>
-          <div id="stack-frames-raw">
-            ${dump(props.error.raw, {
-              styles: themes.cssVariables,
-              expand: true,
-              cspNonce: props.cspNonce,
-              inspectObjectPrototype: false,
-              inspectStaticMembers: false,
-              inspectArrayPrototype: false,
-            })}
-          </div>
+          <div id="stack-frames-wrapper">
+            <div id="stack-frames-header">
+              <div id="all-frames-toggle-wrapper">
+                <label id="all-frames-toggle">
+                  <input type="checkbox" />
+                  <span> View All Frames </span>
+                </label>
+              </div>
+
+              <div>
+                <div class="toggle-switch">
+                  <button id="formatted-frames-toggle" class="active"> Pretty </button>
+                  <button id="raw-frames-toggle"> Raw </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="stack-frames-body">
+              <div id="stack-frames-formatted" class="visible">
+                <ul id="stack-frames">
+                  ${frames.join('\n')}
+                </ul>
+              </div>
+              <div id="stack-frames-raw">
+                ${dump(props.error.raw, {
+                  styles: themes.cssVariables,
+                  expand: true,
+                  cspNonce: props.cspNonce,
+                  inspectObjectPrototype: false,
+                  inspectStaticMembers: false,
+                  inspectArrayPrototype: false,
+                })}
+              </div>
+            </div>
+          <div>
         </div>
       </div>
     </section>`

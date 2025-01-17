@@ -15,25 +15,47 @@ html.dark {
   --switch-border: var(--slate-7);
 }
 
-#stack-frames {
-  list-style: none;
+#stack-frames-wrapper {
   border: 1px solid var(--border);
   border-radius: var(--radius);
+}
+
+#stack-frames-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+#all-frames-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  user-select: none;
+}
+
+#stack-frames {
+  list-style: none;
 }
 
 .stack-frame {
   border-top: 1px solid var(--border);
   font-size: 14px;
 }
-.stack-frame:first-child {
-  border-top: none;
-}
 .stack-frame.stack-frame-native {
+  display: none;
   font-style: italic;
 }
 .stack-frame.stack-frame-native a,
 .stack-frame.stack-frame-native code {
   color: var(--muted-fg);
+}
+
+#stack-frames-wrapper.display-all .stack-frame.stack-frame-native {
+  display: block;
 }
 
 .stack-frame-contents {
@@ -45,9 +67,6 @@ html.dark {
 }
 .stack-frame:not(.stack-frame-native) .stack-frame-contents:hover {
   background: var(--card-bg);
-}
-.stack-frame:first-child .stack-frame-contents {
-  border-radius: var(--radius) var(--radius) 0 0;
 }
 .stack-frame:last-child:not(.expanded) .stack-frame-contents {
   border-radius: 0 0 var(--radius) var(--radius);
@@ -132,8 +151,6 @@ html.dark {
 
 #stack-frames-raw {
   --pre-bg-color: transparent;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
 }
 #stack-frames-formatted,
 #stack-frames-raw {
