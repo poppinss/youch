@@ -53,6 +53,7 @@ test.group('Templates', () => {
     expect(window.document.querySelector('#errorStack-script')?.textContent?.trim())
       .toMatchInlineSnapshot(`
       "function showFormattedFrames(button) {
+        document.querySelector('#all-frames-toggle input[type=\\"checkbox\\"]').disabled = false
         const parent = button.closest('section')
 
         const formattedFrames = parent.querySelector('#stack-frames-formatted')
@@ -66,6 +67,7 @@ test.group('Templates', () => {
       }
 
       function showRawFrames(button) {
+        document.querySelector('#all-frames-toggle input[type=\\"checkbox\\"]').disabled = true
         const parent = button.closest('section')
 
         const formattedFrames = parent.querySelector('#stack-frames-formatted')
@@ -86,6 +88,16 @@ test.group('Templates', () => {
         }
       }
 
+      function toggleAllFrames() {
+        const wrapper = document.querySelector('#stack-frames-wrapper')
+        const indicator = document.querySelector('#all-frames-toggle input[type=\\"checkbox\\"]')
+        if (indicator.checked) {
+          wrapper.classList.add('display-all')
+        } else {
+          wrapper.classList.remove('display-all')
+        }
+      }
+
       window.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#formatted-frames-toggle').addEventListener('click', function () {
           showFormattedFrames(this)
@@ -93,6 +105,11 @@ test.group('Templates', () => {
         document.querySelector('#raw-frames-toggle').addEventListener('click', function () {
           showRawFrames(this)
         })
+        document
+          .querySelector('#all-frames-toggle input[type=\\"checkbox\\"]')
+          .addEventListener('change', function () {
+            toggleAllFrames()
+          })
 
         document.querySelectorAll('button[class=\\"stack-frame-location\\"]').forEach((sfl) => {
           sfl.addEventListener('click', function (e) {
