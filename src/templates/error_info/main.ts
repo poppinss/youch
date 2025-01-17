@@ -61,6 +61,7 @@ export class ErrorInfo extends BaseComponent<ErrorInfoProps> {
         width: process.stdout.columns,
         indent: '  ',
         newLine: '\n',
+        escape: (value) => value,
       })}`
     )
 
@@ -70,6 +71,7 @@ export class ErrorInfo extends BaseComponent<ErrorInfoProps> {
             width: process.stdout.columns,
             indent: '  ',
             newLine: '\n',
+            escape: (value) => value,
           })
         )}`
       : ''

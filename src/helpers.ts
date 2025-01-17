@@ -47,6 +47,10 @@ export function wordWrap(
   const indent = options.indent
   const newLine = `${options.newLine}${indent}`
 
+  if (!width) {
+    return options.escape ? options.escape(value) : htmlEscape(value)
+  }
+
   let regexString = '.{1,' + width + '}'
   regexString += '([\\s\u200B]+|$)|[^\\s\u200B]+?([\\s\u200B]+|$)'
 
