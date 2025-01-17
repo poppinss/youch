@@ -86,6 +86,11 @@
   --danger-fg: var(--red-11);
   --border: var(--slate-4);
 
+  --checkbox-border: var(--slate-a7);
+  --checkbox-active-bg: var(--green-5);
+  --checkbox-active-fg: var(--green-11);
+  --checkbox-active-border: var(--green-6);
+
   --card-bg: #ffffff;
   --card-shadow: 0 0 0 1px color-mix(in oklab, var(--slate-a3), var(--slate-3) 25%),
     0 8px 40px rgba(0, 0, 0, 0.05), 0 12px 32px -16px var(--slate-a3);
@@ -203,6 +208,11 @@ html.dark {
   --danger-fg: var(--red-11);
   --border: var(--slate-4);
 
+  --checkbox-border: var(--slate-a7);
+  --checkbox-active-bg: var(--green-5);
+  --checkbox-active-fg: var(--green-11);
+  --checkbox-active-border: var(--green-6);
+
   --card-bg: var(--slate-a2);
   --card-shadow: 0 0 0 1px color-mix(in oklab, var(--slate-a3), var(--slate-3) 25%),
     0 8px 20px rgba(0, 0, 0, 0.05), 0 12px 32px -16px var(--slate-a1);
@@ -261,6 +271,38 @@ code {
 
 a {
   color: var(--links-fg);
+}
+
+input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border: 2px solid var(--checkbox-border);
+  border-radius: 4px;
+}
+input[type='checkbox']:checked {
+  background: var(--checkbox-active-bg);
+  border-color: var(--checkbox-active-border);
+}
+input[type='checkbox']:checked + span {
+  color: var(--title-fg);
+}
+
+input[type='checkbox']::before {
+  content: '';
+  width: 15px;
+  height: 15px;
+  background: var(--checkbox-active-fg);
+  mask-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSI5IiBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgMTIgOSI+PHBhdGggZmlsbD0iI2ZmZiIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTEuNzguMjJhLjc1Ljc1IDAgMCAxIDAgMS4wNjFsLTcuMjYgNy4yNmEuNzUuNzUgMCAwIDEtMS4wNjIgMEwuMjAyIDUuMjg1YS43NS43NSAwIDAgMSAxLjA2MS0xLjA2MWwyLjcyNSAyLjcyM0wxMC43MTguMjJhLjc1Ljc1IDAgMCAxIDEuMDYyIDAiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==);
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: 75%;
+  visibility: hidden;
+}
+input[type='checkbox']:checked::before {
+  visibility: visible;
 }
 
 /**
