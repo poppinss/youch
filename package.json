@@ -44,6 +44,7 @@
     "@japa/expect-type": "^2.0.3",
     "@japa/file-system": "^2.3.2",
     "@japa/runner": "^4.1.0",
+    "@japa/snapshot": "^2.0.8",
     "@poppinss/exception": "^1.2.0",
     "@release-it/conventional-changelog": "^10.0.0",
     "@swc/core": "^1.10.7",
