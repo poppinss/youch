@@ -91,10 +91,10 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
   /**
    * Returns the HTML fragment for the frame location
    */
-  #renderFrameLocation(frame: StackFrame, ide: string, index: number) {
+  #renderFrameLocation(frame: StackFrame, ide: string) {
     const { text, href } = this.#getEditorLink(ide, frame)
 
-    const fileName = `<a ${href ? `href="${href}"` : ''} class="stack-frame-filepath" title="${text}">
+    const fileName = `<a${href ? ` href="${href}"` : ''} class="stack-frame-filepath" title="${text}">
       ${htmlEscape(text)}
     </a>`
 
@@ -107,7 +107,7 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
     const loc = `<span>at line <code>${frame.lineNumber}:${frame.columnNumber}</code></span>`
 
     if (frame.type !== 'native' && frame.source) {
-      return `<button class="stack-frame-location" id="stack-frame-location-${index}">
+      return `<button class="stack-frame-location">
         ${fileName} ${functionName} ${loc}
       </button>`
     }
@@ -126,21 +126,16 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
     expandAtIndex: number,
     props: ErrorStackProps
   ) {
-    const frameIndex = index + 1
-    const id = `frame-${frameIndex}`
     const label = frame.type === 'app' ? '<span class="frame-label">In App</span>' : ''
-    const expandedClass = expandAtIndex === index ? 'expanded' : ''
-    let toggleButton = ''
+    const expandedClass = expandAtIndex === index ? ' expanded' : ''
+    const toggleButton =
+      frame.type !== 'native' && frame.source
+        ? `<button class="stack-frame-toggle-indicator">${CHEVIRON}</button>`
+        : ''
 
-    if (frame.type !== 'native' && frame.source) {
-      toggleButton = `<button class="stack-frame-toggle-indicator" id="stack-frame-toggle-indicator-${frameIndex}">
-          ${CHEVIRON}
-        </button>`
-    }
-
-    return `<li class="stack-frame ${expandedClass} stack-frame-${frame.type}" id="${id}">
+    return `<li class="stack-frame stack-frame-${frame.type}${expandedClass}">
       <div class="stack-frame-contents">
-        ${this.#renderFrameLocation(frame, props.ide, frameIndex)}
+        ${this.#renderFrameLocation(frame, props.ide)}
         <div class="stack-frame-extras">
           ${label}
           ${toggleButton}
@@ -206,8 +201,8 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
           </div>
           <div>
             <div class="toggle-switch">
-              <button id="formatted-frames" class="active"> Pretty </button>
-              <button id="raw-frames"> Raw </button>
+              <button id="formatted-frames-toggle" class="active"> Pretty </button>
+              <button id="raw-frames-toggle"> Raw </button>
             </div>
           </div>
         </div>

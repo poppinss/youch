@@ -24,56 +24,34 @@ function showRawFrames(button) {
   button.classList.add('active')
 }
 
-function toggleFrameSource(event, parentId) {
-  if (event.target.tagName === 'A') {
-    return
-  }
-
-  const frame = document.querySelector(`#${parentId}`)
-  if (!frame) {
-    return
-  }
-
-  if (frame.classList.contains('expanded')) {
-    frame.classList.remove('expanded')
+function toggleFrameSource(parent) {
+  if (parent.classList.contains('expanded')) {
+    parent.classList.remove('expanded')
   } else {
-    frame.classList.add('expanded')
+    parent.classList.add('expanded')
   }
 }
 
-document
-  .getElementById('formatted-frames')
-  ?.addEventListener(
-    'click',
-    function(){
-      showFormattedFrames(this)
-    }
-  )
-document
-  .getElementById('raw-frames')
-  ?.addEventListener(
-    'click',
-    function(){
-      showRawFrames(this)
-    }
-  )
-document
-  .querySelectorAll("[id^='stack-frame-location-']")
-  .forEach((sfl) => {
-    sfl.addEventListener(
-      'click',
-      function(e){
-        toggleFrameSource(e, this.id.replace('stack-frame-location-', 'frame-'))
-      }
-    )
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('#formatted-frames-toggle').addEventListener('click', function () {
+    showFormattedFrames(this)
   })
-document
-  .querySelectorAll("[id^='stack-frame-toggle-indicator-']")
-  .forEach((sfti) => {
-    sfti.addEventListener(
-      'click',
-      function(e){
-        toggleFrameSource(e, this.id.replace('stack-frame-toggle-indicator-', 'frame-'))
-      }
-    )
+  document.querySelector('#raw-frames-toggle').addEventListener('click', function () {
+    showRawFrames(this)
   })
+
+  document.querySelectorAll('button[class="stack-frame-location"]').forEach((sfl) => {
+    sfl.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        return
+      }
+      toggleFrameSource(e.target.closest('li'))
+    })
+  })
+
+  document.querySelectorAll('button[class="stack-frame-toggle-indicator"]').forEach((sfl) => {
+    sfl.addEventListener('click', function (e) {
+      toggleFrameSource(e.target.closest('li'))
+    })
+  })
+})

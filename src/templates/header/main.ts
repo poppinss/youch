@@ -36,9 +36,6 @@ export class Header extends BaseComponent<ComponentSharedProps> {
             <span id="light-theme-indicator" title="Light mode">${LIGHT_MODE_SVG}</span>
             <span id="dark-theme-indicator" title="Dark mode">${DARK_MODE_SVG}</span>
           </label>
-          <script>
-            document.querySelector('#toggle-theme-checkbox').checked = usesDarkMode()
-          </script>
         </div>
       </div>
     </header>`

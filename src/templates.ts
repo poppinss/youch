@@ -67,18 +67,18 @@ export class Templates {
    */
   #getStylesAndScripts(cspNonce?: string) {
     /**
-     * Keeping injected styles separate from the rest of the
-     * styles and scripts, so that we can append them at
+     * Keeping custom injected styles separate from the rest of
+     * the styles and scripts, so that we can append them at
      * the end
      */
-    let injectedStyles: string = ''
+    let customInjectedStyles: string = ''
     const styles: string[] = []
     const scripts: string[] = []
     const cspNonceAttr = cspNonce ? ` nonce="${cspNonce}"` : ''
 
     this.#styles.forEach((bucket, name) => {
       if (name === 'injected') {
-        injectedStyles = `<style id="${name}-styles"${cspNonceAttr}>${bucket}</style>`
+        customInjectedStyles = `<style id="${name}-styles"${cspNonceAttr}>${bucket}</style>`
       } else {
         styles.push(`<style id="${name}-styles"${cspNonceAttr}>${bucket}</style>`)
       }
@@ -87,7 +87,7 @@ export class Templates {
       scripts.push(`<script id="${name}-script"${cspNonceAttr}>${bucket}</script>`)
     })
 
-    return { styles: `${styles.join('\n')}\n${injectedStyles}`, scripts: scripts.join('\n') }
+    return { styles: `${styles.join('\n')}\n${customInjectedStyles}`, scripts: scripts.join('\n') }
   }
 
   /**
