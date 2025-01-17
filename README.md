@@ -10,6 +10,7 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 **Table of Contents**
 
 - [What is Youch?](#what-is-youch)
@@ -289,13 +290,13 @@ youch.sourceLoader(async (stackFrame) => {
 
 ## Injecting custom styles
 
-You may inject custom CSS styles using the `youch.injectStyles` method. The styles will be injected after the styles from the inbuilt templates.
+You may inject custom CSS styles using the `youch.templates.injectStyles` method. The styles will be injected after the styles from the inbuilt templates.
 
 ```ts
 import { Youch } from 'youch'
 const youch = new Youch(options)
 
-youch.injectStyles(`
+youch.templates.injectStyles(`
   :root {
     // Override variables for light mode
     --surface-bg: #fff;
