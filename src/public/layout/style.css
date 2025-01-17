@@ -305,6 +305,11 @@ input[type='checkbox']:checked::before {
   visibility: visible;
 }
 
+input[type='checkbox']:disabled,
+input[type='checkbox']:disabled + span {
+  opacity: 0.5;
+}
+
 /**
  * Overriding existing defaults of dumper
  */

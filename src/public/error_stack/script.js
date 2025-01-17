@@ -1,4 +1,5 @@
 function showFormattedFrames(button) {
+  document.querySelector('#all-frames-toggle input[type="checkbox"]').disabled = false
   const parent = button.closest('section')
 
   const formattedFrames = parent.querySelector('#stack-frames-formatted')
@@ -12,6 +13,7 @@ function showFormattedFrames(button) {
 }
 
 function showRawFrames(button) {
+  document.querySelector('#all-frames-toggle input[type="checkbox"]').disabled = true
   const parent = button.closest('section')
 
   const formattedFrames = parent.querySelector('#stack-frames-formatted')
