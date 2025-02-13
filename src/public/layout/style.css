@@ -321,6 +321,7 @@ input[type='checkbox']:disabled + span {
 }
 .dumper-dump pre {
   font-size: 13px;
+  padding: calc(0.5vw + 8px);
 }
 .dumper-dump .dumper-toggle span {
   font-size: 12px;
@@ -336,14 +337,14 @@ input[type='checkbox']:disabled + span {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 40px;
+  padding: calc(1vw + 15px);
 }
 
 .card {
   background: var(--card-bg);
   box-shadow: var(--card-shadow);
   border-radius: var(--radius);
-  padding: 22px 30px;
+  padding: calc(2vw + 7px);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -387,7 +388,7 @@ input[type='checkbox']:disabled + span {
 
 .card-table td {
   border-bottom: 1px solid var(--border);
-  padding: 6px 12px;
+  padding: calc(0.8vw + 4px) calc(0.8vw + 8px);
   word-wrap: break-word;
 }
 
@@ -402,8 +403,24 @@ input[type='checkbox']:disabled + span {
 }
 
 @media (min-width: 768px) {
+  #layout {
+    padding: 40px;
+  }
+
+  .card {
+    padding: 22px 30px;
+  }
+
+  .card-table td {
+    padding: 6px 12px;
+  }
+
   .card-table td.table-key {
     width: 180px;
+  }
+
+  .dumper-dump pre {
+    padding: 10px 15px;
   }
 }
 

@@ -24,7 +24,7 @@ html.dark {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 16px;
+  padding: calc(2vw + 7px);
   border-radius: var(--radius) var(--radius) 0 0;
 }
 
@@ -61,15 +61,20 @@ html.dark {
 .stack-frame-contents {
   background: var(--frame-bg);
   display: flex;
-  padding: 0 12px;
+  padding: 0 calc(1vw + 3px);
   align-items: center;
   justify-content: space-between;
 }
+
 .stack-frame:not(.stack-frame-native) .stack-frame-contents:hover {
   background: var(--card-bg);
 }
 .stack-frame:last-child:not(.expanded) .stack-frame-contents {
   border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.stack-frame-filepath {
+  max-width: 100%;
 }
 
 .stack-frame-location {
@@ -83,6 +88,7 @@ html.dark {
   color: inherit;
   font: inherit;
   padding: 9px 0;
+  align-items:start;
 }
 
 .stack-frame-location a {
@@ -194,6 +200,14 @@ html.dark {
 }
 
 @media (min-width: 768px) {
+  .stack-frame-contents {
+    padding: 0 12px;
+  }
+
+  #stack-frames-header {
+    padding: 10px 16px;
+  }
+
   .stack-frame-location {
     flex-direction: row;
   }

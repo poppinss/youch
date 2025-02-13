@@ -6,7 +6,7 @@
 #toggle-theme-container {
   position: relative;
   display: inline-block;
-  padding-right: 10px;
+  padding-right: 0px;
 }
 
 #toggle-theme-container input[type='checkbox'] {
@@ -50,6 +50,7 @@
   #light-theme-indicator {
   display: none;
 }
+
 #toggle-theme-container input[type='checkbox']:checked + #toggle-theme-label #dark-theme-indicator {
   display: flex;
 }
