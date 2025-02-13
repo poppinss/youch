@@ -42,8 +42,16 @@ test.group('Templates', () => {
           localStorage.setItem('youch-theme', 'light')
         }
       }
+      
+      function subscribeToDOMContentLoaded(listener) {
+        if (document.readyState !== 'loading') {
+          listener();
+          return;
+        }
+        document.addEventListener('DOMContentLoaded', listener);
+      }
 
-      window.addEventListener('DOMContentLoaded', () => {
+      subscribeToDOMContentLoaded(() => {
         document.querySelector('#toggle-theme-checkbox').checked = usesDarkMode()
         document.querySelector('#toggle-theme-checkbox').addEventListener('change', function () {
           toggleTheme(this)
@@ -97,8 +105,16 @@ test.group('Templates', () => {
           wrapper.classList.remove('display-all')
         }
       }
+      
+      function subscribeToDOMContentLoaded(listener) {
+        if (document.readyState !== 'loading') {
+          listener();
+          return;
+        }
+        document.addEventListener('DOMContentLoaded', listener);
+      }
 
-      window.addEventListener('DOMContentLoaded', () => {
+      subscribeToDOMContentLoaded(() => {
         document.querySelector('#formatted-frames-toggle').addEventListener('click', function () {
           showFormattedFrames(this)
         })
