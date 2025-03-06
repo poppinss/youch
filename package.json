@@ -3,7 +3,7 @@
   "description": "Pretty print JavaScript errors on the Web and the Terminal",
   "version": "4.1.0-beta.5",
   "engines": {
-    "node": ">=20.6.0"
+    "node": ">=18"
   },
   "type": "module",
   "files": [
@@ -132,5 +132,6 @@
     "@speed-highlight/core": "^1.2.7",
     "cookie": "^1.0.2",
     "youch-core": "^0.3.1"
-  }
+  },
+  "packageManager": "pnpm@9.15.5+sha512.845196026aab1cc3f098a0474b64dfbab2afe7a1b4e91dd86895d8e4aa32a7a6d03049e2d0ad770bbe4de023a7122fb68c1a1d6e0d033c7076085f9d5d4800d4"
 }
