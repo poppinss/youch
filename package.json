@@ -3,7 +3,7 @@
   "description": "Pretty print JavaScript errors on the Web and the Terminal",
   "version": "4.1.0-beta.5",
   "engines": {
-    "node": ">=20.6.0"
+    "node": ">=18"
   },
   "type": "module",
   "files": [
@@ -128,7 +128,7 @@
   },
   "prettier": "@adonisjs/prettier-config",
   "dependencies": {
-    "@poppinss/dumper": "^0.6.2",
+    "@poppinss/dumper": "^0.6.3",
     "@speed-highlight/core": "^1.2.7",
     "cookie": "^1.0.2",
     "youch-core": "^0.3.1"
