@@ -8,7 +8,15 @@ function toggleTheme(input) {
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+function subscribeToDOMContentLoaded(listener) {
+  if (document.readyState !== 'loading') {
+    listener();
+    return;
+  }
+  document.addEventListener('DOMContentLoaded', listener);
+}
+
+subscribeToDOMContentLoaded(() => {
   document.querySelector('#toggle-theme-checkbox').checked = usesDarkMode()
   document.querySelector('#toggle-theme-checkbox').addEventListener('change', function () {
     toggleTheme(this)

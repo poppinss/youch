@@ -44,7 +44,15 @@ function toggleAllFrames() {
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+function subscribeToDOMContentLoaded(listener) {
+  if (document.readyState !== 'loading') {
+    listener();
+    return;
+  }
+  document.addEventListener('DOMContentLoaded', listener);
+}
+
+subscribeToDOMContentLoaded(() => {
   document.querySelector('#formatted-frames-toggle').addEventListener('click', function () {
     showFormattedFrames(this)
   })
