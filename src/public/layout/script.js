@@ -8,4 +8,13 @@ function usesDarkMode() {
   }
   return hasDarkMode
 }
+
+function onContentLoaded(listener) {
+  if (document.readyState !== 'loading') {
+    listener()
+    return
+  }
+  document.addEventListener('DOMContentLoaded', listener)
+}
+
 document.documentElement.classList.add(usesDarkMode() ? 'dark' : 'light')
