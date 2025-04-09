@@ -30,7 +30,7 @@ html.dark {
   font-size: 12px;
   font-family: var(--font-mono);
   position: relative;
-  padding: 10px 12px 12px 12px;
+  padding: calc(2vw + 4px) calc(2vw + 6px) calc(2vw + 4px) calc(2vw + 6px);
 }
 [class*='shj-lang-'] * {
   -webkit-font-smoothing: initial;
@@ -118,5 +118,6 @@ html.dark {
 @media (min-width: 768px) {
   [class*='shj-lang-'] {
     border-top: none;
+    padding: 10px 12px 12px 12px;
   }
 }
