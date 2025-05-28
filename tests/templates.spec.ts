@@ -99,15 +99,15 @@ test.group('Templates', () => {
       }
 
       onContentLoaded(() => {
-        document.querySelector('#formatted-frames-toggle').addEventListener('click', function () {
+        document.querySelector('#formatted-frames-toggle')?.addEventListener('click', function () {
           showFormattedFrames(this)
         })
-        document.querySelector('#raw-frames-toggle').addEventListener('click', function () {
+        document.querySelector('#raw-frames-toggle')?.addEventListener('click', function () {
           showRawFrames(this)
         })
         document
           .querySelector('#all-frames-toggle input[type=\\"checkbox\\"]')
-          .addEventListener('change', function () {
+          ?.addEventListener('change', function () {
             toggleAllFrames()
           })
 
