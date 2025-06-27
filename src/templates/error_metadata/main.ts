@@ -30,7 +30,7 @@ export class ErrorMetadata extends BaseComponent<ErrorMetadataProps> {
       return value
     }
 
-    return dump(value, { styles: themes.cssVariables })
+    return dump(value, { styles: themes.cssVariables, cspNonce })
   }
 
   /**
