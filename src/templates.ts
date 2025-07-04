@@ -10,9 +10,9 @@
 import type { ParsedError } from 'youch-core/types'
 import { createScript, createStyleSheet } from '@poppinss/dumper/html'
 
-import { Metadata } from './metadata.js'
-import { BaseComponent } from './component.js'
+import { type Metadata } from './metadata.js'
 import type { YouchTemplates } from './types.js'
+import { type BaseComponent } from './component.js'
 import { Header } from './templates/header/main.js'
 import { Layout } from './templates/layout/main.js'
 import { ErrorInfo } from './templates/error_info/main.js'

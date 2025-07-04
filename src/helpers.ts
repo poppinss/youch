@@ -8,7 +8,7 @@
  */
 
 import useColors from '@poppinss/colors'
-import { Colors } from '@poppinss/colors/types'
+import { type Colors } from '@poppinss/colors/types'
 
 const ANSI_REGEX = new RegExp(
   [

@@ -13,7 +13,7 @@ import type { Parser, SourceLoader, Transformer, YouchParserOptions } from 'youc
 
 import { Metadata } from './metadata.js'
 import { Templates } from './templates.js'
-import { YouchANSIOptions, YouchHTMLOptions, YouchJSONOptions } from './types.js'
+import { type YouchANSIOptions, type YouchHTMLOptions, type YouchJSONOptions } from './types.js'
 
 /**
  * Youch exposes the API to render errors to HTML output

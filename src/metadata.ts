@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { ErrorMetadataGroups, ErrorMetadataRow } from './types.js'
+import { type ErrorMetadataGroups, type ErrorMetadataRow } from './types.js'
 
 /**
  * Attach metadata to the parsed error as groups, sections
