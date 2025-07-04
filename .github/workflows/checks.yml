@@ -6,10 +6,10 @@ on:
 
 jobs:
   test:
-    uses: adonisjs/.github/.github/workflows/test.yml@main
+    uses: poppinss/.github/.github/workflows/test.yml@next
 
   lint:
-    uses: adonisjs/.github/.github/workflows/lint.yml@main
+    uses: poppinss/.github/.github/workflows/lint.yml@next
 
   typecheck:
-    uses: adonisjs/.github/.github/workflows/typecheck.yml@main
+    uses: poppinss/.github/.github/workflows/typecheck.yml@next
