@@ -11,15 +11,15 @@
 <table>
 
 <tr>
-<td width="50%">
+<td>
 
-<img src="./assets/nitro.svg" />
+<img src="./assets/nitro.jpg" />
 
 </td>
 
-<td width="50%">
+<td>
 
-<img src="./assets/nuxt.svg" />
+<img src="./assets/nuxt.jpg" />
 
 </td>
 
@@ -27,15 +27,15 @@
 
 <tr>
 
-<td width="50%">
+<td>
 
-<img src="./assets/cloudflare.svg" />
+<img src="./assets/cloudflare.jpg" />
 
 </td>
 
-<td width="50%">
+<td>
 
-<img src="./assets/adonisjs.svg" />
+<img src="./assets/adonisjs.jpg" />
 
 </td>
 
