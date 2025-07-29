@@ -33,6 +33,7 @@ function htmlAttributeEscape(value: string): string {
  */
 export class ErrorInfo extends BaseComponent<ErrorInfoProps> {
   cssFile = new URL('./error_info/style.css', publicDirURL)
+  jsFile = new URL('./error_info/script.js', publicDirURL)
 
   /**
    * The toHTML method is used to output the HTML for the
@@ -52,7 +53,7 @@ export class ErrorInfo extends BaseComponent<ErrorInfoProps> {
             <button 
               id="copy-error-btn" 
               data-error-text="${htmlAttributeEscape(`${props.error.name}: ${props.error.message}`)}"
-              onclick="navigator.clipboard.writeText(this.dataset.errorText).then(() => { this.classList.add('copied'); setTimeout(() => this.classList.remove('copied'), 2000); }, () => { this.classList.add('copied'); setTimeout(() => this.classList.remove('copied'), 2000); })"
+              onclick="copyErrorMessage(this)"
               title="Copy error message"
               aria-label="Copy error message to clipboard"
             >
