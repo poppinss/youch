@@ -16,6 +16,17 @@ const ERROR_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="tru
 
 const HINT_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m21 2-1 1M3 2l1 1m17 13-1-1M3 16l1-1m5 3h6m-5 3h4M12 3C8 3 5.952 4.95 6 8c.023 1.487.5 2.5 1.5 3.5S9 13 9 15h6c0-2 .5-2.5 1.5-3.5h0c1-1 1.477-2.013 1.5-3.5.048-3.05-2-5-6-5Z"/></svg>`
 
+const COPY_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2m8 0V2a2 2 0 0 0-2-2H10a2 2 0 0 0-2 2v2m8 0H8"/></svg>`
+
+function htmlAttributeEscape(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+}
+
 /**
  * Displays the error info including the response status text,
  * error name, error message and the hint.
@@ -38,6 +49,15 @@ export class ErrorInfo extends BaseComponent<ErrorInfoProps> {
           <h2 id="error-message">
             <span>${ERROR_ICON_SVG}</span>
             <span>${props.error.message}</span>
+            <button 
+              id="copy-error-btn" 
+              data-error-text="${htmlAttributeEscape(`${props.error.name}: ${props.error.message}`)}"
+              onclick="navigator.clipboard.writeText(this.dataset.errorText).then(() => { this.classList.add('copied'); setTimeout(() => this.classList.remove('copied'), 2000); }, () => { this.classList.add('copied'); setTimeout(() => this.classList.remove('copied'), 2000); })"
+              title="Copy error message"
+              aria-label="Copy error message to clipboard"
+            >
+              ${COPY_ICON_SVG}
+            </button>
           </h2>
           ${
             props.error.hint
