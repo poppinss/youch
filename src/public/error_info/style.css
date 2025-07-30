@@ -22,6 +22,7 @@
   gap: 12px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
 #error-message svg {
   margin-top: 1.5px;
@@ -46,6 +47,68 @@
 }
 #error-hint a {
   color: var(--links-fg);
+}
+
+#copy-error-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  color: var(--text-fg);
+  transition: all 0.2s ease;
+  opacity: 0.7;
+  position: relative;
+}
+
+#copy-error-btn:hover {
+  opacity: 1;
+  background: var(--bg-hover);
+  border-color: var(--border-hover);
+}
+
+#copy-error-btn:active {
+  transform: scale(0.95);
+}
+
+#copy-error-btn.copied {
+  background: var(--success-bg);
+  color: var(--success-fg);
+  border-color: var(--success-border);
+  opacity: 1;
+}
+
+#copy-error-btn.copied::after {
+  content: 'Copied!';
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--slate-12);
+  color: var(--slate-1);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  animation: copyFeedback 2s ease-in-out forwards;
+}
+
+
+@keyframes copyFeedback {
+  0% { opacity: 0; transform: translateX(-50%) translateY(5px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-5px); }
+}
+
+#copy-error-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 @media (min-width: 1024px) {
