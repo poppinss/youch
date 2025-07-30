@@ -1,5 +1,4 @@
 :root {
-  --copy-button-bg: var(--slate-3);
   --copy-button-active-bg: var(--slate-a4);
   --copy-button-border: var(--slate-7);
   --copy-button-success-bg: var(--green-5);
@@ -7,7 +6,6 @@
   --copy-button-success-fg: var(--green-12);
 }
 html.dark {
-  --copy-button-bg: var(--slate-3);
   --copy-button-active-bg: var(--slate-a4);
   --copy-button-border: var(--slate-7);
   --copy-button-success-bg: var(--green-3);
@@ -82,7 +80,7 @@ html.dark {
   font-weight: 500;
   padding: 4px 8px 6px 8px;
   border-radius: var(--radius);
-  color: var(--title-fg);
+  color: var(--surface-fg);
   transition: all 0.2s ease;
 }
 
@@ -93,6 +91,7 @@ html.dark {
 
 #copy-error-btn:hover {
   background: var(--copy-button-active-bg);
+  color: var(--title-fg);
 }
 
 #copy-error-btn:active {
