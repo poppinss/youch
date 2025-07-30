@@ -33,7 +33,7 @@ function htmlAttributeEscape(value: string): string {
  */
 export class ErrorInfo extends BaseComponent<ErrorInfoProps> {
   cssFile = new URL('./error_info/style.css', publicDirURL)
-  jsFile = new URL('./error_info/script.js', publicDirURL)
+  scriptFile = new URL('./error_info/script.js', publicDirURL)
 
   /**
    * The toHTML method is used to output the HTML for the
@@ -50,8 +50,8 @@ export class ErrorInfo extends BaseComponent<ErrorInfoProps> {
           <h2 id="error-message">
             <span>${ERROR_ICON_SVG}</span>
             <span>${props.error.message}</span>
-            <button 
-              id="copy-error-btn" 
+            <button
+              id="copy-error-btn"
               data-error-text="${htmlAttributeEscape(`${props.error.name}: ${props.error.message}`)}"
               onclick="copyErrorMessage(this)"
               title="Copy error message"
