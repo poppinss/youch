@@ -213,13 +213,11 @@ export class Templates {
       },
     })
 
-    const { scripts, styles } = this.#getStylesAndScripts(props.cspNonce)
     const { globalScript, scripts, styles } = this.#getStylesAndScripts(props.cspNonce)
     return html
       .replace('<!-- STYLES -->', styles)
       .replace('<!-- GLOBAL SCRIPT -->', globalScript)
       .replace('<!-- SCRIPTS -->', scripts)
-    }
   }
 
   /**
