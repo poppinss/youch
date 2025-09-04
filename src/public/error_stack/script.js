@@ -44,31 +44,27 @@ function toggleAllFrames() {
   }
 }
 
-onContentLoaded(() => {
-  document.querySelector('#formatted-frames-toggle').addEventListener('click', function () {
-    showFormattedFrames(this)
+document.querySelector('#formatted-frames-toggle')?.addEventListener('click', function () {
+  showFormattedFrames(this)
+})
+document.querySelector('#raw-frames-toggle')?.addEventListener('click', function () {
+  showRawFrames(this)
+})
+document
+  .querySelector('#all-frames-toggle input[type="checkbox"]')
+  ?.addEventListener('change', function () {
+    toggleAllFrames()
   })
-  document.querySelector('#raw-frames-toggle').addEventListener('click', function () {
-    showRawFrames(this)
+document.querySelectorAll('button[class="stack-frame-location"]').forEach((sfl) => {
+  sfl.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') {
+      return
+    }
+    toggleFrameSource(e.target.closest('li'))
   })
-  document
-    .querySelector('#all-frames-toggle input[type="checkbox"]')
-    .addEventListener('change', function () {
-      toggleAllFrames()
-    })
-
-  document.querySelectorAll('button[class="stack-frame-location"]').forEach((sfl) => {
-    sfl.addEventListener('click', function (e) {
-      if (e.target.tagName === 'A') {
-        return
-      }
-      toggleFrameSource(e.target.closest('li'))
-    })
-  })
-
-  document.querySelectorAll('button[class="stack-frame-toggle-indicator"]').forEach((sfl) => {
-    sfl.addEventListener('click', function (e) {
-      toggleFrameSource(e.target.closest('li'))
-    })
+})
+document.querySelectorAll('button[class="stack-frame-toggle-indicator"]').forEach((sfl) => {
+  sfl.addEventListener('click', function (e) {
+    toggleFrameSource(e.target.closest('li'))
   })
 })
