@@ -214,8 +214,8 @@ export class Templates {
     })
 
     const { globalScript, scripts, styles } = this.#getStylesAndScripts(props.cspNonce)
-    
-    return html.replace('<!-- STYLES -->', styles)
+    return html
+      .replace('<!-- STYLES -->', styles)
       .replace('<!-- SCRIPTS -->', scripts)
       .replace('<!-- GLOBAL SCRIPT -->', globalScript)
   }
