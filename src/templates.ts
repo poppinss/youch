@@ -92,7 +92,11 @@ export class Templates {
       scripts.push(`<script id="${name}-script"${cspNonceAttr}>${bucket}</script>`)
     })
 
-    return { styles: `${styles.join('\n')}\n${customInjectedStyles}`, scripts: scripts.join('\n'), globalScript }
+    return {
+      styles: `${styles.join('\n')}\n${customInjectedStyles}`,
+      scripts: scripts.join('\n'),
+      globalScript,
+    }
   }
 
   /**
@@ -210,7 +214,9 @@ export class Templates {
     })
 
     const { globalScript, scripts, styles } = this.#getStylesAndScripts(props.cspNonce)
-    return html.replace('<!-- STYLES -->', styles).replace('<!-- SCRIPTS -->', scripts).replace('<!-- GLOBAL SCRIPT -->', globalScript)
+    return html.replace('<!-- STYLES -->', styles)
+      .replace('<!-- SCRIPTS -->', scripts)
+      .replace('<!-- GLOBAL SCRIPT -->', globalScript)
   }
 
   /**
