@@ -8,9 +8,7 @@ function toggleTheme(input) {
   }
 }
 
-onContentLoaded(() => {
   document.querySelector('#toggle-theme-checkbox').checked = usesDarkMode()
   document.querySelector('#toggle-theme-checkbox').addEventListener('change', function () {
     toggleTheme(this)
   })
-})

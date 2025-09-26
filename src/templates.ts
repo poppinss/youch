@@ -72,6 +72,7 @@ export class Templates {
      * the end
      */
     let customInjectedStyles: string = ''
+    let globalScript: string = ''
     const styles: string[] = []
     const scripts: string[] = []
     const cspNonceAttr = cspNonce ? ` nonce="${cspNonce}"` : ''
@@ -84,10 +85,18 @@ export class Templates {
       }
     })
     this.#scripts.forEach((bucket, name) => {
+      if (name === 'global') {
+        globalScript = `<script id="${name}-script"${cspNonceAttr}>${bucket}</script>`
+      }
+
       scripts.push(`<script id="${name}-script"${cspNonceAttr}>${bucket}</script>`)
     })
 
-    return { styles: `${styles.join('\n')}\n${customInjectedStyles}`, scripts: scripts.join('\n') }
+    return {
+      styles: `${styles.join('\n')}\n${customInjectedStyles}`,
+      scripts: scripts.join('\n'),
+      globalScript,
+    }
   }
 
   /**
@@ -204,8 +213,11 @@ export class Templates {
       },
     })
 
-    const { scripts, styles } = this.#getStylesAndScripts(props.cspNonce)
-    return html.replace('<!-- STYLES -->', styles).replace('<!-- SCRIPTS -->', scripts)
+    const { globalScript, scripts, styles } = this.#getStylesAndScripts(props.cspNonce)
+    return html
+      .replace('<!-- STYLES -->', styles)
+      .replace('<!-- SCRIPTS -->', scripts)
+      .replace('<!-- GLOBAL SCRIPT -->', globalScript)
   }
 
   /**

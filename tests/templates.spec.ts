@@ -43,12 +43,10 @@ test.group('Templates', () => {
         }
       }
 
-      onContentLoaded(() => {
         document.querySelector('#toggle-theme-checkbox').checked = usesDarkMode()
         document.querySelector('#toggle-theme-checkbox').addEventListener('change', function () {
           toggleTheme(this)
-        })
-      })"
+        })"
     `)
     expect(window.document.querySelector('#errorStack-script')?.textContent?.trim())
       .toMatchInlineSnapshot(`
@@ -98,16 +96,15 @@ test.group('Templates', () => {
         }
       }
 
-      onContentLoaded(() => {
-        document.querySelector('#formatted-frames-toggle').addEventListener('click', function () {
+        document.querySelector('#formatted-frames-toggle')?.addEventListener('click', function () {
           showFormattedFrames(this)
         })
-        document.querySelector('#raw-frames-toggle').addEventListener('click', function () {
+        document.querySelector('#raw-frames-toggle')?.addEventListener('click', function () {
           showRawFrames(this)
         })
         document
           .querySelector('#all-frames-toggle input[type=\\"checkbox\\"]')
-          .addEventListener('change', function () {
+          ?.addEventListener('change', function () {
             toggleAllFrames()
           })
 
@@ -124,8 +121,7 @@ test.group('Templates', () => {
           sfl.addEventListener('click', function (e) {
             toggleFrameSource(e.target.closest('li'))
           })
-        })
-      })"
+        })"
     `)
     expect(window.document.querySelector('#error-hint')).toEqual(null)
   })

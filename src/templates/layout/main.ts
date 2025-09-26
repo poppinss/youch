@@ -34,12 +34,13 @@ export class Layout extends BaseComponent<LayoutProps> {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>${props.title}</title>
         <!-- STYLES -->
-        <!-- SCRIPTS -->
+        <!-- GLOBAL SCRIPT -->
       </head>
       <body>
         <div id="layout">
           ${await props.children()}
         </div>
+        <!-- SCRIPTS -->
       </body>
     </html>`
   }
