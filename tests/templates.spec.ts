@@ -117,11 +117,11 @@ test.group('Templates', () => {
           })
         })
 
-      document.querySelectorAll('button[class=\\"stack-frame-toggle-indicator\\"]').forEach((sfl) => {
-        sfl.addEventListener('click', function (e) {
-          toggleFrameSource(e.target.closest('li'))
-        })
-      })"
+        document.querySelectorAll('button[class=\\"stack-frame-toggle-indicator\\"]').forEach((sfl) => {
+          sfl.addEventListener('click', function (e) {
+            toggleFrameSource(e.target.closest('li'))
+          })
+        })"
     `)
     expect(window.document.querySelector('#error-hint')).toEqual(null)
   })
