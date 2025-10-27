@@ -6,6 +6,67 @@
 
 [![gh-workflow-image]][gh-workflow-url] [![npm-image]][npm-url] ![][typescript-image] [![license-image]][license-url] [![Downloads Stats][npm-downloads-image]][npm-url]
 
+**Featured sponsors**
+
+<table>
+
+<tr>
+<td>
+
+<a href="https://route4me.com/?utm_source=adonisjs.com">
+  <img src="https://raw.githubusercontent.com/thetutlage/static/refs/heads/main/featured_sponsors/logos/route4me.jpg" />
+</a>
+
+</td>
+
+<td>
+
+<a href="https://ezycourse.com/?utm_source=adonisjs.com">
+  <img src="https://raw.githubusercontent.com/thetutlage/static/refs/heads/main/featured_sponsors/logos/ezycourse.jpg" />
+</a>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<a href="https://meteor.software/g6h?utm_source=adonisjs.com">
+  <img src="https://raw.githubusercontent.com/thetutlage/static/refs/heads/main/featured_sponsors/logos/galaxy.jpg" />
+</a>
+
+</td>
+
+<td>
+
+<a href="https://www.lambdatest.com/?utm_source=adonisjs.com">
+  <img src="https://raw.githubusercontent.com/thetutlage/static/refs/heads/main/featured_sponsors/logos/lambdatest.jpg" />
+</a>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<a href="https://relancer.com/?utm_source=adonisjs.com">
+  <img src="https://raw.githubusercontent.com/thetutlage/static/refs/heads/main/featured_sponsors/logos/relancer.jpg" />
+</a>
+
+</td>
+
+<td>
+
+</td>
+
+</tr>
+
+</table>
+
 **Used by**
 
 <table>
@@ -43,8 +104,6 @@
 
 </table>
 
-![](./assets/banner.png)
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
@@ -69,6 +128,8 @@
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+![](./assets/banner.png)
 
 ## What is Youch?
 
