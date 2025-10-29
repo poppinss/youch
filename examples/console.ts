@@ -13,6 +13,7 @@ import { run as pg } from './pg.js'
 import { Youch } from '../src/youch.js'
 import { run as axios } from './axios.js'
 import { run as drive } from './flydrive.js'
+import { run as noTrace } from './no_trace.ts'
 
 const argv = process.argv.splice(2)
 const fn = argv[0] ?? 'axios'
@@ -29,6 +30,9 @@ try {
       break
     case 'pg':
       await pg()
+      break
+    case 'no_trace':
+      await noTrace()
       break
     default:
       throw new E_COMMAND_NOT_FOUND()

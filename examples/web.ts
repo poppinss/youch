@@ -14,10 +14,11 @@ import { run as pg } from './pg.js'
 import { Youch } from '../src/youch.js'
 import { run as axios } from './axios.js'
 import { run as drive } from './flydrive.js'
+import { run as noTrace } from './no_trace.ts'
 import { HTTP_STATUSES } from './http_statuses.js'
 
 const E_ROUTE_NOT_FOUND = createError('Route not found', 'E_ROUTE_NOT_FOUND', 404)
-const AVAILABLE_ROUTES = ['/axios', '/drive', '/pg']
+const AVAILABLE_ROUTES = ['/axios', '/drive', '/pg', '/no-trace']
 
 createServer(async (req, res) => {
   try {
@@ -27,6 +28,9 @@ createServer(async (req, res) => {
         break
       case '/drive':
         await drive()
+        break
+      case '/no-trace':
+        await noTrace()
         break
       case '/pg':
         await pg()

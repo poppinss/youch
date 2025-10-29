@@ -267,6 +267,10 @@ export class ErrorStack extends BaseComponent<ErrorStackProps> {
       })
     )
 
-    return `\n\n${frames.join('\n')}`
+    if (frames.length) {
+      return `\n\n${frames.join('\n')}`
+    }
+
+    return ''
   }
 }
