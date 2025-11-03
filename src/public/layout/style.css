@@ -133,6 +133,8 @@
   --generator-label-fg-color: #7b3814;
   --blob-label-fg-color: #7b3814;
   --unknown-label-fg-color: #7b3814;
+
+  color-scheme: only light;
 }
 
 html.dark {
@@ -255,6 +257,8 @@ html.dark {
   --generator-label-fg-color: #94e2d5;
   --blob-label-fg-color: #94e2d5;
   --unknown-label-fg-color: #94e2d5;
+
+  color-scheme: dark;
 }
 
 html,
