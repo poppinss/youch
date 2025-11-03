@@ -45,7 +45,6 @@
     "@poppinss/exception": "^1.2.2",
     "@poppinss/ts-exec": "^1.4.0",
     "@release-it/conventional-changelog": "^10.0.1",
-    "@types/cookie": "^1.0.0",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^24.1.0",
     "@types/pg": "^8.15.4",
@@ -65,7 +64,7 @@
     "@poppinss/colors": "^4.1.5",
     "@poppinss/dumper": "^0.6.4",
     "@speed-highlight/core": "^1.2.7",
-    "cookie": "^1.0.2",
+    "cookie-es": "^2.0.0",
     "youch-core": "^0.3.3"
   },
   "homepage": "https://github.com/poppinss/youch#readme",

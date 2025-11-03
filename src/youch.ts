@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import cookie from 'cookie'
+import { parse } from 'cookie-es'
 import { ErrorParser } from 'youch-core'
 import type { Parser, SourceLoader, Transformer, YouchParserOptions } from 'youch-core/types'
 
@@ -83,7 +83,7 @@ export class Youch {
               const value = request.headers![key]
               return {
                 key,
-                value: key === 'cookie' ? { ...cookie.parse(value as string) } : value,
+                value: key === 'cookie' ? { ...parse(value as string) } : value,
               }
             }),
           }
