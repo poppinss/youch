@@ -1,0 +1,3 @@
+.metadata-group .card-subtitle + span {
+  word-break: break-word;
+}

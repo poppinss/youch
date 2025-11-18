@@ -75,6 +75,7 @@ html.dark {
 
 .stack-frame-filepath {
   max-width: 100%;
+  word-wrap: break-word;
 }
 
 .stack-frame-location {
@@ -93,9 +94,7 @@ html.dark {
 
 .stack-frame-location a {
   text-decoration: none;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: left;
 }
 .stack-frame-location span {
   white-space: nowrap;

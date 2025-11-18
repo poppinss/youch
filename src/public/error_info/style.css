@@ -38,6 +38,7 @@ html.dark {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
+  word-break: break-word;
 }
 #error-message svg {
   margin-top: 1.5px;

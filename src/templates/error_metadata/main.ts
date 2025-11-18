@@ -10,12 +10,14 @@
 import { dump, themes } from '@poppinss/dumper/html'
 
 import { BaseComponent } from '../../component.js'
+import { publicDirURL } from '../../public_dir.js'
 import type { ErrorMetadataProps, ErrorMetadataRow } from '../../types.js'
 
 /**
  * Displays the error metadata as cards
  */
 export class ErrorMetadata extends BaseComponent<ErrorMetadataProps> {
+  cssFile = new URL('./error_metadata/style.css', publicDirURL)
   #primitives = ['string', 'boolean', 'number', 'undefined']
 
   /**
@@ -76,7 +78,7 @@ export class ErrorMetadata extends BaseComponent<ErrorMetadataProps> {
     sections: { [section: string]: ErrorMetadataRow | ErrorMetadataRow[] },
     cspNonce?: string
   ) {
-    return `<section>
+    return `<section class="metadata-group">
       <div class="card">
         <div class="card-heading">
           <h3 class="card-title">${group}</h3>
