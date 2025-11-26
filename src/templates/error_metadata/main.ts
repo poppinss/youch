@@ -11,6 +11,7 @@ import { dump, themes } from '@poppinss/dumper/html'
 
 import { BaseComponent } from '../../component.js'
 import { publicDirURL } from '../../public_dir.js'
+import { htmlEscape } from '../../helpers.js'
 import type { ErrorMetadataProps, ErrorMetadataRow } from '../../types.js'
 
 /**
@@ -29,7 +30,7 @@ export class ErrorMetadata extends BaseComponent<ErrorMetadataProps> {
     }
 
     if (this.#primitives.includes(typeof value) || value === null) {
-      return value
+      return typeof value === 'string' ? htmlEscape(value) : value
     }
 
     return dump(value, { styles: themes.cssVariables, cspNonce })

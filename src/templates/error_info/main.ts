@@ -9,7 +9,7 @@
 
 import { BaseComponent } from '../../component.js'
 import { publicDirURL } from '../../public_dir.js'
-import { wordWrap, colors } from '../../helpers.js'
+import { wordWrap, colors, htmlEscape } from '../../helpers.js'
 import type { ErrorInfoProps } from '../../types.js'
 
 const ERROR_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v6m0 4.01.01-.011M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"/></svg>`
@@ -41,15 +41,15 @@ export class ErrorInfo extends BaseComponent<ErrorInfoProps> {
    */
   async toHTML(props: ErrorInfoProps): Promise<string> {
     return `<section>
-      <h4 id="error-name">${props.error.name}</h4>
-      <h1 id="error-title">${props.title}</h1>
+      <h4 id="error-name">${htmlEscape(props.error.name)}</h4>
+      <h1 id="error-title">${htmlEscape(props.title)}</h1>
     </section>
     <section>
       <div class="card">
         <div class="card-body">
           <h2 id="error-message">
             <span>${ERROR_ICON_SVG}</span>
-            <span>${props.error.message}</span>
+            <span>${htmlEscape(props.error.message)}</span>
             <button
               id="copy-error-btn"
               data-error-text="${htmlAttributeEscape(`${props.error.name}: ${props.error.message}`)}"
