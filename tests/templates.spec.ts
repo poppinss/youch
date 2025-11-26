@@ -259,11 +259,11 @@ test.group('Templates', () => {
 
   test('renders error fields with inline HTML as literal text', async ({ expect }) => {
     const error = new Error('<b>Error message with HTML</b>', { cause: '<i>Cause with HTML</i>' })
-    
+
     error.name = '<ul>Name with HTML</ul>'
-    
+
     const metadata = new Metadata()
-    
+
     metadata.group('Request', { url: { key: 'url', value: '<span>URL with HTML</span>' } })
 
     const templates = new Templates(true)
