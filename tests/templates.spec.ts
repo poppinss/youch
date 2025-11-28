@@ -256,4 +256,39 @@ test.group('Templates', () => {
       'Something went wrong'
     )
   })
+
+  test('renders error fields with inline HTML as literal text', async ({ expect }) => {
+    const error = new Error('<b>Error message with HTML</b>', { cause: '<i>Cause with HTML</i>' })
+
+    error.name = '<ul>Name with HTML</ul>'
+
+    const metadata = new Metadata()
+
+    metadata.group('Request', { url: { key: 'url', value: '<span>URL with HTML</span>' } })
+
+    const templates = new Templates(true)
+    const html = await templates.toHTML({
+      title: '<ul>Error with HTML</ul>',
+      metadata,
+      error: await new ErrorParser().parse(error),
+    })
+
+    const { window } = new JSDOM(html)
+
+    expect(window.document.querySelector('#error-message')?.textContent?.trim()).toBe(
+      '<b>Error message with HTML</b>'
+    )
+    expect(window.document.querySelector('#error-name')?.textContent?.trim()).toBe(
+      '<ul>Name with HTML</ul>'
+    )
+    expect(window.document.querySelector('#error-title')?.textContent?.trim()).toBe(
+      '<ul>Error with HTML</ul>'
+    )
+    expect(window.document.querySelector('#error-cause')?.textContent?.trim()).toContain(
+      '<i>Cause with HTML</i>'
+    )
+    expect(
+      window.document.querySelector('.metadata-group .card-subtitle + span')?.textContent?.trim()
+    ).toBe('<span>URL with HTML</span>')
+  })
 })
