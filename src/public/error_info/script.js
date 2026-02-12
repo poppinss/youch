@@ -1,6 +1,6 @@
 function copyErrorMessage(button) {
   const errorText = button.dataset.errorText;
-  
+
   navigator.clipboard.writeText(errorText)
     .then(() => {
       button.classList.add('copied');

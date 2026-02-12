@@ -65,16 +65,9 @@ html.dark {
   color: var(--links-fg);
 }
 
-.copy-actions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+#copy-error-btn {
   margin-left: auto;
   flex-shrink: 0;
-}
-
-#copy-error-btn,
-#copy-stacktrace-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -93,36 +86,21 @@ html.dark {
   transition: all 0.2s ease;
 }
 
-#copy-error-btn svg,
-#copy-stacktrace-btn svg {
+#copy-error-btn svg {
   width: 18px;
   height: 18px;
 }
 
-#copy-stacktrace-btn {
-  gap: 5px;
-  padding: 4px 10px 6px 8px;
-}
-
-#copy-stacktrace-btn span {
-  font-size: 13px;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-#copy-error-btn:hover,
-#copy-stacktrace-btn:hover {
+#copy-error-btn:hover {
   background: var(--copy-button-active-bg);
   color: var(--title-fg);
 }
 
-#copy-error-btn:active,
-#copy-stacktrace-btn:active {
+#copy-error-btn:active {
   transform: scale(0.95);
 }
 
-#copy-error-btn.copied::after,
-#copy-stacktrace-btn.copied::after {
+#copy-error-btn.copied::after {
   content: 'Copied';
   position: absolute;
   top: -30px;
