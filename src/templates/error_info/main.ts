@@ -80,14 +80,14 @@ export class ErrorInfo extends BaseComponent<ErrorInfoProps> {
             <span>${ERROR_ICON_SVG}</span>
             <span>${htmlEscape(props.error.message)}</span>
             <button
-                id="copy-error-btn"
-                data-error-text="${htmlAttributeEscape(stacktraceText)}"
-                onclick="copyErrorMessage(this)"
-                title="Copy error with stack trace"
-                aria-label="Copy error with stack trace to clipboard"
-              >
-                ${COPY_ICON_SVG}
-              </button>
+              id="copy-error-btn"
+              data-error-text="${htmlAttributeEscape(stacktraceText)}"
+              onclick="copyErrorMessage(this)"
+              title="Copy error with stack trace"
+              aria-label="Copy error with stack trace to clipboard"
+            >
+              ${COPY_ICON_SVG}
+            </button>
           </h2>
           ${
             props.error.hint
