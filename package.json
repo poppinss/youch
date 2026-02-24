@@ -23,7 +23,7 @@
     "typecheck": "tsc --noEmit",
     "precompile": "npm run lint",
     "copy:assets": "copyfiles --up=1 src/public/**/* build",
-    "compile": "tsup-node && tsc --emitDeclarationOnly --declaration",
+    "compile": "tsdown && tsc --emitDeclarationOnly --declaration",
     "build": "npm run compile && npm run copy:assets",
     "version": "npm run build",
     "prepublishOnly": "npm run build",
@@ -57,7 +57,7 @@
     "pg": "^8.18.0",
     "prettier": "^3.8.1",
     "release-it": "^19.2.4",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.20.3",
     "typescript": "^5.9.3"
   },
   "dependencies": {
@@ -82,7 +82,7 @@
     "access": "public",
     "provenance": true
   },
-  "tsup": {
+  "tsdown": {
     "entry": [
       "index.ts",
       "src/types.ts",
@@ -91,8 +91,11 @@
     "outDir": "./build",
     "clean": true,
     "format": "esm",
+    "minify": "dce-only",
+    "fixedExtension": false,
     "dts": false,
-    "sourcemap": false,
+    "treeshake": false,
+    "sourcemaps": false,
     "target": "esnext"
   },
   "release-it": {
