@@ -64,7 +64,7 @@
     "@poppinss/colors": "^4.1.6",
     "@poppinss/dumper": "^0.7.0",
     "@speed-highlight/core": "^1.2.14",
-    "cookie-es": "^2.0.0",
+    "cookie-es": "^3.0.1",
     "youch-core": "^0.3.3"
   },
   "homepage": "https://github.com/poppinss/youch#readme",
