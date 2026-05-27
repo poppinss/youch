@@ -11,3 +11,8 @@ function copyErrorMessage(button) {
       setTimeout(() => button.classList.remove('copied'), 2000);
     });
 }
+
+document.getElementById('copy-error-btn')
+  ?.addEventListener('click', function () {
+    copyErrorMessage(this);
+  });
