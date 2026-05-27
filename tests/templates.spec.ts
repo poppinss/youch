@@ -31,6 +31,14 @@ test.group('Templates', () => {
     expect(window.document.querySelector('#error-message')?.textContent?.trim()).toEqual(
       'Something went wrong'
     )
+    expect(window.document.querySelector('#errorInfo-script')?.textContent?.trim()).toEqual(
+      expect.stringContaining(
+        "document.getElementById('copy-error-btn')\n" +
+          "  ?.addEventListener('click', function () {\n" +
+          '    copyErrorMessage(this);\n' +
+          '  });'
+      )
+    )
     expect(window.document.querySelector('#header-script')?.textContent?.trim())
       .toMatchInlineSnapshot(`
       "function toggleTheme(input) {
