@@ -82,7 +82,6 @@ export class ErrorInfo extends BaseComponent<ErrorInfoProps> {
             <button
               id="copy-error-btn"
               data-error-text="${htmlAttributeEscape(stacktraceText)}"
-              onclick="copyErrorMessage(this)"
               title="Copy error with stack trace"
               aria-label="Copy error with stack trace to clipboard"
             >
