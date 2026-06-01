@@ -137,6 +137,7 @@ export type YouchHTMLOptions = {
    * - emacs
    * - sublime
    * - phpstorm
+   * - webstorm
    * - atom
    * - vscode
    *

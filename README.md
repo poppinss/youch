@@ -521,6 +521,7 @@ You can specify which code editor to use via the `ide` option. Following is the 
 - emacs
 - sublime
 - phpstorm
+- webstorm
 - atom
 - vscode
 
